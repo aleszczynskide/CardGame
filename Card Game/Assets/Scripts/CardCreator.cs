@@ -22,4 +22,14 @@ public class CardCreator : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+    private void OnMouseUp()
+    {
+        Debug.Log("W³¹czy³em");
+    }
+
+    private void OnMouseEnter() 
+    {
+        Debug.Log("Jestem");
+    }
 }

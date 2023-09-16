@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Animator Anim;
+
     public void Start()
     {
         Anim = GetComponent<Animator>();
@@ -12,7 +13,7 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown("b"))
+        if (Input.GetKeyDown("b")) 
         {
             Anim.SetBool("Finger",true);
         }
