@@ -25,14 +25,12 @@ public class CardCreator : MonoBehaviour
 
     private void OnMouseUp()
     {
-        Debug.Log("W³¹czy³em");
         transform.position = new Vector3(-0.327f, 1.15f, 0.7635601f);
         transform.rotation = Quaternion.Euler(0f, -90f, -90f);
     }
 
    private void OnMouseEnter()
     {
-        Debug.Log("Jestem");
         transform.position = new Vector3(transform.position.x, 1.511f, transform.position.z);
     }
     private void OnMouseExit()

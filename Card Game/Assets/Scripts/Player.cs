@@ -21,9 +21,9 @@ public class Player : MonoBehaviour
         {
             Anim.SetBool("Blow", true);
         }
-        if (Input.GetKeyDown("m"))
+        if (Input.GetKeyDown("h"))
         {
-            Anim.SetTrigger("Dance");
+            Anim.SetBool("Head", true);
         }
     }
 
@@ -31,5 +31,6 @@ public class Player : MonoBehaviour
     {
         Anim.SetBool("Blow",false);
         Anim.SetBool("Finger", false);
+        Anim.SetBool("Head", false);
     }
 }
