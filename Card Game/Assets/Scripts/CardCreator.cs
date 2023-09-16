@@ -26,17 +26,17 @@ public class CardCreator : MonoBehaviour
     private void OnMouseUp()
     {
         Debug.Log("W³¹czy³em");
-        transform.position = new Vector3(-0.327f, 1.16f, 0.918f);
+        transform.position = new Vector3(-0.327f, 1.15f, 0.7635601f);
         transform.rotation = Quaternion.Euler(0f, -90f, -90f);
     }
 
-    private void OnMouseEnter()
+   private void OnMouseEnter()
     {
         Debug.Log("Jestem");
-        transform.localScale = new Vector3(0.007957266f, 0.25f, 0.25f);
+        transform.position = new Vector3(transform.position.x, 1.511f, transform.position.z);
     }
     private void OnMouseExit()
     {
-        transform.localScale = new Vector3(0.007957266f, 0.1894263f, 0.1408374f);
+        transform.position = new Vector3(transform.position.x, 1.42f, transform.position.z);
     }
 }

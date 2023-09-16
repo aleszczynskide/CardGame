@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public int Camera;
+    private int Camera = 0;
     void Update()
     {
         if (Input.GetKeyDown("w"))
         {
-            if (Camera == 0)
+            if (Camera < 2)
             {
                 Camera++;
             }
             else
             {
-                Debug.Log("InvalidCamera");
+                
             }
         }
         if (Input.GetKeyDown("s"))
         {
-            if (Camera == 1)
+            if (Camera > -1)
             {
                 Camera--;
             }
             else
             {
-                Debug.Log("InvalidCamera");
+               
             }
         }
 
@@ -36,11 +36,24 @@ public class CameraMovement : MonoBehaviour
                 {
                     transform.position = new Vector3(-0.4999999f, 1.55f, -0.248f);
                     transform.rotation = Quaternion.Euler(8.619f, 0f,0f) ;
-                }break;
-            case 1:
+                }
+                break;
+            case 2:
                 {
                     transform.position = new Vector3(-0.4999999f, 1.973f, 0.349f);
                     transform.rotation = Quaternion.Euler(68.045f, 0f, 0f);
+                }
+                break;
+            case 1:
+                {
+                    transform.position = new Vector3(-0.32f, 1.55f, -0.139f);
+                    transform.rotation = Quaternion.Euler(8.398f, 0f, 0f);
+                }
+                break;
+            case -1:
+                {
+                    transform.position = new Vector3(-0.4999999f, 1.55f, -1.275f);
+                    transform.rotation = Quaternion.Euler(8.619f, 0f, 0f);
                 }
                 break;
         }
