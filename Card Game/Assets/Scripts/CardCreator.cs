@@ -16,7 +16,7 @@ public class CardCreator : MonoBehaviour
     }
 
     public void Update()
-    {
+    { 
         if(Input.GetKeyDown("r"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
