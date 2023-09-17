@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private int Camera = 0;
+    public int Camera = 0;
     void Update()
     {
         if (Input.GetKeyDown("w"))

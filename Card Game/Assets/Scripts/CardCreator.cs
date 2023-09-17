@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CardCreator : MonoBehaviour
 {
     public List<Card> Card;
+    public int CurrentCardIndex;
     Renderer Renderer;
+    public GameObject GameManager;
+    public GameObject CurrentCard;
     void Start()
     {
+        GameManager = GameObject.Find("brain_jar");
         Renderer = GetComponent<Renderer>();
-        int x = Random.Range(0, 6);
-        Renderer.material = Card[x].CardMaterial;
-        Debug.Log(x + " " + Card[x].Health);
+        CurrentCardIndex = Random.Range(0, 6);
+        Renderer.material = Card[CurrentCardIndex].CardMaterial;
+        CurrentCard = this.gameObject;
     }
 
     public void Update()
@@ -25,8 +30,7 @@ public class CardCreator : MonoBehaviour
 
     private void OnMouseUp()
     {
-        transform.position = new Vector3(-0.327f, 1.15f, 0.7635601f);
-        transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+        GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex],CurrentCard);
     }
 
    private void OnMouseEnter()
