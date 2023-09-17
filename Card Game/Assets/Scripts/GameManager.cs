@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,12 +34,41 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Wygrali Policjanci");
         }
+        if (Input.GetKeyDown("r"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (Input.GetKeyDown("p"))
+        {
+            Debug.Log("Karta z po³o¿enia :" +0 + " oraz " + 0 + "Równa siê :" + CardListBattleCards[0, 0]);
+            Debug.Log("Karta z po³o¿enia :" + 0 + " oraz " + 1 + "Równa siê :" + CardListBattleCards[0, 1]);
+            Debug.Log("Karta z po³o¿enia :" + 0 + " oraz " + 2 + "Równa siê :" + CardListBattleCards[0, 2]);
+            Debug.Log("Karta z po³o¿enia :" + 0 + " oraz " + 3 + "Równa siê :" + CardListBattleCards[0, 3]);
+            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 0 + "Równa siê :" + CardListBattleCards[1, 0]);
+            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 1 + "Równa siê :" + CardListBattleCards[1, 1]);
+            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 2 + "Równa siê :" + CardListBattleCards[1, 2]);
+            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 3 + "Równa siê :" + CardListBattleCards[1, 3]);
+            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 0 + "Równa siê :" + CardListBattleCards[2, 0]);
+            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 1 + "Równa siê :" + CardListBattleCards[2, 1]);
+            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 2 + "Równa siê :" + CardListBattleCards[2, 2]);
+            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 3 + "Równa siê :" + CardListBattleCards[2, 3]);
+
+
+
+        }
+
     }
     public void BoardMove()
     {
         Camera.GetComponent<CameraMovement>().Camera = 2;
 
-        //Instancja walki
+        CheckPlayerCard(0, 0);
+        CheckPlayerCard(0, 1);
+        CheckPlayerCard(0, 2);
+        CheckPlayerCard(0, 3);
+
+        Camera.GetComponent<CameraMovement>().Camera = 0;
+
     }
     public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
     {
@@ -164,6 +195,50 @@ public class GameManager : MonoBehaviour
             PlayerTokens.RemoveAt(PlayerTokens.Count - 1);
             PlayerMana--;
         }
+    }
+
+    public void CheckPlayerCard(int x, int y)
+    {
+        CheckAttack(x, y);
+    }
+    public void CheckAttack(int x, int y)
+    {
+        if (GameObjectCardsOnTheTable[x, y] != null)
+        {
+            if (GameObjectCardsOnTheTable[x + 1, y] == null)
+            {
+                //Attack Robber animations and stuff
+                BoardHealth = BoardHealth + CardListBattleCards[x, y].Attack;
+                Debug.Log("Buzie widze w tym teczu");
+
+            }
+            else if (GameObjectCardsOnTheTable[x + 1, y] != null)
+            {
+                Debug.Log("Janiewidze");
+                
+                //Attack card animations
+                if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                {
+                    Debug.Log(GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health);
+                    Destroy(GameObjectCardsOnTheTable[x + 1, y]);
+                    GameObjectCardsOnTheTable[x + 1, y] = null;
+                    CardListBattleCards[x + 1, y] = null;
+                }
+                else
+                {
+                    GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                }
+            }
+            else
+            {
+                Debug.Log("Brak karty");
+            }
+        }
+
+    }
+    public void CheckPower()
+    {
+
     }
 }
 

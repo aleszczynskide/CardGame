@@ -27,7 +27,7 @@ public class DemoSpawner : MonoBehaviour
                 {
                     GameObject OppositeCard = Instantiate(CardPrefab, new Vector3(-0.668f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
                     OppositeCard.GetComponent<BoxCollider>().enabled = false;
-                    GameManager.GetComponent<GameManager>().CardListBattleCards[1, 0] = OppositeCard.GetComponent<CardCreator>().Card[y];
+                    GameManager.GetComponent<GameManager>().CardListBattleCards[1, 0] = OppositeCard.GetComponent<CardCreator>().Card[OppositeCard.GetComponent<CardCreator>().CurrentCardIndex];
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[1, 0] = OppositeCard;
                 }
                 break;

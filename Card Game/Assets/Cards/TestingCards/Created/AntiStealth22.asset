@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AntiStealth22
   m_EditorClassIdentifier: 
   CardMaterial: {fileID: 2100000, guid: 282587d99aa8cb04697a4c8b498e534f, type: 2}
-  Cost: 1
+  Cost: 2
   Attack: 2
   Health: 2
   Flying: 0

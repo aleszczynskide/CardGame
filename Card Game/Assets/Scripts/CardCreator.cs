@@ -11,6 +11,8 @@ public class CardCreator : MonoBehaviour
     Renderer Renderer;
     public GameObject GameManager;
     public GameObject CurrentCard;
+    public int Health;
+    public int Attack;
     public bool BoxActivator = true;
     void Start()
     {
@@ -18,15 +20,14 @@ public class CardCreator : MonoBehaviour
         Renderer = GetComponent<Renderer>();
         CurrentCardIndex = Random.Range(0, 6);
         Renderer.material = Card[CurrentCardIndex].CardMaterial;
+        Health = Card[CurrentCardIndex].Health;
+        Attack = Card[CurrentCardIndex].Attack;
         CurrentCard = this.gameObject;
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown("r"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+     
     }
 
     private void OnMouseUp()
