@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SpawnPlayerMana(1);
+        SpawnPlayerMana(6);
     }
     void Update()
     {
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Wygrali Bandyci");
         }
-        else if (BoardHealth == 10) 
-        
+        else if (BoardHealth == 10)
+
         {
             Debug.Log("Wygrali Policjanci");
         }
@@ -93,6 +93,8 @@ public class GameManager : MonoBehaviour
         {
             case "First":
                 {
+                    ManaMinus(CurrentCardCard.Cost);
+                    Camera.GetComponent<CameraMovement>().Camera = 0;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.663f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -100,10 +102,12 @@ public class GameManager : MonoBehaviour
                     CardsOnTheTable[0, 0] = CurrentCardGameObject;
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
-                } 
+                }
                 break;
             case "Second":
                 {
+                    ManaMinus(CurrentCardCard.Cost);
+                    Camera.GetComponent<CameraMovement>().Camera = 0;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -115,6 +119,8 @@ public class GameManager : MonoBehaviour
                 break;
             case "Third":
                 {
+                    ManaMinus(CurrentCardCard.Cost);
+                    Camera.GetComponent<CameraMovement>().Camera = 0;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -126,6 +132,8 @@ public class GameManager : MonoBehaviour
                 break;
             case "Fourth":
                 {
+                    ManaMinus(CurrentCardCard.Cost);
+                    Camera.GetComponent<CameraMovement>().Camera = 0;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.159f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -136,14 +144,26 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-        for (int i = 0; SpawningPoints.Count > i; i++)
+        int y = SpawningPoints.Count;
+        for (int i = 0; y > i; i++)
         {
             Destroy(SpawningPoints[i]);
         }
+        SpawningPoints.Clear();
     }
     private void OnMouseDown()
     {
         BoardMove();
+    }
+
+    public void ManaMinus(int x)
+    {
+        for (int i = 0; i < x; i++)
+        {
+            Destroy(PlayerTokens[PlayerTokens.Count - 1]); 
+            PlayerTokens.RemoveAt(PlayerTokens.Count - 1); 
+            PlayerMana--; 
+        }
     }
 }
 

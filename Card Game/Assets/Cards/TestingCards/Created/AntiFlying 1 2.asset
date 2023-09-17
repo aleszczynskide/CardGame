@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AntiFlying 1 2
   m_EditorClassIdentifier: 
   CardMaterial: {fileID: 2100000, guid: fb00c24b19498e543b953743d616f96e, type: 2}
-  Cost: 1
+  Cost: 21
   Attack: 1
   Health: 2
   Flying: 0
