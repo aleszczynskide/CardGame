@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Card[,] BattleCards = new Card[3, 4];
-    public GameObject[,] CardsOnTheTable = new GameObject[3, 4];
+    public Card[,] CardListBattleCards = new Card[3, 4];
+    public GameObject[,] GameObjectCardsOnTheTable = new GameObject[3, 4];
     public List<GameObject> SpawningPoints;
     public List<GameObject> PlayerTokens;
     public GameObject Camera;
@@ -60,25 +60,25 @@ public class GameManager : MonoBehaviour
     }
     public void SpawnSpawningPoints()
     {
-        if (BattleCards[0, 0] == null)
+        if (CardListBattleCards[0, 0] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.663f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "First";
             SpawningPoints.Add(SpawnPoint);
         }
-        if (BattleCards[0, 1] == null)
+        if (CardListBattleCards[0, 1] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.494f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Second";
             SpawningPoints.Add(SpawnPoint);
         }
-        if (BattleCards[0, 2] == null)
+        if (CardListBattleCards[0, 2] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.328f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Third";
             SpawningPoints.Add(SpawnPoint);
         }
-        if (BattleCards[0, 3] == null)
+        if (CardListBattleCards[0, 3] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.159f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Fourth";
@@ -98,8 +98,8 @@ public class GameManager : MonoBehaviour
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.663f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                    BattleCards[0, 0] = CurrentCardCard;
-                    CardsOnTheTable[0, 0] = CurrentCardGameObject;
+                    CardListBattleCards[0, 0] = CurrentCardCard;
+                    GameObjectCardsOnTheTable[0, 0] = CurrentCardGameObject;
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
                 }
@@ -111,8 +111,8 @@ public class GameManager : MonoBehaviour
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                    BattleCards[0, 1] = CurrentCardCard;
-                    CardsOnTheTable[0, 1] = CurrentCardGameObject;
+                    CardListBattleCards[0, 1] = CurrentCardCard;
+                    GameObjectCardsOnTheTable[0, 1] = CurrentCardGameObject;
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
                 }
@@ -124,8 +124,8 @@ public class GameManager : MonoBehaviour
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                    BattleCards[0, 2] = CurrentCardCard;
-                    CardsOnTheTable[0, 2] = CurrentCardGameObject;
+                    CardListBattleCards[0, 2] = CurrentCardCard;
+                    GameObjectCardsOnTheTable[0, 2] = CurrentCardGameObject;
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
                 }
@@ -137,8 +137,8 @@ public class GameManager : MonoBehaviour
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.159f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                    BattleCards[0, 3] = CurrentCardCard;
-                    CardsOnTheTable[0, 3] = CurrentCardGameObject;
+                    CardListBattleCards[0, 3] = CurrentCardCard;
+                    GameObjectCardsOnTheTable[0, 3] = CurrentCardGameObject;
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
                 }
@@ -160,9 +160,9 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < x; i++)
         {
-            Destroy(PlayerTokens[PlayerTokens.Count - 1]); 
-            PlayerTokens.RemoveAt(PlayerTokens.Count - 1); 
-            PlayerMana--; 
+            Destroy(PlayerTokens[PlayerTokens.Count - 1]);
+            PlayerTokens.RemoveAt(PlayerTokens.Count - 1);
+            PlayerMana--;
         }
     }
 }
