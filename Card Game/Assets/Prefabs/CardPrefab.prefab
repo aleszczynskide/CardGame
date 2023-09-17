@@ -119,5 +119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Card:
-  - {fileID: 11400000, guid: 15e8dfc01cdec8e4288d6c661bccbc93, type: 2}
-  - {fileID: 11400000, guid: cb281f93af4ee3141b56b80abfd63a01, type: 2}
+  - {fileID: 11400000, guid: dccf69f5d3f522b4f8dec58b6c0aa730, type: 2}
+  - {fileID: 11400000, guid: c8001772604668c418a6177d7282515c, type: 2}
+  - {fileID: 11400000, guid: b82f3b9f67fa110449615827998aabb0, type: 2}
+  - {fileID: 11400000, guid: ce3f9cf0f33d36e44a54b6275e755e56, type: 2}
+  - {fileID: 11400000, guid: 6b21a437d3df7ff4c8f41bd6b565bae4, type: 2}
+  - {fileID: 11400000, guid: 4c4ec035f4b273d46ba4cafbf86fd922, type: 2}

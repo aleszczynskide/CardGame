@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94337786d3a5a77429f0e82c255e61e0, type: 3}
+  m_Name: 3Attc2Hlth
+  m_EditorClassIdentifier: 
+  CardMaterial: {fileID: 2100000, guid: 870c58c2fae288b459a82353b0d2d1cf, type: 2}
+  Cost: 2
+  Attack: 3
+  Health: 2
+  Flying: 0
+  AntiFlying: 0
+  Stealth: 0
+  AntiStealth: 0

@@ -10,7 +10,7 @@ public class CardCreator : MonoBehaviour
     void Start()
     {
         Renderer = GetComponent<Renderer>();
-        int x = Random.Range(0, 2);
+        int x = Random.Range(0, 6);
         Renderer.material = Card[x].CardMaterial;
         Debug.Log(x + " " + Card[x].Health);
     }
