@@ -38,25 +38,6 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if (Input.GetKeyDown("p"))
-        {
-            Debug.Log("Karta z po³o¿enia :" +0 + " oraz " + 0 + "Równa siê :" + CardListBattleCards[0, 0]);
-            Debug.Log("Karta z po³o¿enia :" + 0 + " oraz " + 1 + "Równa siê :" + CardListBattleCards[0, 1]);
-            Debug.Log("Karta z po³o¿enia :" + 0 + " oraz " + 2 + "Równa siê :" + CardListBattleCards[0, 2]);
-            Debug.Log("Karta z po³o¿enia :" + 0 + " oraz " + 3 + "Równa siê :" + CardListBattleCards[0, 3]);
-            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 0 + "Równa siê :" + CardListBattleCards[1, 0]);
-            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 1 + "Równa siê :" + CardListBattleCards[1, 1]);
-            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 2 + "Równa siê :" + CardListBattleCards[1, 2]);
-            Debug.Log("Karta z po³o¿enia :" + 1 + " oraz " + 3 + "Równa siê :" + CardListBattleCards[1, 3]);
-            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 0 + "Równa siê :" + CardListBattleCards[2, 0]);
-            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 1 + "Równa siê :" + CardListBattleCards[2, 1]);
-            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 2 + "Równa siê :" + CardListBattleCards[2, 2]);
-            Debug.Log("Karta z po³o¿enia :" + 2 + " oraz " + 3 + "Równa siê :" + CardListBattleCards[2, 3]);
-
-
-
-        }
-
     }
     public void BoardMove()
     {
@@ -66,6 +47,11 @@ public class GameManager : MonoBehaviour
         CheckPlayerCard(0, 1);
         CheckPlayerCard(0, 2);
         CheckPlayerCard(0, 3);
+
+        CheckRobberCard(1, 0);
+        CheckRobberCard(1, 1);
+        CheckRobberCard(1, 2);
+        CheckRobberCard(1, 3);
 
         Camera.GetComponent<CameraMovement>().Camera = 0;
 
@@ -199,9 +185,14 @@ public class GameManager : MonoBehaviour
 
     public void CheckPlayerCard(int x, int y)
     {
-        CheckAttack(x, y);
+        CheckPlayerAttack(x, y);
     }
-    public void CheckAttack(int x, int y)
+
+    public void CheckRobberCard(int x, int y)
+    {
+        CheckRobberAttack(x, y);
+    }
+    public void CheckPlayerAttack(int x, int y)
     {
         if (GameObjectCardsOnTheTable[x, y] != null)
         {
@@ -209,13 +200,9 @@ public class GameManager : MonoBehaviour
             {
                 //Attack Robber animations and stuff
                 BoardHealth = BoardHealth + CardListBattleCards[x, y].Attack;
-                Debug.Log("Buzie widze w tym teczu");
-
             }
             else if (GameObjectCardsOnTheTable[x + 1, y] != null)
             {
-                Debug.Log("Janiewidze");
-                
                 //Attack card animations
                 if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
                 {
@@ -231,14 +218,45 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Brak karty");
+               
             }
         }
 
     }
-    public void CheckPower()
+    public void CheckPlayerPower()
     {
 
+    }
+
+    public void CheckRobberAttack(int x, int y)
+    {
+        if (GameObjectCardsOnTheTable[x, y] != null)
+        {
+            if (GameObjectCardsOnTheTable[x - 1, y] == null)
+            {
+                //Attack Robber animations and stuff
+                BoardHealth = BoardHealth + CardListBattleCards[x, y].Attack;
+            }
+            else if (GameObjectCardsOnTheTable[x - 1, y] != null)
+            {
+                //Attack card animations
+                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                {
+                    Debug.Log(GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health);
+                    Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                    GameObjectCardsOnTheTable[x - 1, y] = null;
+                    CardListBattleCards[x - 1, y] = null;
+                }
+                else
+                {
+                    GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                }
+            }
+            else
+            {
+
+            }
+        }
     }
 }
 
