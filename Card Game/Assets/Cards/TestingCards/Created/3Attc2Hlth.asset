@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3Attc2Hlth
   m_EditorClassIdentifier: 
   CardMaterial: {fileID: 2100000, guid: 870c58c2fae288b459a82353b0d2d1cf, type: 2}
-  Cost: 2
+  Cost: 1
   Attack: 3
   Health: 2
   Flying: 0

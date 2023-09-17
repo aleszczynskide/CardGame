@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[,] BattleCards = new GameObject[3, 4];
+    public Card[,] BattleCards = new Card[3, 4];
+    public GameObject[,] CardsOnTheTable = new GameObject[3, 4];
     public List<GameObject> SpawningPoints;
     public List<GameObject> PlayerTokens;
     public GameObject Camera;
@@ -12,7 +14,8 @@ public class GameManager : MonoBehaviour
     public int PlayerMana;
     public GameObject PlayerManaPoints;
     public GameObject SpawnPoints;
-    public GameObject CurrentCardPicked;
+    public GameObject CurrentCardGameObject;
+    public Card CurrentCardCard;
 
     void Start()
     {
@@ -20,18 +23,29 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-
+        if (BoardHealth == 0)
+        {
+            Debug.Log("Wygrali Bandyci");
+        }
+        else if (BoardHealth == 10) 
+        
+        {
+            Debug.Log("Wygrali Policjanci");
+        }
     }
     public void BoardMove()
     {
         Camera.GetComponent<CameraMovement>().Camera = 2;
+
+        //Instancja walki
     }
     public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
     {
         if (CurrentCardCard.Cost <= PlayerMana)
         {
             Camera.GetComponent<CameraMovement>().Camera = 2;
-            CurrentCardPicked = CurrentPickedCard;
+            CurrentCardGameObject = CurrentPickedCard;
+            this.CurrentCardCard = CurrentCardCard;
             SpawnSpawningPoints();
         }
     }
@@ -79,22 +93,46 @@ public class GameManager : MonoBehaviour
         {
             case "First":
                 {
-                   
-                }
+                    CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
+                    CurrentCardGameObject.transform.position = new Vector3(-0.663f, 1.16f, 0.614f);
+                    CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                    BattleCards[0, 0] = CurrentCardCard;
+                    CardsOnTheTable[0, 0] = CurrentCardGameObject;
+                    CurrentCardCard = null;
+                    CurrentCardGameObject = null;
+                } 
                 break;
             case "Second":
                 {
-                    
+                    CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
+                    CurrentCardGameObject.transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
+                    CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                    BattleCards[0, 1] = CurrentCardCard;
+                    CardsOnTheTable[0, 1] = CurrentCardGameObject;
+                    CurrentCardCard = null;
+                    CurrentCardGameObject = null;
                 }
                 break;
             case "Third":
                 {
-                   
+                    CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
+                    CurrentCardGameObject.transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
+                    CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                    BattleCards[0, 2] = CurrentCardCard;
+                    CardsOnTheTable[0, 2] = CurrentCardGameObject;
+                    CurrentCardCard = null;
+                    CurrentCardGameObject = null;
                 }
                 break;
             case "Fourth":
                 {
-                    
+                    CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
+                    CurrentCardGameObject.transform.position = new Vector3(-0.159f, 1.16f, 0.614f);
+                    CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                    BattleCards[0, 3] = CurrentCardCard;
+                    CardsOnTheTable[0, 3] = CurrentCardGameObject;
+                    CurrentCardCard = null;
+                    CurrentCardGameObject = null;
                 }
                 break;
         }

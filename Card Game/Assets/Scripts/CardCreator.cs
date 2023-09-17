@@ -11,6 +11,7 @@ public class CardCreator : MonoBehaviour
     Renderer Renderer;
     public GameObject GameManager;
     public GameObject CurrentCard;
+    public bool BoxActivator = true;
     void Start()
     {
         GameManager = GameObject.Find("brain_jar");
@@ -35,10 +36,19 @@ public class CardCreator : MonoBehaviour
 
    private void OnMouseEnter()
     {
-        transform.position = new Vector3(transform.position.x, 1.511f, transform.position.z);
+        if (BoxActivator == true)
+        {
+            transform.position = new Vector3(transform.position.x, 1.511f, transform.position.z);
+        }
+       
     }
     private void OnMouseExit()
     {
-        transform.position = new Vector3(transform.position.x, 1.42f, transform.position.z);
+
+        if (BoxActivator == true)
+        {
+            transform.position = new Vector3(transform.position.x, 1.42f, transform.position.z);
+
+        }
     }
 }
