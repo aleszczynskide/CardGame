@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[,] BattleCards = new GameObject[3,4];
+    public GameObject[,] BattleCards = new GameObject[3, 4];
     public List<GameObject> SpawningPoints;
     public List<GameObject> PlayerTokens;
     public GameObject Camera;
@@ -20,13 +20,13 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        
+
     }
     public void BoardMove()
     {
         Camera.GetComponent<CameraMovement>().Camera = 2;
     }
-    public void CardPlace(Card CurrentCardCard,GameObject CurrentPickedCard)
+    public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
     {
         if (CurrentCardCard.Cost <= PlayerMana)
         {
@@ -37,34 +37,70 @@ public class GameManager : MonoBehaviour
     }
     public void SpawnPlayerMana(int x)
     {
-        for (int i = 0; i < x; i++) 
+        for (int i = 0; i < x; i++)
         {
             GameObject NewToken = Instantiate(PlayerManaPoints, new Vector3(0.2455593f, 1.335f, 0.7793094f), Quaternion.identity);
             PlayerTokens.Add(NewToken);
             PlayerMana++;
-        }  
+        }
     }
     public void SpawnSpawningPoints()
     {
-        if (BattleCards[0,0] == null)
+        if (BattleCards[0, 0] == null)
         {
-           GameObject SpawnPoint =  Instantiate(SpawnPoints, new Vector3(-0.663f, 1.16f, 0.614f),Quaternion.Euler(0f,-90f,-90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.663f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            SpawnPoint.name = "First";
             SpawningPoints.Add(SpawnPoint);
         }
-        if (BattleCards[0,1] == null)
+        if (BattleCards[0, 1] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.494f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            SpawnPoint.name = "Second";
             SpawningPoints.Add(SpawnPoint);
         }
         if (BattleCards[0, 2] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.328f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            SpawnPoint.name = "Third";
             SpawningPoints.Add(SpawnPoint);
         }
         if (BattleCards[0, 3] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.159f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            SpawnPoint.name = "Fourth";
             SpawningPoints.Add(SpawnPoint);
+        }
+    }
+
+    public void SpawnPointerActivated(string SpawnerName)
+    {
+
+        switch (SpawnerName)
+        {
+            case "First":
+                {
+                   
+                }
+                break;
+            case "Second":
+                {
+                    
+                }
+                break;
+            case "Third":
+                {
+                   
+                }
+                break;
+            case "Fourth":
+                {
+                    
+                }
+                break;
+        }
+        for (int i = 0; SpawningPoints.Count > i; i++)
+        {
+            Destroy(SpawningPoints[i]);
         }
     }
     private void OnMouseDown()
