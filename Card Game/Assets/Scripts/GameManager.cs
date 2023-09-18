@@ -223,45 +223,45 @@ public class GameManager : MonoBehaviour
     {
         if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AttackRange == 1)
         {
-            PlayerAttack(x, y);
+            PlayerAttack(x, y,0);
         }
         else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AttackRange == 2)
         {
-            if (y <= 4 && y >= 0)
+            if (y > 0)
             {
-                PlayerAttack(x, y - 1);
+                PlayerAttack(x, y - 1,1);
             }
-            if (y <= 4 && y >= 0)
+            if (y < 3)
             {
-                PlayerAttack(x, y + 1);
+                PlayerAttack(x, y + 1,-1);
             }
             
         }
         else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AttackRange == 3)
         {
-            if (y <= 4 && y >= 0)
+            if (y > 0)
             {
-                PlayerAttack(x, y - 1);
+                PlayerAttack(x, y - 1,1);
             }
-            if (y <= 4 && y >= 0)
+            if (y < 3)
             {
-                PlayerAttack(x, y + 1);
+                PlayerAttack(x, y + 1, -1);
             }
-            PlayerAttack(x, y);
+            PlayerAttack(x, y,0);
         }
     }
 
-    public void PlayerAttack(int x,int y)
+    public void PlayerAttack(int x,int y,int AttackSpree)
     {
         if (GameObjectCardsOnTheTable[x + 1, y] == null)
         {
-            BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+            BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
         }
         else if (GameObjectCardsOnTheTable[x + 1, y] != null)
         {
-            if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Flying == true)
+            if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == true)
             {
-                if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == true)
+                if (GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().AntiFlying == true)
                 {
                     if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
                     {
@@ -270,19 +270,19 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                        GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y - AttackSpree].GetComponent<CardCreator>().Attack;
                     }
                 }
-                else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == false)
+                else if (GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().AntiFlying == false)
                 {
-                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
-            else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Stealth == true)
+           if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Stealth == true)
             {
-                if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AntiStealth == true)
+                if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
                 {
-                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
                     {
                         Destroy(GameObjectCardsOnTheTable[x + 1, y]);
                         GameObjectCardsOnTheTable[x + 1, y] = null;
@@ -292,21 +292,21 @@ public class GameManager : MonoBehaviour
                         GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
                     }
                 }
-                else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AntiStealth == false)
+                else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == false)
                 {
-                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
             else
             {
-                if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
                 {
                     Destroy(GameObjectCardsOnTheTable[x + 1, y]);
                     GameObjectCardsOnTheTable[x + 1, y] = null;
                 }
                 else
                 {
-                    GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
         }
@@ -315,42 +315,42 @@ public class GameManager : MonoBehaviour
     {
         if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AttackRange == 1)
         {
-            OpponentAttack(x, y);
+            OpponentAttack(x, y,0);
         }
         else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AttackRange == 2)
         {
-            if (y <= 4 && y >= 0)
+            if (y > 0)
             {
-                OpponentAttack(x - 1, y - 1);
+                OpponentAttack(x , y - 1,+1);
             }
-            if (y <= 4 && y >= 0)
+            if (y <3 )
             {
-                OpponentAttack(x - 1, y + 1);
+                OpponentAttack(x , y + 1,-1);
             }
 
         }
         else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AttackRange == 3)
         {
-            if (y <= 4 && y >= 0)
+            if (y > 0)
             {
-                OpponentAttack(x - 1, y - 1);
+                OpponentAttack(x, y - 1,+1);
             }
-            if (y <= 4 && y >= 0)
+            if (y < 3)
             {
-                OpponentAttack(x - 1, y + 1);
+                OpponentAttack(x, y + 1,-1);
             }
-            OpponentAttack(x - 1, y);
+            OpponentAttack(x , y,0);
         }
     }
-    public void OpponentAttack(int x,int y)
+    public void OpponentAttack(int x,int y,int AttackSpree)
     {
         if (GameObjectCardsOnTheTable[x - 1, y] == null)
         {
-            BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+            BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
         }
         else if (GameObjectCardsOnTheTable[x - 1, y] != null)
         {
-            if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Flying == true)
+            if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == true)
             {
                 if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == true)
                 {
@@ -366,12 +366,12 @@ public class GameManager : MonoBehaviour
                 }
                 else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == false)
                 {
-                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
             else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Stealth == true)
             {
-                if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AntiStealth == true)
+                if (GameObjectCardsOnTheTable[x, y+ AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
                 {
                     if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
                     {
@@ -380,24 +380,24 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                     }
                 }
                 else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AntiStealth == false)
                 {
-                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
             else
             {
-                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
                 {
                     Destroy(GameObjectCardsOnTheTable[x - 1, y]);
                     GameObjectCardsOnTheTable[x - 1, y] = null;
                 }
                 else
                 {
-                    GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
         }
