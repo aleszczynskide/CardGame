@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject CurrentCardGameObject;
     public Card CurrentCardCard;
     public GameObject Pointer;
+    private bool CancellMovement = false;
     void Start()
     {
         SpawnPlayerMana(8);
@@ -46,6 +47,17 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Karta :" + 1 + " " + i + " flying; " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Flying + " Antiflying" + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().AntiFlying + "Karta :" + 1 + " " + i + " Stelth: " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Stealth + " AntiStealth : " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().AntiStealth);
                 }
             }
+        }
+        if (Input.GetKeyDown("s") && CancellMovement == true)
+        {
+            int y = SpawningPoints.Count;
+            for (int i = 0; y > i; i++)
+            {
+                Destroy(SpawningPoints[i]);
+            }
+            SpawningPoints.Clear();
+            CurrentCardCard = null;
+            CurrentCardGameObject = null;
         }
     }
     public void BoardMove()
@@ -82,6 +94,7 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentCardCard.Cost <= PlayerMana)
         {
+            CancellMovement = true;
             Camera.GetComponent<CameraMovement>().Camera = 2;
             CurrentCardGameObject = CurrentPickedCard;
             this.CurrentCardCard = CurrentCardCard;
