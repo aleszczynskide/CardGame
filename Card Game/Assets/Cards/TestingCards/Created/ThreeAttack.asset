@@ -16,7 +16,7 @@ MonoBehaviour:
   Cost: 1
   Attack: 1
   Health: 1
-  Flying: 0
+  Flying: 1
   AntiFlying: 0
   Stealth: 0
   AntiStealth: 0
