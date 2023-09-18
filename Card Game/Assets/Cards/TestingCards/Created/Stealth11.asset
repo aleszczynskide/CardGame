@@ -20,3 +20,4 @@ MonoBehaviour:
   AntiFlying: 0
   Stealth: 1
   AntiStealth: 0
+  AttackRange: 1

@@ -11,8 +11,7 @@ public class CardCreator : MonoBehaviour
     Renderer Renderer;
     public GameObject GameManager;
     public GameObject CurrentCard;
-    public int Health;
-    public int Attack;
+    public int Health,Attack,AttackRange;
     public bool Flying, AntiFlying, Stealth, AntiStealth;
     public bool BoxActivator = true;
     void Start()
@@ -35,6 +34,7 @@ public class CardCreator : MonoBehaviour
         AntiFlying = Card[CurrentCardIndex].AntiFlying;
         Stealth = Card[CurrentCardIndex].Stealth;
         AntiStealth = Card[CurrentCardIndex].AntiStealth;
+        AttackRange = Card[CurrentCardIndex].AttackRange;
         CurrentCard = this.gameObject;
     }
 
