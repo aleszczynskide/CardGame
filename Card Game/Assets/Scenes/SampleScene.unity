@@ -4734,6 +4734,7 @@ MonoBehaviour:
   SpawnPoints: {fileID: 6228637059577045572, guid: f327a6b3159a58b47a3b3d8efed721cd, type: 3}
   CurrentCardGameObject: {fileID: 0}
   CurrentCardCard: {fileID: 0}
+  Pointer: {fileID: 8680057523400625113, guid: 1de7f87ac78d7ea41865f6c714e08a48, type: 3}
 --- !u!65 &1076486283
 BoxCollider:
   m_ObjectHideFlags: 0

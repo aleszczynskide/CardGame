@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject SpawnPoints;
     public GameObject CurrentCardGameObject;
     public Card CurrentCardCard;
-
+    public GameObject Pointer;
     void Start()
     {
         SpawnPlayerMana(8);
@@ -39,11 +39,18 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Karta :" + 1 + " " + i + " flying; " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Flying + " Antiflying" + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().AntiFlying + "Karta :" + 1 + " " + i + " Stelth: " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Stealth + " AntiStealth : " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().AntiStealth);
                 }
             }
+            for (int i = 0; i < 4; i++)
+            {
+                if (GameObjectCardsOnTheTable[0, i] != null)
+                {
+                    Debug.Log("Karta :" + 1 + " " + i + " flying; " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Flying + " Antiflying" + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().AntiFlying + "Karta :" + 1 + " " + i + " Stelth: " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Stealth + " AntiStealth : " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().AntiStealth);
+                }
+            }
         }
     }
     public void BoardMove()
     {
-        Camera.GetComponent<CameraMovement>().Camera -= 2;
+        Camera.GetComponent<CameraMovement>().Camera = 2;
 
         for (int i = 0; i <= 3; i++)
         {
@@ -56,8 +63,19 @@ public class GameManager : MonoBehaviour
                 continue;
             }
         }
+        for (int i = 0; i <= 3; i++)
+        {
+            if (GameObjectCardsOnTheTable[1, i] != null)
+            {
+               OpponentCardCheck(1, i);
+            }
+            else
+            {
+                continue;
+            }
+        }
+        Camera.GetComponent<CameraMovement>().Camera = 0;
         Debug.Log(BoardHealth);
-        Camera.GetComponent<CameraMovement>().Camera --;
 
     }
     public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
@@ -258,6 +276,67 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                }
+            }
+        }
+    }
+    public void OpponentCardCheck(int x, int y)
+    {
+
+        if (GameObjectCardsOnTheTable[x - 1, y] == null)
+        {
+            BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+        }
+        else if (GameObjectCardsOnTheTable[x -1, y] != null)
+        {
+            if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Flying == true)
+            {
+                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == true)
+                {
+                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                    {
+                        Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                        GameObjectCardsOnTheTable[x - 1, y] = null;
+                    }
+                    else
+                    {
+                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    }
+                }
+                else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == false)
+                {
+                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                }
+            }
+            else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Stealth == true)
+            {
+                if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AntiStealth == true)
+                {
+                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                    {
+                        Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                        GameObjectCardsOnTheTable[x - 1, y] = null;
+                    }
+                    else
+                    {
+                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                    }
+                }
+                else if (GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().AntiStealth == false)
+                {
+                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
+                }
+            }
+            else
+            {
+                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack)
+                {
+                    Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                    GameObjectCardsOnTheTable[x - 1, y] = null;
+                }
+                else
+                {
+                    GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y].GetComponent<CardCreator>().Attack;
                 }
             }
         }
