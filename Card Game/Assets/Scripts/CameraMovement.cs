@@ -5,6 +5,11 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public int Camera = 0;
+    private Animator Anim;
+    private void Start()
+    {
+        Anim=GetComponent<Animator>();  
+    }
     void Update()
     {
         if (Input.GetKeyDown("w"))
@@ -34,24 +39,28 @@ public class CameraMovement : MonoBehaviour
         {
             case 0:
                 {
+                    Anim.SetInteger("Camera", 0);
                     transform.position = new Vector3(-0.4999999f, 1.55f, -0.248f);
                     transform.rotation = Quaternion.Euler(8.619f, 0f,0f) ;
                 }
                 break;
             case 2:
                 {
+                    Anim.SetInteger("Camera", 2);
                     transform.position = new Vector3(-0.4999999f, 1.973f, 0.349f);
                     transform.rotation = Quaternion.Euler(68.045f, 0f, 0f);
                 }
                 break;
             case 1:
                 {
+                    Anim.SetInteger("Camera", 1);
                     transform.position = new Vector3(-0.32f, 1.55f, -0.139f);
                     transform.rotation = Quaternion.Euler(8.398f, 0f, 0f);
                 }
                 break;
             case -1:
                 {
+                    Anim.SetInteger("Camera", -1);
                     transform.position = new Vector3(-0.4999999f, 1.55f, -1.275f);
                     transform.rotation = Quaternion.Euler(8.619f, 0f, 0f);
                 }

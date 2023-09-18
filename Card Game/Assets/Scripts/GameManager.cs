@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     }
     public void BoardMove()
     {
-        Camera.GetComponent<CameraMovement>().Camera = 2;
+        Camera.GetComponent<CameraMovement>().Camera -= 2;
 
         for (int i = 0; i <= 3; i++)
         {
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             }
         }
         Debug.Log(BoardHealth);
-        Camera.GetComponent<CameraMovement>().Camera = 0;
+        Camera.GetComponent<CameraMovement>().Camera --;
 
     }
     public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             case "First":
                 {
                     ManaMinus(CurrentCardCard.Cost);
-                    Camera.GetComponent<CameraMovement>().Camera = 0;
+                    Camera.GetComponent<CameraMovement>().Camera --;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.663f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
             case "Second":
                 {
                     ManaMinus(CurrentCardCard.Cost);
-                    Camera.GetComponent<CameraMovement>().Camera = 0;
+                    Camera.GetComponent<CameraMovement>().Camera --;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
             case "Third":
                 {
                     ManaMinus(CurrentCardCard.Cost);
-                    Camera.GetComponent<CameraMovement>().Camera = 0;
+                    Camera.GetComponent<CameraMovement>().Camera --;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
             case "Fourth":
                 {
                     ManaMinus(CurrentCardCard.Cost);
-                    Camera.GetComponent<CameraMovement>().Camera = 0;
+                    Camera.GetComponent<CameraMovement>().Camera --;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
                     CurrentCardGameObject.transform.position = new Vector3(-0.159f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
