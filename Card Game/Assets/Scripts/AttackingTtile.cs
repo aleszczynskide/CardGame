@@ -15,6 +15,10 @@ public class AttackingTtile : MonoBehaviour
     {
         Anim = GetComponent<Animator>();
     }
+    private void Update()
+    {
+
+    }
     public void Animation(string AnimationName)
     {
         switch (AnimationName)
@@ -53,25 +57,25 @@ public class AttackingTtile : MonoBehaviour
     }
     public void CheckAttackSpree()
     {
-        if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 1)
-        {
-            
-            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
-            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, CurrentCardAttackSpree,0,"Right");
-           
-        }
-        else
-        {
             Idle();
             this.transform.DetachChildren();    
-        }
     }
     public void Idle()
     {
         Anim.SetInteger("Attack", 9);
+   
     }
     public void NextMove()
     {
-        GameManager.GetComponent<GameManager>().BoardMove(CurrentCardY + 1);
+        if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 1)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, 0, 0, "Right");
+        }
+        else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 0)
+        { 
+            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardY + 1);
+        }
+        
     }
 }
