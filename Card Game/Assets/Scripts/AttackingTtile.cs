@@ -70,7 +70,7 @@ public class AttackingTtile : MonoBehaviour
         if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 1)
         {
             GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
-            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, 0, 0, "Right");
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
         }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 0)
         { 
