@@ -73,6 +73,26 @@ public class AttackingTtile : MonoBehaviour
             GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
             GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
         }
+        else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 2)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+        }
+       else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 3)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, 0, 0, "Front");
+        }
+      else  if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 4)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 5;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, 0, 0, "Front");
+        }
+       else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 5)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+        }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 0)
         { 
             GameManager.GetComponent<GameManager>().BoardMove(CurrentCardY + 1);
