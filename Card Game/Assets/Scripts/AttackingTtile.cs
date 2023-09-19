@@ -7,6 +7,7 @@ public class AttackingTtile : MonoBehaviour
 {
     Animator Anim;
     public GameObject GameManager;
+    public GameObject FlyingTitle;
     public int CurrentCardX;
     public int CurrentCardY;
     public int CurrentCardAttackSpree;
@@ -48,7 +49,7 @@ public class AttackingTtile : MonoBehaviour
                     Anim.SetInteger("Attack", 5);
                 }
                 break;
-            case "FlyingRIght":
+            case "FlyingRight":
                 {
                     Anim.SetInteger("Attack", 6);
                 }
@@ -58,7 +59,7 @@ public class AttackingTtile : MonoBehaviour
     public void CheckAttackSpree()
     {
             Idle();
-            this.transform.DetachChildren();    
+            this.transform.DetachChildren();
     }
     public void Idle()
     {
@@ -68,6 +69,26 @@ public class AttackingTtile : MonoBehaviour
     public void NextMove()
     {
         if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 1)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+        }
+        else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 2)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+        }
+       else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 3)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, 0, 0, "Front");
+        }
+      else  if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 4)
+        {
+            GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 5;
+            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY, 0, 0, "Front");
+        }
+       else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 5)
         {
             GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
             GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");

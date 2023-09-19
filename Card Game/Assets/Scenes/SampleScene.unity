@@ -3417,6 +3417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 1076486280}
+  FlyingTitle: {fileID: 2004276239}
   CurrentCardX: 0
   CurrentCardY: 0
   CurrentCardAttackSpree: 0
