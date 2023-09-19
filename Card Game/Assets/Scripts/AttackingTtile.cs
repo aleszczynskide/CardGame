@@ -7,6 +7,7 @@ public class AttackingTtile : MonoBehaviour
 {
     Animator Anim;
     public GameObject GameManager;
+    public GameObject FlyingTitle;
     public int CurrentCardX;
     public int CurrentCardY;
     public int CurrentCardAttackSpree;
@@ -48,7 +49,7 @@ public class AttackingTtile : MonoBehaviour
                     Anim.SetInteger("Attack", 5);
                 }
                 break;
-            case "FlyingRIght":
+            case "FlyingRight":
                 {
                     Anim.SetInteger("Attack", 6);
                 }
@@ -58,7 +59,7 @@ public class AttackingTtile : MonoBehaviour
     public void CheckAttackSpree()
     {
             Idle();
-            this.transform.DetachChildren();    
+            this.transform.DetachChildren();
     }
     public void Idle()
     {
