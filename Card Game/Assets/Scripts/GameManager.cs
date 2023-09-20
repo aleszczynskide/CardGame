@@ -443,18 +443,18 @@ public class GameManager : MonoBehaviour
                 {
                     case 0:
                         {
-                            OpponentAttack(x, y + 1, -1, 0, "Right");
+                            OpponentAttack(x, y + 1, -1, 0, "Left");
                         }
                         break;
                     case 3:
                         {
-                            OpponentAttack(x, y - 1, 1, 0, "Left");
+                            OpponentAttack(x, y - 1, 1, 0, "Right");
                         }
                         break;
                     default:
                         {
                             CurrentCardAttackRange = 1;
-                            OpponentAttack(x, y - 1, 1, 1, "Left");
+                            OpponentAttack(x, y + 1, -1, 1, "Left");
                         }
                         break;
                 }
@@ -507,7 +507,6 @@ public class GameManager : MonoBehaviour
             }
             if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == false)
             {
-
                 OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                 OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
                 OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
