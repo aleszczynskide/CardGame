@@ -126,7 +126,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8001772604668c418a6177d7282515c, type: 2}
   - {fileID: 11400000, guid: b82f3b9f67fa110449615827998aabb0, type: 2}
   - {fileID: 11400000, guid: 69cd793b5a00dbb459ce3b4b4e7092be, type: 2}
-  - {fileID: 11400000, guid: 060fd478059bea844b43cdb4ef4adfc6, type: 2}
+  - {fileID: 11400000, guid: 69cd793b5a00dbb459ce3b4b4e7092be, type: 2}
   CurrentCardIndex: 0
   GameManager: {fileID: 0}
   CurrentCard: {fileID: 0}
