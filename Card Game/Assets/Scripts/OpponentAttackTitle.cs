@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class AttackingTtile : MonoBehaviour
+public class OpponentAttackTitle : MonoBehaviour
 {
     Animator Anim;
     public GameObject GameManager;
@@ -58,14 +57,12 @@ public class AttackingTtile : MonoBehaviour
     }
     public void CheckAttackSpree()
     {
-
         this.transform.DetachChildren();
-        Idle();
+        Idle();  
     }
     public void Idle()
     {
         Anim.SetInteger("Attack", 9);
-
     }
     public void NextMove()
     {
@@ -96,16 +93,8 @@ public class AttackingTtile : MonoBehaviour
         }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 0)
         {
-            if (CurrentCardY < 3)
-            {
-                Anim.SetInteger("Attack", 0);
-                GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
-            }
-            if (CurrentCardY == 3)
-            {
-                GameManager.GetComponent<GameManager>().BoardMove(1, 0);
-            }
-
+            Anim.SetInteger("Attack", 0);
+            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX,CurrentCardY + 1);
         }
 
     }
