@@ -466,19 +466,19 @@ public class GameManager : MonoBehaviour
                     case 0:
                         {
                             CurrentCardAttackRange = 2;
-                            OpponentAttack(x, y, 0, 0, "Front");
+                            OpponentAttack(x, y + 1, -1, 0, "Left");
                         }
                         break;
                     case 3:
                         {
                             CurrentCardAttackRange = 3;
-                            OpponentAttack(x, y - 1, 1, 0, "Left");
+                            OpponentAttack(x, y - 1, 1, 0, "Right");
                         }
                         break;
                     default:
                         {
                             CurrentCardAttackRange = 4;
-                            OpponentAttack(x, y - 1, 1, 1, "Left");
+                            OpponentAttack(x, y + 1, -1, 1, "Left");
                         }
                         break;
                 }
@@ -572,7 +572,7 @@ public class GameManager : MonoBehaviour
                         AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
                         AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
                         GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
-                        AttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                         GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                     }
                 }
@@ -582,7 +582,7 @@ public class GameManager : MonoBehaviour
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
                     GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
-                    AttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                     BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x , y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
             }
@@ -593,7 +593,7 @@ public class GameManager : MonoBehaviour
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
+                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                     Destroy(GameObjectCardsOnTheTable[x - 1, y]);
                     GameObjectCardsOnTheTable[x + 1, y] = null;
@@ -603,7 +603,7 @@ public class GameManager : MonoBehaviour
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform.parent;
+                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform.parent;
                     OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                     GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
