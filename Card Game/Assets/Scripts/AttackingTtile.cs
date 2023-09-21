@@ -18,7 +18,10 @@ public class AttackingTtile : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(CurrentCardY);
+        if (Input.GetKey("t"))
+        {
+            Debug.Log(" X równa sie : " + CurrentCardX + " Y równa siê : " + CurrentCardY);
+        }
     }
     public void Animation(string AnimationName)
     {
@@ -96,17 +99,127 @@ public class AttackingTtile : MonoBehaviour
         }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 0)
         {
-            if (CurrentCardY < 3)
+            if (CurrentCardY <= 3)
             {
-                Anim.SetInteger("Attack", 0);
-                GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                Escape();
             }
-            if (CurrentCardY == 3)
+            if (CurrentCardY > 3)
             {
                 GameManager.GetComponent<GameManager>().BoardMove(1, 0);
             }
-
         }
 
+    }
+    public void Escape()
+    {
+        if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].GetComponent<CardCreator>().Move == true)
+        {
+            switch (CurrentCardY)
+            {
+                case 0:
+                    {
+                        if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] == null)
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
+                            GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX,CurrentCardY];
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
+                        
+                        }
+                        else
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                        }
+                    }
+                    break;
+                case 1:
+                    {
+                        if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] == null)
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
+                            GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
+                          
+                        }
+                        else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] == null)
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(-0.663f, 1.16f, 0.614f);
+                            GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] = ObjectToTransform;
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                           
+                           
+                        }
+                        else
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                        }
+                    }
+                    break;
+                case 2:
+                    {
+                        if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] == null)
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(-0.159f, 1.16f, 0.614f);
+                            GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
+                           
+                        }
+                        else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] == null)
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
+                            GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] = ObjectToTransform;
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
+                            
+                        }
+                        else
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                        }
+                    }
+                    break;
+                case 3:
+                    {
+                        Debug.Log("release me");
+                        if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] == null)
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(1,0);
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
+                            GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] = ObjectToTransform;
+                            GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
+                            
+                        }
+                        else
+                        {
+                            Anim.SetInteger("Attack", 0);
+                            GameManager.GetComponent<GameManager>().BoardMove(1,0);
+                        }
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            Anim.SetInteger("Attack", 0);
+            GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+        }
     }
 }
