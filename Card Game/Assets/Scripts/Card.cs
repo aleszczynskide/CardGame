@@ -18,5 +18,6 @@ public class Card : ScriptableObject
     public bool Stealth;
     public bool AntiStealth;
     public int AttackRange;
+    public bool Shield;
 }
  
