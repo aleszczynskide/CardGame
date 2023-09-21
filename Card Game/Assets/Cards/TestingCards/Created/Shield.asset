@@ -20,5 +20,5 @@ MonoBehaviour:
   AntiFlying: 0
   Stealth: 0
   AntiStealth: 0
-  AttackRange: 0
+  AttackRange: 1
   Shield: 1
