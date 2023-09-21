@@ -26,7 +26,7 @@ public class CardCreator : MonoBehaviour
     {
         GameManager = GameObject.Find("brain_jar");
         Renderer = GetComponent<Renderer>();
-        CurrentCardIndex = Random.Range(3, 9);
+        CurrentCardIndex = Random.Range(2, 9);
         Renderer.material = Card[CurrentCardIndex].CardMaterial;
         Health = Card[CurrentCardIndex].Health;
         Attack = Card[CurrentCardIndex].Attack;
