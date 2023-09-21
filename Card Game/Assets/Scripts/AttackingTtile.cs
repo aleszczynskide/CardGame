@@ -18,7 +18,7 @@ public class AttackingTtile : MonoBehaviour
     }
     private void Update()
     {
-
+        Debug.Log(CurrentCardY);
     }
     public void Animation(string AnimationName)
     {
@@ -72,12 +72,12 @@ public class AttackingTtile : MonoBehaviour
         if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 1)
         {
             GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
-            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+            GameManager.GetComponent<GameManager>().PlayerAttackRight(CurrentCardX, CurrentCardY + 1, 0, 0, "Right");
         }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 2)
         {
             GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
-            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+            GameManager.GetComponent<GameManager>().PlayerAttackRight(CurrentCardX, CurrentCardY + 1, 0, 0, "Right");
         }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 3)
         {
@@ -92,7 +92,7 @@ public class AttackingTtile : MonoBehaviour
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 5)
         {
             GameManager.GetComponent<GameManager>().CurrentCardAttackRange = 0;
-            GameManager.GetComponent<GameManager>().PlayerAttack(CurrentCardX, CurrentCardY + 1, -1, 0, "Right");
+            GameManager.GetComponent<GameManager>().PlayerAttackRight(CurrentCardX, CurrentCardY + 1, 0, 0, "Right");
         }
         else if (GameManager.GetComponent<GameManager>().CurrentCardAttackRange == 0)
         {

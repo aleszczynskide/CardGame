@@ -12,7 +12,7 @@ public class CardCreator : MonoBehaviour
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health,Attack,AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth;
+    public bool Flying, AntiFlying, Stealth, AntiStealth,Shield;
     public bool BoxActivator = true;
     void Start()
     {
@@ -26,13 +26,14 @@ public class CardCreator : MonoBehaviour
     {
         GameManager = GameObject.Find("brain_jar");
         Renderer = GetComponent<Renderer>();
-        CurrentCardIndex = Random.Range(0, 8);
+        CurrentCardIndex = Random.Range(2, 9);
         Renderer.material = Card[CurrentCardIndex].CardMaterial;
         Health = Card[CurrentCardIndex].Health;
         Attack = Card[CurrentCardIndex].Attack;
         Flying = Card[CurrentCardIndex].Flying;
         AntiFlying = Card[CurrentCardIndex].AntiFlying;
         Stealth = Card[CurrentCardIndex].Stealth;
+        Shield = Card[CurrentCardIndex].Shield;
         AntiStealth = Card[CurrentCardIndex].AntiStealth;
         AttackRange = Card[CurrentCardIndex].AttackRange;
         CurrentCard = this.gameObject;
