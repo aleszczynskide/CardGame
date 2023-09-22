@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         {
             CardOpponentAttack(1, CardNumber);
         }
-        else if (CardNumber > 3 && CardPosition == 1)
+        else if (CardNumber >= 3 && CardPosition == 1)
         {
             Camera.GetComponent<CameraMovement>().Camera = 0;
             Debug.Log(BoardHealth);
@@ -136,37 +136,37 @@ public class GameManager : MonoBehaviour
         }
         if (GameObjectCardsOnTheTable[0, 2] == null)
         {
-            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.328f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.325f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Third";
             SpawningPoints.Add(SpawnPoint);
         }
         if (GameObjectCardsOnTheTable[0, 3] == null)
         {
-            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.159f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.156f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Fourth";
             SpawningPoints.Add(SpawnPoint);
         }
         if (GameObjectCardsOnTheTable[1, 0] == null)
         {
-            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.668f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.663f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Fifth";
             SpawningPoints.Add(SpawnPoint);
         }
         if (GameObjectCardsOnTheTable[1, 1] == null)
         {
-            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.497f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.494f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Sixth";
             SpawningPoints.Add(SpawnPoint);
         }
         if (GameObjectCardsOnTheTable[1, 2] == null)
         {
-            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.33f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.325f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Seventh";
             SpawningPoints.Add(SpawnPoint);
         }
         if (GameObjectCardsOnTheTable[1, 3] == null)
         {
-            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.165f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.156f, 1.166f, 0.827f), Quaternion.Euler(0f, -90f, -90f));
             SpawnPoint.name = "Eight";
             SpawningPoints.Add(SpawnPoint);
         }
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.328f, 1.16f, 0.614f);
+                    CurrentCardGameObject.transform.position = new Vector3(-0.325f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[0, 2] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -233,7 +233,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.159f, 1.16f, 0.614f);
+                    CurrentCardGameObject.transform.position = new Vector3(-0.156f, 1.16f, 0.614f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[0, 3] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -267,7 +267,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.497f, 1.166f, 0.827f);
+                    CurrentCardGameObject.transform.position = new Vector3(-0.494f, 1.166f, 0.827f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[1, 1] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.33f, 1.166f, 0.827f);
+                    CurrentCardGameObject.transform.position = new Vector3(-0.325f, 1.166f, 0.827f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[1, 2] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -301,7 +301,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.165f, 1.166f, 0.827f);
+                    CurrentCardGameObject.transform.position = new Vector3(-0.156f, 1.166f, 0.827f);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[1, 3] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -360,7 +360,7 @@ public class GameManager : MonoBehaviour
                     default:
                         {
                             CurrentCardAttackRange = 1;
-                            PlayerAttackLeft(x, y - 1, 0, 1, "Left");
+                            PlayerAttackLeft(x, y - 1, 0, 0, "Left");
                         }
                         break;
                 }
@@ -384,7 +384,7 @@ public class GameManager : MonoBehaviour
                     default:
                         {
                             CurrentCardAttackRange = 4;
-                            PlayerAttackLeft(x, y - 1, 0, 1, "Left");
+                            PlayerAttackLeft(x, y - 1, 0, 0, "Left");
                         }
                         break;
                 }
@@ -420,7 +420,7 @@ public class GameManager : MonoBehaviour
                     AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
                     BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
-                if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == false)
+               else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == false)
                 {
                     for (int i = 0; i < 4; i++)
                     {
@@ -950,7 +950,7 @@ public class GameManager : MonoBehaviour
                     AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
                     BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                 }
-                if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Flying == false)
+                else if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Flying == false)
                 {
                     for (int i = 0; i < 4; i++)
                     {
