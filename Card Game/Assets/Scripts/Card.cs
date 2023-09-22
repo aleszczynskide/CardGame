@@ -20,5 +20,8 @@ public class Card : ScriptableObject
     public int AttackRange;
     public bool Shield;
     public bool Move;
+    public bool MoveLeft;
+    public bool Push;
+    public bool PushLeft;
 }
  

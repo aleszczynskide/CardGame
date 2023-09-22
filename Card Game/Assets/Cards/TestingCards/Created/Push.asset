@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94337786d3a5a77429f0e82c255e61e0, type: 3}
-  m_Name: ThreeAttack
+  m_Name: Push
   m_EditorClassIdentifier: 
-  CardMaterial: {fileID: 2100000, guid: 97934bb944cd6634495d01f3505e1bd9, type: 2}
-  Cost: 1
-  Attack: 1
-  Health: 1
+  CardMaterial: {fileID: 2100000, guid: 2e22d238bd2aefe4ab22d2783a084119, type: 2}
+  Cost: 3
+  Attack: 3
+  Health: 2
   Flying: 0
   AntiFlying: 0
   Stealth: 0
   AntiStealth: 0
-  AttackRange: 3
+  AttackRange: 1
   Shield: 0
   Move: 0
   MoveLeft: 0
-  Push: 0
+  Push: 1
   PushLeft: 0
