@@ -570,8 +570,16 @@ public class GameManager : MonoBehaviour
         }
         else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack == 0)
         {
-            Debug.Log("tu jestem");
-            BoardMove(x, y + AttackSpree + 1);
+            if (y < 3)
+            {
+                BoardMove(x, y + AttackSpree + 1);
+            }
+            else if (y == 3)
+
+            {
+                BoardMove(1, 0);
+            }
+            
         }
     }
     public void CardOpponentAttack(int x, int y)
