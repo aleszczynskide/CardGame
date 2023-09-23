@@ -23,5 +23,6 @@ public class Card : ScriptableObject
     public bool MoveLeft;
     public bool Push;
     public bool PushLeft;
+    public bool Escape;
 }
  
