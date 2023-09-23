@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class CardCreator : MonoBehaviour
 {
@@ -11,16 +14,19 @@ public class CardCreator : MonoBehaviour
     Renderer Renderer;
     public GameObject GameManager;
     public GameObject CurrentCard;
-    public int Health,Attack,AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth,Shield,Move,MoveLeft,Push,PushLeft;
+    public int Health, Attack, AttackRange;
+    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft;
     public bool BoxActivator = true;
+    public GameObject HealthBar;
+    public GameObject AttackBar;
+    private TextMeshProUGUI TextMeshPro;
     void Start()
-    {
+    {  
         CreateCard();
     }
     public void Update()
     {
-     
+       
     }
     public void CreateCard()
     {
@@ -40,22 +46,23 @@ public class CardCreator : MonoBehaviour
         MoveLeft = Card[CurrentCardIndex].MoveLeft;
         Push = Card[CurrentCardIndex].Push;
         PushLeft = Card[CurrentCardIndex].PushLeft;
-        
+        HealthBar.GetComponent<TextMeshPro>().text = "" + Health;
+        AttackBar.GetComponent<TextMeshPro>().text = "" + Attack;
         CurrentCard = this.gameObject;
     }
 
     private void OnMouseUp()
     {
-        GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex],CurrentCard);
+        GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex], CurrentCard);
     }
 
-   private void OnMouseEnter()
+    private void OnMouseEnter()
     {
         if (BoxActivator == true)
         {
             transform.position = new Vector3(transform.position.x, 1.511f, transform.position.z);
         }
-       
+
     }
     private void OnMouseExit()
     {
