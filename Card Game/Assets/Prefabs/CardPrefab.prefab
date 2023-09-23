@@ -132,6 +132,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 563d9bf0bd420d84aab2c9e772a91ba8, type: 2}
   - {fileID: 11400000, guid: e7f3d0a552df27c4cb52251931c815e7, type: 2}
   - {fileID: 11400000, guid: abf3512dc105d224daf64f53fdb6f171, type: 2}
+  - {fileID: 11400000, guid: 4bc4757fead2cfd49922d923702f2e27, type: 2}
+  - {fileID: 11400000, guid: 8b3246d688fc7c34a90d537fcb7c28ec, type: 2}
   CurrentCardIndex: 0
   GameManager: {fileID: 0}
   CurrentCard: {fileID: 0}
@@ -147,6 +149,7 @@ MonoBehaviour:
   MoveLeft: 0
   Push: 0
   PushLeft: 0
+  Escape: 0
   BoxActivator: 1
   HealthBar: {fileID: 6547058454428017498}
   AttackBar: {fileID: 3630195459791947908}

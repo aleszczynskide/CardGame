@@ -410,7 +410,7 @@ public class AttackingTtile : MonoBehaviour
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
                     GameManager.GetComponent<GameManager>().BoardMove(1, 0);
                 }
-                if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] != null)
+               else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] != null)
                 {
                     if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 2] == null)
                     {
@@ -468,7 +468,7 @@ public class AttackingTtile : MonoBehaviour
                     GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
-                    GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                    GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 2);
                 }
                 else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] != null)
                 {
@@ -484,7 +484,7 @@ public class AttackingTtile : MonoBehaviour
                         GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
-                        GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                        GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 2);
                     }
                     else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 2] != null && GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 3] == null)
                     {
@@ -502,7 +502,7 @@ public class AttackingTtile : MonoBehaviour
                         GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
-                        GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
+                        GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 2);
                     }
                     else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 3] != null)
                     {

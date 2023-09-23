@@ -10,47 +10,70 @@ using TMPro;
 public class CardCreator : MonoBehaviour
 {
     public List<Card> Card;
-    public int CurrentCardIndex;
     Renderer Renderer;
+    private int CurrentCardIndex;
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health, Attack, AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft;
+    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape;
     public bool BoxActivator = true;
     public GameObject HealthBar;
     public GameObject AttackBar;
     private TextMeshProUGUI TextMeshPro;
     void Start()
-    {  
-        CreateCard();
-    }
-    public void Update()
     {
        
     }
-    public void CreateCard()
+    public void Update()
+    {
+        HealthBar.GetComponent<TextMeshPro>().text = "" + Health;
+        AttackBar.GetComponent<TextMeshPro>().text = "" + Attack;
+    }
+    public void CreateCard(int x)
     {
         GameManager = GameObject.Find("brain_jar");
         Renderer = GetComponent<Renderer>();
-        CurrentCardIndex = Random.Range(6, 11);
-        Renderer.material = Card[CurrentCardIndex].CardMaterial;
-        Health = Card[CurrentCardIndex].Health;
-        Attack = Card[CurrentCardIndex].Attack;
-        Flying = Card[CurrentCardIndex].Flying;
-        AntiFlying = Card[CurrentCardIndex].AntiFlying;
-        Stealth = Card[CurrentCardIndex].Stealth;
-        Shield = Card[CurrentCardIndex].Shield;
-        AntiStealth = Card[CurrentCardIndex].AntiStealth;
-        AttackRange = Card[CurrentCardIndex].AttackRange;
-        Move = Card[CurrentCardIndex].Move;
-        MoveLeft = Card[CurrentCardIndex].MoveLeft;
-        Push = Card[CurrentCardIndex].Push;
-        PushLeft = Card[CurrentCardIndex].PushLeft;
-        HealthBar.GetComponent<TextMeshPro>().text = "" + Health;
-        AttackBar.GetComponent<TextMeshPro>().text = "" + Attack;
-        CurrentCard = this.gameObject;
+        if (x == -1)
+        {
+            x = Random.Range(6, 12);
+            Renderer.material = Card[x].CardMaterial;
+            Health = Card[x].Health;
+            Attack = Card[x].Attack;
+            Flying = Card[x].Flying;
+            AntiFlying = Card[x].AntiFlying;
+            Stealth = Card[x].Stealth;
+            Shield = Card[x].Shield;
+            AntiStealth = Card[x].AntiStealth;
+            AttackRange = Card[x].AttackRange;
+            Move = Card[x].Move;
+            MoveLeft = Card[x].MoveLeft;
+            Push = Card[x].Push;
+            PushLeft = Card[x].PushLeft;
+            Escape = Card[x].Escape;
+            CurrentCard = this.gameObject;
+            CurrentCardIndex = x;
+        }
+        else if (x >= 0)
+        {
+            Renderer.material = Card[x].CardMaterial;
+            Health = Card[x].Health;
+            Attack = Card[x].Attack;
+            Flying = Card[x].Flying;
+            AntiFlying = Card[x].AntiFlying;
+            Stealth = Card[x].Stealth;
+            Shield = Card[x].Shield;
+            AntiStealth = Card[x].AntiStealth;
+            AttackRange = Card[x].AttackRange;
+            Move = Card[x].Move;
+            MoveLeft = Card[x].MoveLeft;
+            Push = Card[x].Push;
+            PushLeft = Card[x].PushLeft;
+            Escape = Card[x].Escape;
+            CurrentCard = this.gameObject;
+            CurrentCardIndex = x;
+        }
+    
     }
-
     private void OnMouseUp()
     {
         GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex], CurrentCard);
