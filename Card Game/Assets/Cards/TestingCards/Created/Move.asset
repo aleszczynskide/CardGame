@@ -23,3 +23,7 @@ MonoBehaviour:
   AttackRange: 1
   Shield: 0
   Move: 1
+  MoveLeft: 0
+  Push: 0
+  PushLeft: 0
+  Escape: 0
