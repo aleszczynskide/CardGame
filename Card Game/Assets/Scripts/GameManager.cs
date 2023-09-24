@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("p"))
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 if (GameObjectCardsOnTheTable[1, i] != null)
                 {
-                    Debug.Log("Karta: " + i + " Ma pozycje " + GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Health);
+                    Debug.Log("Karta: " +  "1" + " Ma pozycje " + i);
                 }
             }
         }
@@ -83,17 +83,15 @@ public class GameManager : MonoBehaviour
             CurrentCardGameObject = null;
         }
         Camera.GetComponent<CameraMovement>().Camera = 2;
-        if (CardPosition == 0 && CardNumber < 4 )
+        if (CardPosition == 0 && CardNumber < 4)
         {
-
             CardPlayerAttack(CardPosition, CardNumber);
-
         }
         else if (CardPosition == 1 && CardNumber < 4)
         {
             CardOpponentAttack(CardPosition, CardNumber);
         }
-        else if (CardPosition == 1 && CardNumber >= 3 )
+        else if (CardPosition == 1 && CardNumber >= 3)
         {
             Camera.GetComponent<CameraMovement>().Camera = 0;
             Debug.Log(BoardHealth);
@@ -410,7 +408,7 @@ public class GameManager : MonoBehaviour
             {
                 if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == true)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -422,27 +420,8 @@ public class GameManager : MonoBehaviour
                                     GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
                                     GameObjectCardsOnTheTable[x + 1, y + AttackSpree] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x + 1, i] = null;
-                                    if (GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                                        Destroy(GameObjectCardsOnTheTable[x + 1, y + AttackSpree]);
-                                        GameObjectCardsOnTheTable[x + 1, y + AttackSpree] = null;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                                        GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                                        break;
-                                    }
+                                    CheckPlayerFrontAttacking(x, y, "Flying", AttackDriection,0);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x + 1, i] == null)
                                 {
@@ -450,7 +429,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
@@ -463,7 +442,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == false)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -475,27 +454,8 @@ public class GameManager : MonoBehaviour
                                     GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
                                     GameObjectCardsOnTheTable[x + 1, y + AttackSpree] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x + 1, i] = null;
-                                    if (GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                                        Destroy(GameObjectCardsOnTheTable[x + 1, y + AttackSpree]);
-                                        GameObjectCardsOnTheTable[x + 1, y + AttackSpree] = null;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                                        GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                                        break;
-                                    }
+                                    CheckPlayerFrontAttacking(x, y,"", AttackDriection, 0);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x + 1, i] == null)
                                 {
@@ -503,7 +463,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        else if (i == 4)
                         {
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
@@ -521,66 +481,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == true)
                     {
-                        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape == true)
-                        {
-                            if (GameObjectCardsOnTheTable[x + 1, y + 1] == null)
-                            {
-                                GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.Euler(0, -90f, -90f));
-                                TailCard.GetComponent<CardCreator>().CreateCard(12);
-                                GameObjectCardsOnTheTable[x + 1, y + 1].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x, GameObjectCardsOnTheTable[x + 1, y].transform.position.y + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
-                                GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
-                                GameObjectCardsOnTheTable[x + 1, y + 1] = ObjectTransform;
-                                TailCard = GameObjectCardsOnTheTable[x + 1, y];
-                            }
-                            else if (GameObjectCardsOnTheTable[x + 1, y - 1] == null)
-                            {
-
-                            }
-                            else
-                            {
-                                if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                                {
-                                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                    AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                                    Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                                    GameObjectCardsOnTheTable[x + 1, y] = null;
-                                }
-                                else
-                                {
-                                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                    AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                                    GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                            {
-                                AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                                Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                                GameObjectCardsOnTheTable[x + 1, y] = null;
-                            }
-                            else
-                            {
-                                AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                                AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                                AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                                GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                            }
-                        }
+                        CheckPlayerFrontAttacking(x, y, "Flying", AttackDriection, 0);
                     }
                     else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == false)
                     {
@@ -596,25 +497,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
                     {
-                        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                            Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                            GameObjectCardsOnTheTable[x + 1, y] = null;
-                        }
-                        else
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                        }
+                        CheckPlayerFrontAttacking(x, y, "", AttackDriection, 0);
                     }
                     else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == false)
                     {
@@ -628,67 +511,34 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape == true)
-                    {
-                        if (y < 3 && GameObjectCardsOnTheTable[x + 1, y + 1] == null)
-                        {
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape = false;
-                            GameObjectCardsOnTheTable[x + 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.identity);
-                            TailCard.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                            TailCard.GetComponent<CardCreator>().CreateCard(12);
-                            TailCard.GetComponent<BoxCollider>().enabled = false;
-                            GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
-                            GameObjectCardsOnTheTable[x + 1, y + 1] = ObjectTransform;
-                            GameObjectCardsOnTheTable[x + 1, y] = TailCard;
-                        }
-                        else if (y > 0 && GameObjectCardsOnTheTable[x + 1, y - 1] == null)
-                        {
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape = false;
-                            GameObjectCardsOnTheTable[x + 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.identity);
-                            TailCard.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                            TailCard.GetComponent<CardCreator>().CreateCard(12);
-                            TailCard.GetComponent<BoxCollider>().enabled = false;
-                            GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
-                            GameObjectCardsOnTheTable[x + 1, y - 1] = ObjectTransform;
-                            GameObjectCardsOnTheTable[x + 1, y] = TailCard;
-                        }
-                    }
-                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                    {
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                        GameObjectCardsOnTheTable[x + 1, y] = null;
-                    }
-                    else
-                    {
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + AttackSpree;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                    }
+                    CheckPlayerFrontAttacking(x, y, "", AttackDriection, 0);
                 }
             }
+            else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack == 0)
+            {
+                if (y < 3)
+                {
+                    BoardMove(x, y + AttackSpree + 1);
+                }
+                else if (y == 3)
+
+                {
+                    BoardMove(1, 0);
+                }
+            }
+
         }
         else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack == 0)
         {
             if (y < 3)
             {
-                BoardMove(x, y + AttackSpree + 1);
+                BoardMove(x, y + 1);
             }
             else if (y == 3)
-
             {
-                BoardMove(1, 0);
+                BoardMove(1,0);
             }
-
+            
         }
     }
     public void CardOpponentAttack(int x, int y)
@@ -760,16 +610,16 @@ public class GameManager : MonoBehaviour
             {
                 if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == true)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
                             if (GameObjectCardsOnTheTable[x - 1, i] != null)
                             {
-                                if (GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().Shield == true && GameObjectCardsOnTheTable[x + 1, i].GetComponent<CardCreator>().AntiFlying == true)
+                                if (GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().Shield == true && GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().AntiFlying == true)
                                 {
                                     GameObjectCardsOnTheTable[x - 1, i].transform.position = new Vector3(GameObjectCardsOnTheTable[x, y + AttackSpree].transform.position.x, GameObjectCardsOnTheTable[x, y + AttackSpree].transform.position.y, 0.614f);
-                                    GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
+                                    GameObject ObjectToTransform = GameObjectCardsOnTheTable[x - 1, i];
                                     GameObjectCardsOnTheTable[x - 1, y + AttackSpree] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x - 1, i] = null;
                                     if (GameObjectCardsOnTheTable[x - 1, y + AttackSpree].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
@@ -794,13 +644,13 @@ public class GameManager : MonoBehaviour
                                         break;
                                     }
                                 }
-                                else if (GameObjectCardsOnTheTable[x + 1, i] == null)
+                                else if (GameObjectCardsOnTheTable[x - 1, i] == null)
                                 {
                                     continue;
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
@@ -813,7 +663,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == false)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -853,7 +703,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
@@ -865,47 +715,45 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }
-        else if (GameObjectCardsOnTheTable[x - 1, y] != null)
-        {
-            if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == true)
+            else if (GameObjectCardsOnTheTable[x - 1, y] != null)
             {
-                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == true)
+                if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == true)
                 {
-                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
+                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == true)
+                    {
+                        if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
+                        {
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                            Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                            GameObjectCardsOnTheTable[x - 1, y] = null;
+                        }
+                        else
+                        {
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                            GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                        }
+                    }
+                    else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == false)
                     {
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
                         GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
-                        Destroy(GameObjectCardsOnTheTable[x - 1, y]);
-                        GameObjectCardsOnTheTable[x - 1, y] = null;
-                    }
-                    else
-                    {
-                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
-                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
-                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
-                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                        BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x , y + AttackSpree].GetComponent<CardCreator>().Attack;
                     }
                 }
-                else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().AntiFlying == false)
+                else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Flying == false)
                 {
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
-                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x + 1, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                }
-            }
-            else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Stealth == true)
-            {
-                if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
-                {
+
                     if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
                     {
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
@@ -918,50 +766,75 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                        AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
-                        AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
                         GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                         GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                     }
                 }
-                else if (GameObjectCardsOnTheTable[x - 1, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == false)
+                else if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Stealth == true)
                 {
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
-                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
-                }
-            }
-            else
-            {
-                if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
-                {
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
-                    Destroy(GameObjectCardsOnTheTable[x - 1, y]);
-                    GameObjectCardsOnTheTable[x - 1, y] = null;
+                    if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
+                    {
+                        if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
+                        {
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                            Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                            GameObjectCardsOnTheTable[x - 1, y] = null;
+                        }
+                        else
+                        {
+                            AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                            AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                            AttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                            GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                        }
+                    }
+                    else if (GameObjectCardsOnTheTable[x - 1, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == false)
+                    {
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                        BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    }
                 }
                 else
                 {
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform.parent;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
-                    GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack)
+                    {
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                        Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                        GameObjectCardsOnTheTable[x - 1, y] = null;
+                    }
+                    else
+                    {
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + AttackSpree;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                        GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform.parent;
+                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
+                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    }
                 }
             }
         }
         else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack == 0)
         {
-            BoardMove(x, y + AttackSpree + 1);
+            BoardMove(1, y + 1);
         }
     }
     public void PlayerAttackLeft(int x, int y, int AttackSpree, int AttackRange, string AttackDriection)
@@ -972,16 +845,41 @@ public class GameManager : MonoBehaviour
             {
                 if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Flying == true)
                 {
-                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
-                    AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < 4)
+                        {
+                            if (GameObjectCardsOnTheTable[x + 1, i] != null)
+                            {
+                                if (GameObjectCardsOnTheTable[x + 1, i].GetComponent<CardCreator>().Shield == true && GameObjectCardsOnTheTable[x + 1, i].GetComponent<CardCreator>().AntiFlying == true)
+                                {
+                                    GameObjectCardsOnTheTable[x + 1, i].transform.position = new Vector3(GameObjectCardsOnTheTable[x, y + 1].transform.position.x - 0.213f, GameObjectCardsOnTheTable[x, y + 1].transform.position.y, 0.827f);
+                                    GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
+                                    GameObjectCardsOnTheTable[x + 1, y] = ObjectToTransform;
+                                    GameObjectCardsOnTheTable[x + 1, i] = null;
+                                    CheckPlayerFrontAttacking(x, y, "Flying", AttackDriection, 1);
+                                    break;
+                                }
+                                else if (GameObjectCardsOnTheTable[x + 1, i] == null)
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        if (i == 4)
+                        {
+                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
+                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
+                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
+                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
+                            BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                        }
+                    }
                 }
                 if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Flying == false)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -993,27 +891,8 @@ public class GameManager : MonoBehaviour
                                     GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
                                     GameObjectCardsOnTheTable[x + 1, y] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x + 1, i] = null;
-                                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack)
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                                        Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                                        GameObjectCardsOnTheTable[x + 1, y] = null;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                                        GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
-                                        break;
-                                    }
+                                    CheckPlayerFrontAttacking(x, y, "", AttackDriection, 1);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x + 1, i] == null)
                                 {
@@ -1021,7 +900,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
@@ -1039,25 +918,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == true)
                     {
-                        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack)
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                            Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                            GameObjectCardsOnTheTable[x + 1, y] = null;
-                        }
-                        else
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
-                        }
+                        CheckPlayerFrontAttacking(x, y, "", AttackDriection, 1);
                     }
                     else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == false)
                     {
@@ -1073,25 +934,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
                     {
-                        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack)
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                            Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                            GameObjectCardsOnTheTable[x + 1, y] = null;
-                        }
-                        else
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
-                        }
+                        CheckPlayerFrontAttacking(x, y, "", AttackDriection, 1);
                     }
                     else if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().AntiStealth == false)
                     {
@@ -1105,25 +948,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack)
-                    {
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                        GameObjectCardsOnTheTable[x + 1, y] = null;
-                    }
-                    else
-                    {
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + 1;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
-                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
-                    }
+                    CheckPlayerFrontAttacking(x, y, "", AttackDriection, 1);
                 }
             }
         }
@@ -1140,16 +965,41 @@ public class GameManager : MonoBehaviour
             {
                 if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Flying == true)
                 {
-                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                    AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                    AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < 4)
+                        {
+                            if (GameObjectCardsOnTheTable[x + 1, i] != null)
+                            {
+                                if (GameObjectCardsOnTheTable[x + 1, i].GetComponent<CardCreator>().Shield == true && GameObjectCardsOnTheTable[x + 1, i].GetComponent<CardCreator>().AntiFlying == true)
+                                {
+                                    GameObjectCardsOnTheTable[x + 1, i].transform.position = new Vector3(GameObjectCardsOnTheTable[x, y - 1].transform.position.x + 0.213f, GameObjectCardsOnTheTable[x, y - 1].transform.position.y, 0.827f);
+                                    GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
+                                    GameObjectCardsOnTheTable[x + 1, y] = ObjectToTransform;
+                                    GameObjectCardsOnTheTable[x + 1, i] = null;
+                                    CheckPlayerFrontAttacking(x, y, "Flying", AttackDriection, -1);
+                                    break;
+                                }
+                                else if (GameObjectCardsOnTheTable[x + 1, i] == null)
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        if (i == 4)
+                        {
+                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
+                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
+                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
+                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
+                            BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                        }
+                    }
                 }
                 else if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Flying == false)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -1161,27 +1011,8 @@ public class GameManager : MonoBehaviour
                                     GameObject ObjectToTransform = GameObjectCardsOnTheTable[x + 1, i];
                                     GameObjectCardsOnTheTable[x + 1, y] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x + 1, i] = null;
-                                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack)
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                                        Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                                        GameObjectCardsOnTheTable[x + 1, y] = null;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                                        GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                                        GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
-                                        break;
-                                    }
+                                    CheckPlayerFrontAttacking(x, y, "", AttackDriection,-1);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x + 1, i] == null)
                                 {
@@ -1189,7 +1020,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
                             AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
@@ -1207,25 +1038,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == true)
                     {
-                        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack)
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                            Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                            GameObjectCardsOnTheTable[x + 1, y] = null;
-                        }
-                        else
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
-                        }
+                        CheckPlayerFrontAttacking(x, y, "", AttackDriection, -1);
                     }
                     else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().AntiFlying == false)
                     {
@@ -1241,25 +1054,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
                     {
-                        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack)
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                            Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                            GameObjectCardsOnTheTable[x + 1, y] = null;
-                        }
-                        else
-                        {
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                            AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                            GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                            AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                            GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
-                        }
+                        CheckPlayerFrontAttacking(x, y, "", AttackDriection, -1);
                     }
                     else if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().AntiStealth == false)
                     {
@@ -1273,25 +1068,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack)
-                    {
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        Destroy(GameObjectCardsOnTheTable[x + 1, y]);
-                        GameObjectCardsOnTheTable[x + 1, y] = null;
-                    }
-                    else
-                    {
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
-                        AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
-                        GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
-                        AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
-                    }
+                    CheckPlayerFrontAttacking(x, y, "", AttackDriection, -1);
                 }
             }
         }
@@ -1308,16 +1085,60 @@ public class GameManager : MonoBehaviour
             {
                 if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Flying == true)
                 {
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y - 1;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
-                    BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < 4)
+                        {
+                            if (GameObjectCardsOnTheTable[x - 1, i] != null)
+                            {
+                                if (GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().Shield == true && GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().AntiFlying == true)
+                                {
+                                    GameObjectCardsOnTheTable[x - 1, i].transform.position = new Vector3(GameObjectCardsOnTheTable[x, y - 1].transform.position.x + 0.213f, GameObjectCardsOnTheTable[x, y - 1].transform.position.y, 0.614f);
+                                    GameObject ObjectToTransform = GameObjectCardsOnTheTable[x - 1, i];
+                                    GameObjectCardsOnTheTable[x - 1, y] = ObjectToTransform;
+                                    GameObjectCardsOnTheTable[x - 1, i] = null;
+                                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack)
+                                    {
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y - 1;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                                        GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                                        Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                                        GameObjectCardsOnTheTable[x - 1, y] = null;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y - 1;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                                        GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                                        break;
+                                    }
+                                }
+                                else if (GameObjectCardsOnTheTable[x - 1, i] == null)
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        if (i == 4)
+                        {
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y - 1;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                            BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                        }
+                    }
                 }
                 if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Flying == false)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -1357,7 +1178,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y - 1;
@@ -1476,16 +1297,60 @@ public class GameManager : MonoBehaviour
             {
                 if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Flying == true)
                 {
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + 1;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
-                    GameObjectCardsOnTheTable[x, y + 1].transform.parent = OpponentAttackTitle.transform;
-                    OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
-                    BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < 4)
+                        {
+                            if (GameObjectCardsOnTheTable[x - 1, i] != null)
+                            {
+                                if (GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().Shield == true && GameObjectCardsOnTheTable[x - 1, i].GetComponent<CardCreator>().AntiFlying == true)
+                                {
+                                    GameObjectCardsOnTheTable[x - 1, i].transform.position = new Vector3(GameObjectCardsOnTheTable[x, y + 1].transform.position.x - 0.213f, GameObjectCardsOnTheTable[x, y + 1].transform.position.y, 0.614f);
+                                    GameObject ObjectToTransform = GameObjectCardsOnTheTable[x - 1, i];
+                                    GameObjectCardsOnTheTable[x - 1, y] = ObjectToTransform;
+                                    GameObjectCardsOnTheTable[x - 1, i] = null;
+                                    if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack)
+                                    {
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + 1;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                                        GameObjectCardsOnTheTable[x, y + 1].transform.parent = OpponentAttackTitle.transform;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                                        Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+                                        GameObjectCardsOnTheTable[x - 1, y] = null;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + 1;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                                        GameObjectCardsOnTheTable[x, y + 1].transform.parent = OpponentAttackTitle.transform;
+                                        OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                                        GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                                        break;
+                                    }
+                                }
+                                else if (GameObjectCardsOnTheTable[x - 1, i] == null)
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        if (i == 4)
+                        {
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + 1;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardAttackSpree = AttackSpree;
+                            GameObjectCardsOnTheTable[x, y + 1].transform.parent = OpponentAttackTitle.transform;
+                            OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
+                            BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                        }
+                    }
                 }
                 if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Flying == false)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (i < 4)
                         {
@@ -1525,7 +1390,7 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (i == 3)
+                        if (i == 4)
                         {
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + 1;
@@ -1634,6 +1499,59 @@ public class GameManager : MonoBehaviour
         else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack == 0)
         {
             BoardMove(x, y + AttackSpree + 1);
+        }
+    }
+    public void CheckPlayerFrontAttacking(int x, int y, string Changer, string AttackDriection,int PowerChanger)
+    {
+        if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape == true)
+        {
+            if (y < 3 && GameObjectCardsOnTheTable[x + 1, y + 1] == null)
+            {
+                GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape = false;
+                GameObjectCardsOnTheTable[x + 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
+                GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.identity);
+                TailCard.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                TailCard.GetComponent<CardCreator>().CreateCard(12);
+                TailCard.GetComponent<BoxCollider>().enabled = false;
+                GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
+                GameObjectCardsOnTheTable[x + 1, y + 1] = ObjectTransform;
+                GameObjectCardsOnTheTable[x + 1, y] = TailCard;
+            }
+            else if (y > 0 && GameObjectCardsOnTheTable[x + 1, y - 1] == null)
+            {
+                GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape = false;
+                GameObjectCardsOnTheTable[x + 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
+                GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.identity);
+                TailCard.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                TailCard.GetComponent<CardCreator>().CreateCard(12);
+                TailCard.GetComponent<BoxCollider>().enabled = false;
+                GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
+                GameObjectCardsOnTheTable[x + 1, y - 1] = ObjectTransform;
+                GameObjectCardsOnTheTable[x + 1, y] = TailCard;
+            }
+        }
+        else
+        {
+
+        }
+        {
+            if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health <= GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Attack)
+            {
+                AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
+                AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + PowerChanger;
+                GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = AttackTitle.transform;
+                AttackTitle.GetComponent<AttackingTtile>().Animation(Changer + AttackDriection);
+                Destroy(GameObjectCardsOnTheTable[x + 1, y]);
+                GameObjectCardsOnTheTable[x + 1, y] = null;
+            }
+            else
+            {
+                AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
+                AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + PowerChanger; 
+                GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = AttackTitle.transform;
+                AttackTitle.GetComponent<AttackingTtile>().Animation(Changer + AttackDriection);
+                GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Attack;
+            }
         }
     }
 }

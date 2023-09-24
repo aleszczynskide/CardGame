@@ -26,3 +26,4 @@ MonoBehaviour:
   MoveLeft: 0
   Push: 0
   PushLeft: 0
+  Escape: 0
