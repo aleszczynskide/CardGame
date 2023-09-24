@@ -531,19 +531,11 @@ public class AttackingTtile : MonoBehaviour
             {
                 if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] == null)
                 {
-                    if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 2] == null)
-                    {
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position.x - 0.169f, GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position.y, GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position.z);
                         GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] = ObjectToTransform;
                         GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
                         GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
-                    }
-                    else
-                    {
-                        Anim.SetInteger("Attack", 0);
-                        GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
-                    }
                 }
                 else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY - 1] != null)
                 {
