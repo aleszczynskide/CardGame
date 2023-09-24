@@ -528,6 +528,18 @@ public class GameManager : MonoBehaviour
             }
 
         }
+        else if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack == 0)
+        {
+            if (y < 3)
+            {
+                BoardMove(x, y + 1);
+            }
+            else if (y == 3)
+            {
+                BoardMove(1,0);
+            }
+            
+        }
     }
     public void CardOpponentAttack(int x, int y)
     {
