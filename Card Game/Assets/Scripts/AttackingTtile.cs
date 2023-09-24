@@ -100,7 +100,7 @@ public class AttackingTtile : MonoBehaviour
         {
             if (CurrentCardY < 3)
             {
-              
+                
                 Escape();
             }
             else if (CurrentCardY == 3)
@@ -359,7 +359,7 @@ public class AttackingTtile : MonoBehaviour
                     GameObject ObjectToTransform = GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY];
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] = ObjectToTransform;
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
-                    GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, 3);
+                    GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 2);
                 }
                 else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] != null)
                 {
@@ -377,6 +377,7 @@ public class AttackingTtile : MonoBehaviour
                     }
                     else if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 2] != null)
                     {
+
                         Anim.SetInteger("Attack", 0);
                         GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
                     }
