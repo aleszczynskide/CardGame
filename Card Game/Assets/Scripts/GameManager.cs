@@ -83,17 +83,17 @@ public class GameManager : MonoBehaviour
             CurrentCardGameObject = null;
         }
         Camera.GetComponent<CameraMovement>().Camera = 2;
-        if (CardNumber < 4 && CardPosition == 0)
+        if (CardPosition == 0 && CardNumber < 4 )
         {
 
-            CardPlayerAttack(0, CardNumber);
+            CardPlayerAttack(CardPosition, CardNumber);
 
         }
-        else if (CardNumber < 4 && CardPosition == 1)
+        else if (CardPosition == 1 && CardNumber < 4)
         {
-            CardOpponentAttack(1, CardNumber);
+            CardOpponentAttack(CardPosition, CardNumber);
         }
-        else if (CardNumber >= 3 && CardPosition == 1)
+        else if (CardPosition == 1 && CardNumber >= 3 )
         {
             Camera.GetComponent<CameraMovement>().Camera = 0;
             Debug.Log(BoardHealth);
@@ -847,7 +847,7 @@ public class GameManager : MonoBehaviour
                                         break;
                                     }
                                 }
-                                else if (GameObjectCardsOnTheTable[x + 1, i] == null)
+                                else if (GameObjectCardsOnTheTable[x - 1, i] == null)
                                 {
                                     continue;
                                 }

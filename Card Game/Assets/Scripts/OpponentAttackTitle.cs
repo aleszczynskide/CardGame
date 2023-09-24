@@ -96,10 +96,12 @@ public class OpponentAttackTitle : MonoBehaviour
         {
             if (CurrentCardY < 3)
             {
+                Anim.SetInteger("Attack", 0);
                 Escape();
             }
             else if (CurrentCardY == 3)
             {
+                Anim.SetInteger("Attack", 0);
                 if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].GetComponent<CardCreator>().Move == true)
                 {
                     Escape();
@@ -119,7 +121,7 @@ public class OpponentAttackTitle : MonoBehaviour
                 else
                 {
                     Anim.SetInteger("Attack", 0);
-                    GameManager.GetComponent<GameManager>().BoardMove(1, CurrentCardY + 1);
+                    GameManager.GetComponent<GameManager>().BoardMove(1, 4);
                 }
             }
         }
@@ -301,6 +303,7 @@ public class OpponentAttackTitle : MonoBehaviour
         {
             if (CurrentCardY == 0)
             {
+
                 if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY + 1] == null)
                 {
                     GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position = new Vector3(GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position.x + 0.169f, GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position.y, GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].transform.position.z);

@@ -21,3 +21,9 @@ MonoBehaviour:
   Stealth: 0
   AntiStealth: 0
   AttackRange: 1
+  Shield: 0
+  Move: 0
+  MoveLeft: 0
+  Push: 0
+  PushLeft: 0
+  Escape: 0
