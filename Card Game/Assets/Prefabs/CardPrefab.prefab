@@ -127,14 +127,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b21a437d3df7ff4c8f41bd6b565bae4, type: 2}
   - {fileID: 11400000, guid: c8001772604668c418a6177d7282515c, type: 2}
   - {fileID: 11400000, guid: b82f3b9f67fa110449615827998aabb0, type: 2}
-  - {fileID: 11400000, guid: 69cd793b5a00dbb459ce3b4b4e7092be, type: 2}
+  - {fileID: 11400000, guid: 060fd478059bea844b43cdb4ef4adfc6, type: 2}
   - {fileID: 11400000, guid: 69cd793b5a00dbb459ce3b4b4e7092be, type: 2}
   - {fileID: 11400000, guid: 563d9bf0bd420d84aab2c9e772a91ba8, type: 2}
   - {fileID: 11400000, guid: e7f3d0a552df27c4cb52251931c815e7, type: 2}
   - {fileID: 11400000, guid: abf3512dc105d224daf64f53fdb6f171, type: 2}
   - {fileID: 11400000, guid: 4bc4757fead2cfd49922d923702f2e27, type: 2}
   - {fileID: 11400000, guid: 8b3246d688fc7c34a90d537fcb7c28ec, type: 2}
-  CurrentCardIndex: 0
   GameManager: {fileID: 0}
   CurrentCard: {fileID: 0}
   Health: 0
