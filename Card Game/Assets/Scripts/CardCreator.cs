@@ -35,7 +35,7 @@ public class CardCreator : MonoBehaviour
         Renderer = GetComponent<Renderer>();
         if (x == -1)
         {
-            x = Random.Range(6, 12);
+            x = Random.Range(6, 10);
             Renderer.material = Card[x].CardMaterial;
             Health = Card[x].Health;
             Attack = Card[x].Attack;
