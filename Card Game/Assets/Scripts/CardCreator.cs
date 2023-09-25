@@ -20,9 +20,10 @@ public class CardCreator : MonoBehaviour
     public GameObject HealthBar;
     public GameObject AttackBar;
     private TextMeshProUGUI TextMeshPro;
+    public bool CurrentCardUp = false;
     void Start()
     {
-       
+        GameManager = GameObject.Find("brain_jar");
     }
     public void Update()
     {
@@ -83,7 +84,7 @@ public class CardCreator : MonoBehaviour
     {
         if (BoxActivator == true)
         {
-            transform.position = new Vector3(transform.position.x, 1.511f, transform.position.z);
+            transform.position = new Vector3(transform.position.x ,transform.position.y - 0.01f, transform.position.z - 0.1f);
         }
 
     }
@@ -92,8 +93,8 @@ public class CardCreator : MonoBehaviour
 
         if (BoxActivator == true)
         {
-            transform.position = new Vector3(transform.position.x, 1.42f, transform.position.z);
-
+            transform.position = new Vector3(transform.position.x,transform.position.y + 0.01f, transform.position.z + 0.1f);
+            CurrentCardUp = false;
         }
     }
 }
