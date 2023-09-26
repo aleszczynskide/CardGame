@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94337786d3a5a77429f0e82c255e61e0, type: 3}
+  m_Name: Spikes
+  m_EditorClassIdentifier: 
+  CardMaterial: {fileID: 2100000, guid: 4360729d68a451a4c90563f44682a539, type: 2}
+  Cost: 1
+  Attack: 1
+  Health: 2
+  Flying: 0
+  AntiFlying: 0
+  Stealth: 0
+  AntiStealth: 0
+  AttackRange: 1
+  Shield: 0
+  Move: 0
+  MoveLeft: 0
+  Push: 0
+  PushLeft: 0
+  Escape: 0
+  Spikes: 1
+  TwoTokens: 0

@@ -24,5 +24,6 @@ public class Card : ScriptableObject
     public bool Push;
     public bool PushLeft;
     public bool Escape;
+    public bool Spikes;
+    public bool TwoTokens;
 }
- 
