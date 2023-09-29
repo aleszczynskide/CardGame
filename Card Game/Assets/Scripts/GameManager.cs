@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -239,10 +240,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
-                    CardsInHand.Remove(CurrentCardGameObject); 
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
-                    
+
                     HandCardSorter();
                 }
                 break;
@@ -1392,11 +1393,22 @@ public class GameManager : MonoBehaviour
     }
     public void HandCardSorter()
     {
-       for (int i = 0; i < CardsInHand.Count; i++) 
+        Vector3 ZeroPosition = new Vector3(-0.332f, 1.442f, 0.255f);
+        GameObject FirstCard = CardsInHand[0];
+        FirstCard.transform.position = new Vector3(-0.332f - CardsInHand.Count * 0.001f, 1.442f, 0.255f);
+        for (int i = 1; i < CardsInHand.Count; i++)
         {
+            if (i % 2 == 0)
+            {
+                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.009f, 0f, + i * 0.001f);
+                CardsInHand[i].transform.Rotate(0.7f * i, 0f, 0f);
+            }
+            else
+            {
+                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.009f, 0f, + i * 0.001f);
+                CardsInHand[i].transform.Rotate(-0.7f * i, 0f, 0f);
+            }
 
-            CardsInHand[i].transform.position = new Vector3(-0.332f - i * 0.06f, 1.442f, 0.255f + i * 0.01f);
-            CardsInHand[i].transform.Rotate(0.1f * i, 0f, 0f);
         }
     }
 }
