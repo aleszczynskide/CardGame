@@ -627,6 +627,7 @@ public class GameManager : MonoBehaviour
                                     GameObjectCardsOnTheTable[x - 1, y + AttackSpree] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x - 1, i] = null;
                                     CheckOpponentFrontAttacking(x, y, "Flying", AttackDriection, 0);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x - 1, i] == null)
                                 {
@@ -660,6 +661,7 @@ public class GameManager : MonoBehaviour
                                     GameObjectCardsOnTheTable[x - 1, y + AttackSpree] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x - 1, i] = null;
                                     CheckOpponentFrontAttacking(x, y, "", AttackDriection, 0);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x - 1, i] == null)
                                 {
@@ -1019,6 +1021,7 @@ public class GameManager : MonoBehaviour
                                     GameObjectCardsOnTheTable[x - 1, y] = ObjectToTransform;
                                     GameObjectCardsOnTheTable[x - 1, i] = null;
                                     CheckOpponentFrontAttacking(x, y, "", AttackDriection, -1);
+                                    break;
                                 }
                                 else if (GameObjectCardsOnTheTable[x - 1, i] == null)
                                 {
@@ -1333,7 +1336,7 @@ public class GameManager : MonoBehaviour
         {
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + PowerChanger;
-            GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = AttackTitle.transform;
+            GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = OpponentAttackTitle.transform;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(Changer + AttackDriection);
             Destroy(GameObjectCardsOnTheTable[x - 1, y]);
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Spikes == true)
@@ -1363,7 +1366,7 @@ public class GameManager : MonoBehaviour
         {
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + PowerChanger;
-            GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = AttackTitle.transform;
+            GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = OpponentAttackTitle.transform;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(Changer + AttackDriection);
             GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Health -= GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Attack;
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Spikes == true)
