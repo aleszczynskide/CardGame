@@ -87,7 +87,7 @@ public class CardCreator : MonoBehaviour
     {
         if (BoxActivator == true)
         {
-            transform.position = new Vector3(transform.position.x ,transform.position.y - 0.01f, transform.position.z - 0.1f);
+            transform.position = new Vector3(transform.position.x ,transform.position.y , transform.position.z - 0.08f);
         }
 
     }
@@ -96,7 +96,7 @@ public class CardCreator : MonoBehaviour
 
         if (BoxActivator == true)
         {
-            transform.position = new Vector3(transform.position.x,transform.position.y + 0.01f, transform.position.z + 0.1f);
+            transform.position = new Vector3(transform.position.x,transform.position.y , transform.position.z + 0.08f);
             CurrentCardUp = false;
         }
     }

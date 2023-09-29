@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Headers;
 using TreeEditor;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -10,9 +11,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public float Eks;
-    public float Igrek;
-    public float Zet;
     [Header("Attacking Titles")]
     public GameObject AttackTitle;
     public GameObject FlyingTitle;
@@ -42,7 +40,7 @@ public class GameManager : MonoBehaviour
         {
             CardsInHand[i].GetComponent<CardCreator>().CreateCard(-1);
         }
-        //HandCardSorter();
+        HandCardSorter();
     }
     void Update()
     {
@@ -184,8 +182,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
             case "Second":
@@ -201,8 +201,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
             case "Third":
@@ -218,8 +220,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
             case "Fourth":
@@ -235,8 +239,11 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject); 
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    
+                    HandCardSorter();
                 }
                 break;
             case "Fifth":
@@ -1380,14 +1387,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     public void HandCardSorter()
     {
-        GameObject FirstCardInHand = CardsInHand[0];
-        FirstCardInHand.transform.position = new Vector3(-0.376f, 1.42f, 0.275f);
-        for (int i = 0; i < CardsInHand.Count; i++)
+       for (int i = 0; i < CardsInHand.Count; i++) 
         {
-            CardsInHand[i].transform.position = FirstCardInHand.transform.position + new Vector3(i * Eks, i * Igrek, i * Zet);
+
+            CardsInHand[i].transform.position = new Vector3(-0.332f - i * 0.06f, 1.442f, 0.255f + i * 0.01f);
+            CardsInHand[i].transform.Rotate(0.1f * i, 0f, 0f);
         }
     }
 }
