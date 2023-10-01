@@ -243,7 +243,6 @@ public class GameManager : MonoBehaviour
                     CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
-
                     HandCardSorter();
                 }
                 break;
@@ -260,8 +259,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
             case "Sixth":
@@ -277,8 +278,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
             case "Seventh":
@@ -294,8 +297,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
             case "Eight":
@@ -311,8 +316,10 @@ public class GameManager : MonoBehaviour
                         FlyingTitle.GetComponent<Animator>().Play("Flying", 0, 0f);
                         CurrentCardGameObject.transform.parent = FlyingTitle.transform;
                     }
+                    CardsInHand.Remove(CurrentCardGameObject);
                     CurrentCardCard = null;
                     CurrentCardGameObject = null;
+                    HandCardSorter();
                 }
                 break;
         }
@@ -1247,14 +1254,14 @@ public class GameManager : MonoBehaviour
                 AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y + PowerChanger;
                 GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = AttackTitle.transform;
                 AttackTitle.GetComponent<AttackingTtile>().Animation(Changer + AttackDriection);
-                Destroy(GameObjectCardsOnTheTable[x + 1, y]);
+                GameObjectCardsOnTheTable[x + 1, y].GetComponentInChildren<Image>().DeathAnimation();
                 if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Spikes == true)
                 {
                     GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health--;
                     if (GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health <= 0)
                     {
                         GameObjectCardsOnTheTable[x + 1, y] = null;
-                        Destroy(GameObjectCardsOnTheTable[x, y + PowerChanger]);
+                        GameObjectCardsOnTheTable[x , y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
                         if (y <= 3)
                         {
                             CurrentCardAttackRange = 0;
@@ -1283,7 +1290,7 @@ public class GameManager : MonoBehaviour
                     GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health--;
                     if (GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health <= 0)
                     {
-                        Destroy(GameObjectCardsOnTheTable[x, y + PowerChanger]);
+                        GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
                         if (y < 3)
                         {
                             CurrentCardAttackRange = 0;
@@ -1339,14 +1346,14 @@ public class GameManager : MonoBehaviour
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + PowerChanger;
             GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = OpponentAttackTitle.transform;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(Changer + AttackDriection);
-            Destroy(GameObjectCardsOnTheTable[x - 1, y]);
+            GameObjectCardsOnTheTable[x - 1, y].GetComponentInChildren<Image>().DeathAnimation();
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Spikes == true)
             {
                 GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health--;
                 if (GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health <= 0)
                 {
                     GameObjectCardsOnTheTable[x - 1, y] = null;
-                    Destroy(GameObjectCardsOnTheTable[x, y + PowerChanger]);
+                    GameObjectCardsOnTheTable[x , y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
                     if (y <= 3)
                     {
                         CurrentCardAttackRange = 0;
@@ -1375,7 +1382,7 @@ public class GameManager : MonoBehaviour
                 GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health--;
                 if (GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health <= 0)
                 {
-                    Destroy(GameObjectCardsOnTheTable[x, y + PowerChanger]);
+                    GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
                     if (y < 3)
                     {
                         CurrentCardAttackRange = 0;
@@ -1400,12 +1407,12 @@ public class GameManager : MonoBehaviour
         {
             if (i % 2 == 0)
             {
-                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.009f, 0f, + i * 0.001f);
+                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.02f, 0f, + i * 0.006f);
                 CardsInHand[i].transform.Rotate(0.7f * i, 0f, 0f);
             }
             else
             {
-                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.009f, 0f, + i * 0.001f);
+                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.02f, 0f, + i * 0.006f);
                 CardsInHand[i].transform.Rotate(-0.7f * i, 0f, 0f);
             }
 

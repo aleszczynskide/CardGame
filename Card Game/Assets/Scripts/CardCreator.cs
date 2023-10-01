@@ -100,4 +100,8 @@ public class CardCreator : MonoBehaviour
             CurrentCardUp = false;
         }
     }
+    public void Death()
+    {
+        Destroy(gameObject);
+    }
 }

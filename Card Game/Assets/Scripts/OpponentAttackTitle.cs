@@ -130,7 +130,10 @@ public class OpponentAttackTitle : MonoBehaviour
     {
         if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] != null)
         {
-
+            if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].GetComponent<CardCreator>().TwoTokens == true)
+            {
+                GameManager.GetComponent<GameManager>().SpawnPlayerMana(2);
+            }
             if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].GetComponent<CardCreator>().Move == true)
             {
                 switch (CurrentCardY)
@@ -208,7 +211,7 @@ public class OpponentAttackTitle : MonoBehaviour
                                 GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY] = null;
                                 GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
                             }
-                            else
+                            else 
                             {
                                 Anim.SetInteger("Attack", 0);
                                 GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
@@ -613,10 +616,7 @@ public class OpponentAttackTitle : MonoBehaviour
                 Anim.SetInteger("Attack", 0);
                 GameManager.GetComponent<GameManager>().BoardMove(CurrentCardX, CurrentCardY + 1);
             }
-            if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].GetComponent<CardCreator>().TwoTokens == true)
-            {
-                GameManager.GetComponent<GameManager>().SpawnPlayerMana(2);
-            }
+            
         }
     }
 }
