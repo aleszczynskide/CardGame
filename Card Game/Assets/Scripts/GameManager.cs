@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         {
             CardsInHand[i].GetComponent<CardCreator>().CreateCard(-1);
         }
-        HandCardSorter();
+      
     }
     void Update()
     {
