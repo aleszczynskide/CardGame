@@ -5833,15 +5833,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ZombieText: {fileID: 1332339528}
   ZombieDialogue:
-  - You!
-  - You are now my slave
-  - I want to play a game
-  - The stake is your life
-  - Tose are your cards
-  - You will learn how to play
-  - RIGHT NOW!
+  - 0afwefwqf
+  - 1afwefwqf
+  - 2afwefwqf
+  - 3afwefwqf
+  - 4afwefwqf
+  - 5afwefwqf
+  - 6afwefwqf
+  - 7afwefwqf
+  - 8afwefwqf
+  - 9afwefwqf
+  - 10afwefwqf
   TextSpeed: 0
   Index: 0
+  EndingNode: 0
   Opponent: {fileID: 222015472}
 --- !u!1001 &1059168084
 PrefabInstance:

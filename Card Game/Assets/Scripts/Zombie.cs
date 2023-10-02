@@ -9,6 +9,7 @@ public class Zombie : MonoBehaviour
     public string[] ZombieDialogue;
     public int TextSpeed;
     public int Index;
+    public int EndingNode;
     public GameObject Opponent;
     void Start()
     {
@@ -29,9 +30,10 @@ public class Zombie : MonoBehaviour
             }
         }
     }
-    public void StartDialogue()
+    public void StartDialogue(int StartingNote,int y)
     {
-        Index = 0;
+        EndingNode = y;
+        Index = StartingNote;
         StartCoroutine(TypeLine());
     }
     IEnumerator TypeLine()
@@ -44,7 +46,7 @@ public class Zombie : MonoBehaviour
     }
     public void NextLine()
     {
-        if (Index < ZombieDialogue.Length - 1)
+        if (Index < EndingNode)
         {
             Index++;
             ZombieText.text = string.Empty;
