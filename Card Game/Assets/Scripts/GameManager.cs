@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject OpponentAttackTitle;
     [Header("CardsManagement")]
     public List<GameObject> CardsInHand;
+    public List<int> CardCollection;
     [Header("Prefabs")]
     public GameObject CardPrefab;
     [Header("Unsorted")]
@@ -41,7 +42,6 @@ public class GameManager : MonoBehaviour
         {
             CardsInHand[i].GetComponent<CardCreator>().CreateCard(-1);
         }
-      
     }
     void Update()
     {
@@ -323,8 +323,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-        int y = SpawningPoints.Count;
-        for (int i = 0; y > i; i++)
+        for (int i = 0; i <= SpawningPoints.Count; i++)
         {
             Destroy(SpawningPoints[i]);
         }
@@ -334,7 +333,6 @@ public class GameManager : MonoBehaviour
     {
         BoardMove(0, 0);
     }
-
     public void ManaMinus(int x)
     {
         for (int i = 0; i < x; i++)
@@ -411,7 +409,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     public void PlayerAttack(int x, int y, int AttackSpree, int AttackRange, string AttackDriection)
     {
         if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack > 0)
@@ -1261,7 +1258,7 @@ public class GameManager : MonoBehaviour
                     if (GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health <= 0)
                     {
                         GameObjectCardsOnTheTable[x + 1, y] = null;
-                        GameObjectCardsOnTheTable[x , y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
+                        GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
                         if (y <= 3)
                         {
                             CurrentCardAttackRange = 0;
@@ -1353,7 +1350,7 @@ public class GameManager : MonoBehaviour
                 if (GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health <= 0)
                 {
                     GameObjectCardsOnTheTable[x - 1, y] = null;
-                    GameObjectCardsOnTheTable[x , y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
+                    GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponentInChildren<Image>().DeathAnimation();
                     if (y <= 3)
                     {
                         CurrentCardAttackRange = 0;
@@ -1407,15 +1404,32 @@ public class GameManager : MonoBehaviour
         {
             if (i % 2 == 0)
             {
-                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.02f, 0f, + i * 0.006f);
+                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.02f, 0f, +i * 0.006f);
                 CardsInHand[i].transform.Rotate(0.7f * i, 0f, 0f);
             }
             else
             {
-                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.02f, 0f, + i * 0.006f);
+                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.02f, 0f, +i * 0.006f);
                 CardsInHand[i].transform.Rotate(-0.7f * i, 0f, 0f);
             }
-
         }
+    }
+    public void StartingHand()
+    {
+        CardCollection.Add(0);
+        CardCollection.Add(0);
+        CardCollection.Add(1);
+        for (int i = 0; i <= CardCollection.Count - 1; i++)
+        {
+            GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
+            NewCard.transform.Rotate(0f,-90f, 0f);
+            CardsInHand.Add(NewCard);
+            NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[i]);
+        }
+        HandCardSorter();
+    }
+    public void CardDisplay()
+    {
+        Camera.GetComponent<CameraMovement>().Camera = 4;
     }
 }

@@ -9,6 +9,7 @@ public class Zombie : MonoBehaviour
     public string[] ZombieDialogue;
     public int TextSpeed;
     public int Index;
+    public GameObject Opponent;
     void Start()
     {
         ZombieText.text = string.Empty;
@@ -51,6 +52,7 @@ public class Zombie : MonoBehaviour
         }
         else
         {
+            Opponent.GetComponent<PropZombie>().StartPlayer();
             gameObject.SetActive(false);
         }
     }

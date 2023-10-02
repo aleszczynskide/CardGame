@@ -6,6 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     public int Camera = 0;
     private Animator Anim;
+    public GameObject Light;
     private void Start()
     {
         Anim=GetComponent<Animator>();  
@@ -14,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (Input.GetKeyDown("w"))
         {
-            if (Camera < 2)
+            if (Camera < 4)
             {
                 Camera++;
             }
@@ -65,6 +66,28 @@ public class CameraMovement : MonoBehaviour
                     transform.rotation = Quaternion.Euler(8.619f, 0f, 0f);
                 }
                 break;
+            case 3:
+                {
+                    Anim.SetInteger("Camera", 3);
+                    transform.position = new Vector3(-0.343f, 1.878f, 1.493f);
+                    transform.rotation = Quaternion.Euler(8.619f, 0f, 0f);
+                }
+                break;
+            case 4:
+                {
+                    Anim.SetInteger("Camera", 4);
+                    transform.position = new Vector3(-0.343f, 1.878f, 1.493f);
+                    transform.rotation = Quaternion.Euler(8.619f, 0f, 0f);
+                }
+                break;
         }
+    }
+    public void FourLightOn()
+    {
+        Light.SetActive(true);
+    }
+    public void FourLightOff()
+    {
+        Light.SetActive(false);
     }
 }
