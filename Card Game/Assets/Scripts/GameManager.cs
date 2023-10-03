@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
     [Header("CardsManagement")]
     public List<GameObject> CardsInHand;
     public List<int> CardCollection;
+    public GameObject CardStack;
     [Header("Prefabs")]
     public GameObject CardPrefab;
+    public GameObject CardMannequinn;
     [Header("Unsorted")]
     public GameObject[,] GameObjectCardsOnTheTable = new GameObject[3, 4];
     public List<GameObject> SpawningPoints;
@@ -1419,17 +1421,21 @@ public class GameManager : MonoBehaviour
         CardCollection.Add(0);
         CardCollection.Add(0);
         CardCollection.Add(1);
-        for (int i = 0; i <= CardCollection.Count - 1; i++)
-        {
-            GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
-            NewCard.transform.Rotate(0f,-90f, 0f);
-            CardsInHand.Add(NewCard);
-            NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[i]);
-        }
-        HandCardSorter();
+        CardCollection.Add(1);
+        CardCollection.Add(1);
     }
     public void CardDisplay()
     {
         Camera.GetComponent<CameraMovement>().Camera = 4;
+    }
+    public void GenerateCard()
+    {
+        int x = UnityEngine.Random.Range(0,CardCollection.Count);
+        GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
+        NewCard.transform.Rotate(0f, -90f, 0f);
+        NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
+        CardsInHand.Add(NewCard);
+        HandCardSorter();
+        CardCollection.RemoveAt(x);
     }
 }

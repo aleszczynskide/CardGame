@@ -159,6 +159,7 @@ MonoBehaviour:
   HealthBar: {fileID: 6547058454428017498}
   AttackBar: {fileID: 3630195459791947908}
   CurrentCardUp: 0
+  InHand: 0
 --- !u!1 &2964460869306685819
 GameObject:
   m_ObjectHideFlags: 0

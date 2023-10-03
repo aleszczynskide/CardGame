@@ -11,7 +11,7 @@ public class PropZombie : MonoBehaviour
     public void StartGame()
     {
         Plane.SetActive(true);
-        Plane.GetComponent<Zombie>().StartDialogue(0,5);
+        Plane.GetComponent<Zombie>().StartDialogue(0,1);
         CameraManager.GetComponent<CameraMovement>().Camera = 3;
        
     }

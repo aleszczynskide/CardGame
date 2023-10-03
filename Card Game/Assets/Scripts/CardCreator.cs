@@ -21,6 +21,7 @@ public class CardCreator : MonoBehaviour
     public GameObject AttackBar;
     private TextMeshProUGUI TextMeshPro;
     public bool CurrentCardUp = false;
+    public bool InHand;
     void Start()
     {
         GameManager = GameObject.Find("brain_jar");
@@ -81,7 +82,10 @@ public class CardCreator : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex], CurrentCard);
+        if (!InHand)
+        {
+            GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex], CurrentCard);
+        }  
     }
     private void OnMouseEnter()
     {
