@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     public int Camera = 0;
     private Animator Anim;
-    public GameObject Light;
+    public GameObject Light; 
     private void Start()
     {
         Anim=GetComponent<Animator>();  
