@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("CardsManagement")]
     public List<GameObject> CardsInHand;
     public List<int> CardCollection;
+    public List<int> CardTemporaryBin;
     public GameObject CardStack;
     [Header("Prefabs")]
     public GameObject CardPrefab;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public int CurrentCardAttackRange;
     void Start()
     {
+
         SpawnPlayerMana(8);
         for (int i = 0; i < CardsInHand.Count; i++)
         {
@@ -1423,6 +1425,7 @@ public class GameManager : MonoBehaviour
         CardCollection.Add(1);
         CardCollection.Add(1);
         CardCollection.Add(1);
+        StartCoroutine(CardDrop());
     }
     public void CardDisplay()
     {
@@ -1430,12 +1433,22 @@ public class GameManager : MonoBehaviour
     }
     public void GenerateCard()
     {
-        int x = UnityEngine.Random.Range(0,CardCollection.Count);
+        int x = UnityEngine.Random.Range(0, CardCollection.Count);
         GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
         NewCard.transform.Rotate(0f, -90f, 0f);
         NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
         CardsInHand.Add(NewCard);
         HandCardSorter();
+        CardTemporaryBin.Add(x);
         CardCollection.RemoveAt(x);
+    }
+    IEnumerator CardDrop()
+    {
+        for (int i = 0; i < CardCollection.Count; i++)
+        {
+            GameObject Mannequine = Instantiate(CardMannequinn, new Vector3(0.059f, 1.755f, 0.396f), quaternion.Euler(0f, -90f, 90f));
+            CardStack.GetComponent<CardsOnTheTable>().CardsOnTable.Add(Mannequine);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
