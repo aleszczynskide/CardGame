@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour
     public List<int> CardCollection;
     public List<int> CardTemporaryBin;
     public GameObject CardStack;
+    public List<GameObject> CardsToPickAndestroy;
     [Header("Prefabs")]
     public GameObject CardPrefab;
     public GameObject CardMannequinn;
+    public GameObject CardPicker;
     [Header("Unsorted")]
     public GameObject[,] GameObjectCardsOnTheTable = new GameObject[3, 4];
     public List<GameObject> SpawningPoints;
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     public int CurrentCardAttackRange;
     void Start()
     {
-
+        PickCard();
         SpawnPlayerMana(8);
         for (int i = 0; i < CardsInHand.Count; i++)
         {
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("p"))
         {
-
+            PickCard();
         }
         if (Input.GetKeyDown("s") && CancellMovement == true)
         {
@@ -1420,11 +1422,11 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
+        /*CardCollection.Add(0);
         CardCollection.Add(0);
-        CardCollection.Add(0);
         CardCollection.Add(1);
         CardCollection.Add(1);
-        CardCollection.Add(1);
+        CardCollection.Add(1);*/
         StartCoroutine(CardDrop());
     }
     public void CardDisplay()
@@ -1450,5 +1452,34 @@ public class GameManager : MonoBehaviour
             CardStack.GetComponent<CardsOnTheTable>().CardsOnTable.Add(Mannequine);
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    //Gameplay Part Methods Here:
+
+    public void PickCard()
+    {
+        Camera.GetComponent<CameraMovement>().Camera = 2;
+        for (int i = 0; i <= 2; i++)
+        {
+            GameObject CardPickerBlock = Instantiate(CardPicker, new Vector3(-0.663f + i * 0.2f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            CardPickerBlock.name = "CardPicker" + i;
+            int x = UnityEngine.Random.Range(0, 13);
+            CardPickerBlock.GetComponent<CardPicker>().CardPickerInt = x;
+            CardsToPickAndestroy.Add(CardPickerBlock);
+            GameObject CardToPick = Instantiate(CardPrefab, new Vector3(-0.663f + i * 0.2f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            CardToPick.GetComponent<BoxCollider>().enabled = false;
+            CardToPick.GetComponent<CardCreator>().CreateCard(x);
+            CardsToPickAndestroy.Add(CardToPick);
+        }
+    }
+    public void PickCardPicked(int x)
+    {
+        CardCollection.Add(x);
+        for (int i = 0; i < CardsToPickAndestroy.Count; i++)
+        {
+            Destroy(CardsToPickAndestroy[i]);
+        }
+        CardsToPickAndestroy.Clear();
+        Camera.GetComponent<CameraMovement>().Camera = 0;
     }
 }

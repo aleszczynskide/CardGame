@@ -6105,9 +6105,12 @@ MonoBehaviour:
   OpponentAttackTitle: {fileID: 1057865149}
   CardsInHand: []
   CardCollection: 
+  CardTemporaryBin: 
   CardStack: {fileID: 1129080648}
+  CardsToPickAndestroy: []
   CardPrefab: {fileID: 1497217878851518979, guid: 2c3871dae6b03e046b8bb8fce84a7b9d, type: 3}
   CardMannequinn: {fileID: 1645977978036761491, guid: a5fa5eef80b41e140807face6575871e, type: 3}
+  CardPicker: {fileID: 4177759320734181992, guid: 46a875ddda026b84e898cd516d15a528, type: 3}
   SpawningPoints: []
   PlayerTokens: []
   Camera: {fileID: 963194225}
