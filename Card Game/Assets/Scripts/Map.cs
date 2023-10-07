@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Map : MonoBehaviour
@@ -8,12 +9,13 @@ public class Map : MonoBehaviour
     public List<GameObject> Pointers;
     public List<GameObject> ActivePointers;
     public GameObject CurrentPointer;
+    public GameObject Statue;
     [SerializeField] private Animator Anim;
     private int x;
     void Start()
     {
         Anim = GetComponent<Animator>();
-        x = Random.Range(0, Maps.Count);
+        x = UnityEngine.Random.Range(0, Maps.Count);
         foreach (Transform child in Maps[x].transform)
         {
             Pointers.Add(child.gameObject);
@@ -23,21 +25,6 @@ public class Map : MonoBehaviour
         if (CurrentPointer == null)
         {
             CurrentPointer = Pointers[0];
-        }
-        for (int i = 0; i < Pointers.Count; i++)
-        {
-            if (Pointers[i].name == "Chance")
-            {
-
-            }
-            else if (Pointers[i].name == "Fight")
-            {
-
-            }
-            else if (Pointers[i].name == "Start")
-            {
-
-            }
         }
         for (int i = 0; i < CurrentPointer.GetComponent<Connector>().ConnectedNode.Count; i++)
         {
@@ -67,5 +54,10 @@ public class Map : MonoBehaviour
     void Update()
     {
         
+    }
+    public void StatueSpawner(Transform StatuePosition)
+    {
+       GameObject Statuetka =  Instantiate(Statue, new Vector3(StatuePosition.transform.position.x, StatuePosition.transform.position.y, StatuePosition.transform.position.z), quaternion.identity);
+        Statuetka.transform.Rotate(0f, 180f, 0f);
     }
 }

@@ -2819,6 +2819,7 @@ MonoBehaviour:
   Pointers: []
   ActivePointers: []
   CurrentPointer: {fileID: 0}
+  Statue: {fileID: 75343528037833506, guid: 089eccbaf36a18041bffda346eae4e57, type: 3}
   Anim: {fileID: 0}
 --- !u!95 &360033655
 Animator:
@@ -2828,7 +2829,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360033653}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9a192aee67753a54fbbf2f597f66a473, type: 2}
   m_CullingMode: 0
