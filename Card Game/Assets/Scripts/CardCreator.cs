@@ -12,6 +12,7 @@ public class CardCreator : MonoBehaviour
     public List<Card> Card;
     Renderer Renderer;
     private int CurrentCardIndex;
+    public int CardInQueue;
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health, Attack, AttackRange;
@@ -86,6 +87,12 @@ public class CardCreator : MonoBehaviour
         {
             GameManager.GetComponent<GameManager>().CardPlace(Card[CurrentCardIndex], CurrentCard);
         }  
+        else if (InHand)
+        {
+            GameManager.GetComponent<GameManager>().TokenTotem(Card[CurrentCardIndex].Cost);
+            GameManager.GetComponent<GameManager>().DeleteCardFinish();
+            GameManager.GetComponent<GameManager>().CardCollection.RemoveAt(CardInQueue);
+        }
     }
     private void OnMouseEnter()
     {

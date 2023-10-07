@@ -40,10 +40,12 @@ public class GameManager : MonoBehaviour
     public GameObject Pointer;
     private bool CancellMovement = false;
     public int CurrentCardAttackRange;
+    private int CurrentTokenSpawner = 2;
     void Start()
     {
-        PickCard();
-        SpawnPlayerMana(8);
+        StartingHand();
+        DeleteCard();
+        SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < CardsInHand.Count; i++)
         {
             CardsInHand[i].GetComponent<CardCreator>().CreateCard(-1);
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("p"))
         {
-            PickCard();
+            DeleteCard();
         }
         if (Input.GetKeyDown("s") && CancellMovement == true)
         {
@@ -1422,11 +1424,17 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
-        /*CardCollection.Add(0);
+        CardCollection.Add(10);
+        CardCollection.Add(9);
+        CardCollection.Add(8);
+        CardCollection.Add(7);
+        CardCollection.Add(6);
+        CardCollection.Add(5);
+        CardCollection.Add(4);
+        CardCollection.Add(3);
+        CardCollection.Add(2);
+        CardCollection.Add(1);
         CardCollection.Add(0);
-        CardCollection.Add(1);
-        CardCollection.Add(1);
-        CardCollection.Add(1);*/
         StartCoroutine(CardDrop());
     }
     public void CardDisplay()
@@ -1481,5 +1489,31 @@ public class GameManager : MonoBehaviour
         }
         CardsToPickAndestroy.Clear();
         Camera.GetComponent<CameraMovement>().Camera = 0;
+    }
+    public void DeleteCard()
+    {
+        Camera.GetComponent<CameraMovement>().Camera = 2;
+        for (int i = 0; i <= CardCollection.Count - 1; i++)
+        {
+            GameObject CardToBurn = Instantiate(CardPrefab, new Vector3(-0.663f + i * 0.15f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            CardToBurn.GetComponent<CardCreator>().CreateCard(CardCollection[i]);
+            CardToBurn.GetComponent<CardCreator>().InHand = true;
+            CardToBurn.GetComponent<CardCreator>().CardInQueue = i;
+            CardsToPickAndestroy.Add(CardToBurn);
+        }
+    }
+    public void DeleteCardFinish()
+    {
+        for (int i = 0; i < CardsToPickAndestroy.Count; i++)
+        {
+            Destroy(CardsToPickAndestroy[i]);
+        }
+        CardsToPickAndestroy.Clear();
+        Camera.GetComponent<CameraMovement>().Camera = 0;
+    }
+    public void TokenTotem(int x)
+    {
+        Debug.Log(x);
+        CurrentTokenSpawner += x;
     }
 }
