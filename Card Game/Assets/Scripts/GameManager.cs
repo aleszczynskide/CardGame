@@ -1424,9 +1424,9 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
-        CardCollection.Add(10);
-        CardCollection.Add(9);
-        CardCollection.Add(8);
+       // CardCollection.Add(10);
+       // CardCollection.Add(9);
+       // CardCollection.Add(8);
         CardCollection.Add(7);
         CardCollection.Add(6);
         CardCollection.Add(5);
@@ -1493,14 +1493,27 @@ public class GameManager : MonoBehaviour
     public void DeleteCard()
     {
         Camera.GetComponent<CameraMovement>().Camera = 2;
-        for (int i = 0; i <= CardCollection.Count - 1; i++)
-        {
-            GameObject CardToBurn = Instantiate(CardPrefab, new Vector3(-0.663f + i * 0.15f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
-            CardToBurn.GetComponent<CardCreator>().CreateCard(CardCollection[i]);
-            CardToBurn.GetComponent<CardCreator>().InHand = true;
-            CardToBurn.GetComponent<CardCreator>().CardInQueue = i;
-            CardsToPickAndestroy.Add(CardToBurn);
-        }
+            float StartX = -0.663f;
+            float StartY = 1.4f;
+            float StartZ = 0.614f;
+            float CardSpacingX = 0.15f;
+            float CardSpacingZ = 0.15f;
+            int CardsPerRow = 5;
+
+            for (int i = 0; i < CardCollection.Count; i++)
+            {
+                int Row = i / CardsPerRow;
+                int Column = i % CardsPerRow;
+
+                float x = StartX + Column * CardSpacingX;
+                float z = StartZ - Row * CardSpacingZ;
+
+                GameObject CardToBurn = Instantiate(CardPrefab, new Vector3(x, StartY, z), Quaternion.Euler(0f, -90f, -90f));
+                CardToBurn.GetComponent<CardCreator>().CreateCard(CardCollection[i]);
+                CardToBurn.GetComponent<CardCreator>().InHand = true;
+                CardToBurn.GetComponent<CardCreator>().CardInQueue = i;
+                CardsToPickAndestroy.Add(CardToBurn);
+            }
     }
     public void DeleteCardFinish()
     {
