@@ -45,7 +45,7 @@ public class Connector : MonoBehaviour
         }
         else
         {
-            Statue = GameObject.Find ("Male Figure Variant(Clone)");
+            Statue = GameObject.Find ("Statue(Clone)");
             MapTile.GetComponent<Map>().CurrentPointer = this.gameObject;
             MapTile.GetComponent<Map>().UpdateMap();
             Statue.GetComponent<Statue>().Pointer = MapTile.GetComponent<Map>().CurrentPointer;

@@ -2819,7 +2819,7 @@ MonoBehaviour:
   Pointers: []
   ActivePointers: []
   CurrentPointer: {fileID: 0}
-  Statue: {fileID: 75343528037833506, guid: 089eccbaf36a18041bffda346eae4e57, type: 3}
+  Statue: {fileID: 7047013278083845605, guid: 168fd1289eeab9245a37b909af79c3c0, type: 3}
   Anim: {fileID: 0}
 --- !u!95 &360033655
 Animator:
