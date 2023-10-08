@@ -59,5 +59,6 @@ public class Map : MonoBehaviour
     {
        GameObject Statuetka =  Instantiate(Statue, new Vector3(StatuePosition.transform.position.x, StatuePosition.transform.position.y, StatuePosition.transform.position.z), quaternion.identity);
         Statuetka.transform.Rotate(0f, 180f, 0f);
+        Statuetka.transform.parent = transform;
     }
 }

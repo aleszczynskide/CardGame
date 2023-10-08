@@ -10,8 +10,9 @@ public class Connector : MonoBehaviour
     SpriteRenderer Sprite;
     [HideInInspector] public int State;
     GameObject Statue;
+    GameObject GameManager;
     void Start()
-    { 
+    {
         Sprite = GetComponent<SpriteRenderer>();
         MapTile = GameObject.Find("MapTile");
         if (this.name == "Fight")
@@ -33,7 +34,7 @@ public class Connector : MonoBehaviour
     }
     void Update()
     {
-        
+
     }
     private void OnMouseDown()
     {
@@ -45,11 +46,39 @@ public class Connector : MonoBehaviour
         }
         else
         {
-            Statue = GameObject.Find ("Statue(Clone)");
+            Statue = GameObject.Find("Statue(Clone)");
             MapTile.GetComponent<Map>().CurrentPointer = this.gameObject;
             MapTile.GetComponent<Map>().UpdateMap();
             Statue.GetComponent<Statue>().Pointer = MapTile.GetComponent<Map>().CurrentPointer;
             Statue.GetComponent<Statue>().NextMove();
+        }
+    }
+    public void StartConnector()
+    {
+        MapTile.GetComponent<Animator>().SetBool("Up", false);
+        GameManager = GameObject.Find("brain_jar");
+        switch (State)
+        {
+            case 0:
+                {
+                    GameManager.GetComponent<GameManager>().StartBattle();
+                }
+                break;
+            case 1:
+                {
+                    GameManager.GetComponent<GameManager>().PickCard();
+                }
+                break;
+            case 2:
+                {
+                    GameManager.GetComponent<GameManager>().DeleteCard();
+                }
+                break;
+            case 3:
+                {
+                    Debug.Log("3");
+                }
+                break;
         }
     }
 }

@@ -41,10 +41,10 @@ public class GameManager : MonoBehaviour
     private bool CancellMovement = false;
     public int CurrentCardAttackRange;
     private int CurrentTokenSpawner = 2;
+    public GameObject Map;
     void Start()
     {
         StartingHand();
-        DeleteCard();
         SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < CardsInHand.Count; i++)
         {
@@ -1435,7 +1435,7 @@ public class GameManager : MonoBehaviour
         CardCollection.Add(2);
         CardCollection.Add(1);
         CardCollection.Add(0);
-        StartCoroutine(CardDrop());
+        //StartCoroutine(CardDrop());
     }
     public void CardDisplay()
     {
@@ -1489,6 +1489,7 @@ public class GameManager : MonoBehaviour
         }
         CardsToPickAndestroy.Clear();
         Camera.GetComponent<CameraMovement>().Camera = 0;
+        Map.GetComponent<Animator>().SetBool("Up", true);
     }
     public void DeleteCard()
     {
@@ -1523,10 +1524,19 @@ public class GameManager : MonoBehaviour
         }
         CardsToPickAndestroy.Clear();
         Camera.GetComponent<CameraMovement>().Camera = 0;
+        Map.GetComponent<Animator>().SetBool("Up", true);
     }
     public void TokenTotem(int x)
     {
         Debug.Log(x);
         CurrentTokenSpawner += x;
+    }
+    public void StartBattle()
+    {
+        StartCoroutine(CardDrop());
+    }
+    public void EndBattle()
+    {
+
     }
 }

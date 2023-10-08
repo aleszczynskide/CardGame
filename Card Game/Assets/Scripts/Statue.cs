@@ -19,8 +19,8 @@ public class Statue : MonoBehaviour
         {
             if (this.transform.position == Pointer.transform.position)
             {
+                Pointer.GetComponent<Connector>().StartConnector();
                 Pointer = null;
-                Debug.Log("Walenie");
             }
         }
     }

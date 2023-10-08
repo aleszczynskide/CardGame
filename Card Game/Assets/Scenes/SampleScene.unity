@@ -6122,6 +6122,7 @@ MonoBehaviour:
   CurrentCardCard: {fileID: 0}
   Pointer: {fileID: 8680057523400625113, guid: 1de7f87ac78d7ea41865f6c714e08a48, type: 3}
   CurrentCardAttackRange: 0
+  Map: {fileID: 360033653}
 --- !u!65 &1076486283
 BoxCollider:
   m_ObjectHideFlags: 0
