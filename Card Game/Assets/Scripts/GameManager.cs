@@ -97,8 +97,16 @@ public class GameManager : MonoBehaviour
         }
         else if (CardPosition == 1 && CardNumber >= 3)
         {
-            Camera.GetComponent<CameraMovement>().Camera = 0;
-            Debug.Log(BoardHealth);
+            if (BoardHealth < 0 || BoardHealth > 10)
+            {
+                EndBattle();
+            }
+            else
+            {
+                Camera.GetComponent<CameraMovement>().Camera = 0;
+                Debug.Log(BoardHealth);
+                NextTurn();
+            }
         }
     }
     public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
@@ -1449,6 +1457,7 @@ public class GameManager : MonoBehaviour
         NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
         CardsInHand.Add(NewCard);
         HandCardSorter();
+        CardsToPickAndestroy.Add(NewCard);
         CardTemporaryBin.Add(x);
         CardCollection.RemoveAt(x);
     }
@@ -1458,6 +1467,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject Mannequine = Instantiate(CardMannequinn, new Vector3(0.059f, 1.755f, 0.396f), quaternion.Euler(0f, -90f, 90f));
             CardStack.GetComponent<CardsOnTheTable>().CardsOnTable.Add(Mannequine);
+            CardsToPickAndestroy.Add(Mannequine);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -1537,6 +1547,17 @@ public class GameManager : MonoBehaviour
     }
     public void EndBattle()
     {
-
+        for (int i = 0; i < CardsToPickAndestroy.Count; i++)
+        {
+            Destroy(CardsToPickAndestroy[i]);
+        }
+        CardsToPickAndestroy.Clear();
+        Camera.GetComponent<CameraMovement>().Camera = 0;
+        Map.GetComponent<Animator>().SetBool("Up", true);
+        BoardHealth = 5;
+    }
+    public void NextTurn()
+    {
+        SpawnPlayerMana(CurrentTokenSpawner);
     }
 }
