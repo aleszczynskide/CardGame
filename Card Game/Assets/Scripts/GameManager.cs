@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject PlayerManager;
     [Header("Attacking Titles")]
     public GameObject AttackTitle;
     public GameObject FlyingTitle;
@@ -45,7 +46,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartingHand();
-        SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < CardsInHand.Count; i++)
         {
             CardsInHand[i].GetComponent<CardCreator>().CreateCard(-1);
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown("p"))
         {
-            DeleteCard();
+            StartBattle();
         }
         if (Input.GetKeyDown("s") && CancellMovement == true)
         {
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
         else if (CardPosition == 1 && CardNumber >= 3)
         {
-            if (BoardHealth < 0 || BoardHealth > 10)
+            if (BoardHealth <= 0 || BoardHealth >= 10)
             {
                 EndBattle();
             }
@@ -183,7 +183,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPointerActivated(string SpawnerName)
     {
-
         switch (SpawnerName)
         {
             case "First":
@@ -339,7 +338,8 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-        for (int i = 0; i <= SpawningPoints.Count; i++)
+        int y = SpawningPoints.Count;
+        for (int i = 0; y > i; i++)
         {
             Destroy(SpawningPoints[i]);
         }
@@ -1413,36 +1413,36 @@ public class GameManager : MonoBehaviour
     }
     public void HandCardSorter()
     {
-        Vector3 ZeroPosition = new Vector3(-0.332f, 1.442f, 0.255f);
-        GameObject FirstCard = CardsInHand[0];
-        FirstCard.transform.position = new Vector3(-0.332f - CardsInHand.Count * 0.001f, 1.442f, 0.255f);
-        for (int i = 1; i < CardsInHand.Count; i++)
+        if (CardsInHand.Count != 0)
         {
-            if (i % 2 == 0)
+            Vector3 ZeroPosition = new Vector3(-0.332f, 1.442f, 0.255f);
+            GameObject FirstCard = CardsInHand[0];
+            FirstCard.transform.position = new Vector3(-0.332f - CardsInHand.Count * 0.001f, 1.442f, 0.255f);
+            for (int i = 1; i < CardsInHand.Count; i++)
             {
-                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.02f, 0f, +i * 0.006f);
-                CardsInHand[i].transform.Rotate(0.7f * i, 0f, 0f);
-            }
-            else
-            {
-                CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.02f, 0f, +i * 0.006f);
-                CardsInHand[i].transform.Rotate(-0.7f * i, 0f, 0f);
+                if (i % 2 == 0)
+                {
+                    CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(-i * 0.02f, 0f, +i * 0.006f);
+                    CardsInHand[i].transform.Rotate(0.7f * i, 0f, 0f);
+                }
+                else
+                {
+                    CardsInHand[i].transform.position = FirstCard.transform.position + new Vector3(i * 0.02f, 0f, +i * 0.006f);
+                    CardsInHand[i].transform.Rotate(-0.7f * i, 0f, 0f);
+                }
             }
         }
+        else
+        {
+            Debug.Log("NothingToSort");
+        }
+     
     }
     public void StartingHand()
     {
-       // CardCollection.Add(10);
-       // CardCollection.Add(9);
-       // CardCollection.Add(8);
-        CardCollection.Add(7);
-        CardCollection.Add(6);
-        CardCollection.Add(5);
-        CardCollection.Add(4);
-        CardCollection.Add(3);
-        CardCollection.Add(2);
         CardCollection.Add(1);
-        CardCollection.Add(0);
+        CardCollection.Add(1);
+        CardCollection.Add(1);
         //StartCoroutine(CardDrop());
     }
     public void CardDisplay()
@@ -1451,6 +1451,7 @@ public class GameManager : MonoBehaviour
     }
     public void GenerateCard()
     {
+        Debug.Log(CardCollection.Count);
         int x = UnityEngine.Random.Range(0, CardCollection.Count);
         GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
         NewCard.transform.Rotate(0f, -90f, 0f);
@@ -1458,8 +1459,8 @@ public class GameManager : MonoBehaviour
         CardsInHand.Add(NewCard);
         HandCardSorter();
         CardsToPickAndestroy.Add(NewCard);
-        CardTemporaryBin.Add(x);
-        CardCollection.RemoveAt(x);
+        CardTemporaryBin.Add(CardCollection[x]);
+        CardCollection.Remove(CardCollection[x]);
     }
     IEnumerator CardDrop()
     {
@@ -1543,7 +1544,9 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
+        SpawnPlayerMana(CurrentTokenSpawner);
         StartCoroutine(CardDrop());
+        PlayerManager.GetComponent<Player>().Anim.SetTrigger("PlayTrigger");
     }
     public void EndBattle()
     {
@@ -1552,9 +1555,23 @@ public class GameManager : MonoBehaviour
             Destroy(CardsToPickAndestroy[i]);
         }
         CardsToPickAndestroy.Clear();
+        CardStack.GetComponent<CardsOnTheTable>().CardsOnTable.Clear();
         Camera.GetComponent<CameraMovement>().Camera = 0;
-        Map.GetComponent<Animator>().SetBool("Up", true);
+        //Map.GetComponent<Animator>().SetBool("Up", true);
         BoardHealth = 5;
+        for (int i = 0; i < CardTemporaryBin.Count; i++)
+        {
+            CardCollection.Add(CardTemporaryBin[i]);
+        }
+        CardTemporaryBin.Clear();
+        PlayerManager.GetComponent<Player>().Anim.SetTrigger("IdleTrigger");
+        for (int i = 0; i < PlayerTokens.Count; i++)
+        {
+            Destroy(PlayerTokens[i]);
+            PlayerMana--;
+        }
+        PlayerTokens.Clear();
+        CardsInHand.Clear();
     }
     public void NextTurn()
     {

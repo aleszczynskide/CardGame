@@ -28,12 +28,4 @@ public class CardsOnTheTable : MonoBehaviour
             Debug.Log("Nie masz kart");
         }
     }
-    private void OnMouseEnter()
-    {
-        CardsOnTable[CardsOnTable.Count - 1].transform.position = new Vector3 (transform.position.x, transform.position.y + 1f, transform.position.z);
-    }
-    private void OnMouseExit()
-    {
-        CardsOnTable[CardsOnTable.Count - 1].transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
-    }
 }
