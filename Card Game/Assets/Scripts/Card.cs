@@ -26,4 +26,6 @@ public class Card : ScriptableObject
     public bool Escape;
     public bool Spikes;
     public bool TwoTokens;
+    public bool Barricade;
+    public bool Guard;
 }

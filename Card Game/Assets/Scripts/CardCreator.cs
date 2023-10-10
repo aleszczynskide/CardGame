@@ -16,7 +16,7 @@ public class CardCreator : MonoBehaviour
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health, Attack, AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens;
+    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard;
     public bool BoxActivator = true;
     public GameObject HealthBar;
     public GameObject AttackBar;
@@ -38,7 +38,7 @@ public class CardCreator : MonoBehaviour
         Renderer = GetComponent<Renderer>();
         if (x == -1)
         {
-            x = Random.Range(7, 14);
+            x = Random.Range(9, 17);
             Renderer.material = Card[x].CardMaterial;
             Health = Card[x].Health;
             Attack = Card[x].Attack;
@@ -55,6 +55,8 @@ public class CardCreator : MonoBehaviour
             Escape = Card[x].Escape;
             Spikes = Card[x].Spikes;
             TwoTokens = Card[x].TwoTokens;
+            Barricade = Card[x].Barricade;
+            Guard = Card[x].Guard;  
             CurrentCard = this.gameObject;
             CurrentCardIndex = x;
         }
@@ -76,6 +78,8 @@ public class CardCreator : MonoBehaviour
             Escape = Card[x].Escape;
             Spikes = Card[x].Spikes;
             TwoTokens = Card[x].TwoTokens;
+            Barricade = Card[x].Barricade;
+            Guard = Card[x].Guard;
             CurrentCard = this.gameObject;
             CurrentCardIndex = x;
         }
