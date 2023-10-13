@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using TreeEditor;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
     public int CurrentCardAttackRange;
     private int CurrentTokenSpawner = 6;
     public GameObject Map;
+    public int CurrentTurn;
+    public int BattleType;
     void Start()
     {
         StartingHand();
@@ -380,7 +383,7 @@ public class GameManager : MonoBehaviour
                             if (GameObjectCardsOnTheTable[1, i] != null && GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Guard == true)
                             {
                                 GameObject ObjectToTransform = GameObjectCardsOnTheTable[1, i];
-                                GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.156f, 1.166f, 0.827f);   
+                                GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.156f, 1.166f, 0.827f);
                                 GameObjectCardsOnTheTable[1, 3] = ObjectToTransform;
                                 GameObjectCardsOnTheTable[1, i] = null;
                                 break;
@@ -1623,6 +1626,11 @@ public class GameManager : MonoBehaviour
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + PowerChanger;
             GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = OpponentAttackTitle.transform;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(Changer + AttackDriection);
+            int DeathSigil = GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().CurrentCardIndex;
+            if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Immortal == true)
+            {
+                GenerateCard(DeathSigil);
+            }
             GameObjectCardsOnTheTable[x - 1, y].GetComponentInChildren<Image>().DeathAnimation();
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Spikes == true)
             {
@@ -1713,18 +1721,34 @@ public class GameManager : MonoBehaviour
     {
         Camera.GetComponent<CameraMovement>().Camera = 4;
     }
-    public void GenerateCard()
+    public void GenerateCard(int y)
     {
-        Debug.Log(CardCollection.Count);
-        int x = UnityEngine.Random.Range(0, CardCollection.Count);
-        GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
-        NewCard.transform.Rotate(0f, -90f, 0f);
-        NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
-        CardsInHand.Add(NewCard);
-        HandCardSorter();
-        CardsToPickAndestroy.Add(NewCard);
-        CardTemporaryBin.Add(CardCollection[x]);
-        CardCollection.Remove(CardCollection[x]);
+        if (y == -1)
+        {
+            Debug.Log(CardCollection.Count);
+            int x = UnityEngine.Random.Range(0, CardCollection.Count);
+            GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
+            NewCard.transform.Rotate(0f, -90f, 0f);
+            NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
+            CardsInHand.Add(NewCard);
+            HandCardSorter();
+            CardsToPickAndestroy.Add(NewCard);
+            CardTemporaryBin.Add(CardCollection[x]);
+            CardCollection.Remove(CardCollection[x]);
+        }
+        else
+        {
+            Debug.Log(CardCollection.Count);
+            int x = UnityEngine.Random.Range(0, CardCollection.Count);
+            GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
+            NewCard.transform.Rotate(0f, -90f, 0f);
+            NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
+            CardsInHand.Add(NewCard);
+            HandCardSorter();
+            CardsToPickAndestroy.Add(NewCard);
+            CardTemporaryBin.Add(CardCollection[x]); //Add Specific Card Number
+            CardCollection.Remove(CardCollection[x]);// Also Here
+        }
     }
     IEnumerator CardDrop()
     {
@@ -1839,6 +1863,266 @@ public class GameManager : MonoBehaviour
     }
     public void NextTurn()
     {
+        CurrentTurn++;
         SpawnPlayerMana(CurrentTokenSpawner);
+        for (int i = 0; i < 4; i++)
+        {
+            if (GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().LevelUp == true)
+            {
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().LevelUp = false;
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health = GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health * 2;
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack = GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack * 2;
+                //TurnAnimation
+            }
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            if (GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().LevelUp == true)
+            {
+                GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().LevelUp = false;
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health = GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Health * 2;
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack = GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack * 2;
+                //TurnAnimation
+            }
+        }
+    }
+
+    //Opponnts AI Cards
+
+    public void Battle(int CurrentBattle, int CurrentTur)
+    {
+        switch (CurrentBattle)
+        {
+            case 0:
+                {
+                    switch (CurrentTurn)
+                    {
+                        case 0:
+                            {
+
+                            }break;
+                        case 1:
+                            {
+
+                            }
+                            break;
+                        case 2:
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            {
+
+                            }
+                            break;
+                        case 4:
+                            {
+
+                            }
+                            break;
+                        case 5:
+                            {
+
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 1:
+                {
+                    switch (CurrentTurn)
+                    {
+                        case 0:
+                            {
+
+                            }
+                            break;
+                        case 1:
+                            {
+
+                            }
+                            break;
+                        case 2:
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            {
+
+                            }
+                            break;
+                        case 4:
+                            {
+
+                            }
+                            break;
+                        case 5:
+                            {
+
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 2:
+                {
+                    switch (CurrentTurn)
+                    {
+                        case 0:
+                            {
+
+                            }
+                            break;
+                        case 1:
+                            {
+
+                            }
+                            break;
+                        case 2:
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            {
+
+                            }
+                            break;
+                        case 4:
+                            {
+
+                            }
+                            break;
+                        case 5:
+                            {
+
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 3:
+                {
+                    switch (CurrentTurn)
+                    {
+                        case 0:
+                            {
+
+                            }
+                            break;
+                        case 1:
+                            {
+
+                            }
+                            break;
+                        case 2:
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            {
+
+                            }
+                            break;
+                        case 4:
+                            {
+
+                            }
+                            break;
+                        case 5:
+                            {
+
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 4:
+                {
+                    switch (CurrentTurn)
+                    {
+                        case 0:
+                            {
+
+                            }
+                            break;
+                        case 1:
+                            {
+
+                            }
+                            break;
+                        case 2:
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            {
+
+                            }
+                            break;
+                        case 4:
+                            {
+
+                            }
+                            break;
+                        case 5:
+                            {
+
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 5:
+                {
+                    switch (CurrentTurn)
+                    {
+                        case 0:
+                            {
+
+                            }
+                            break;
+                        case 1:
+                            {
+
+                            }
+                            break;
+                        case 2:
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            {
+
+                            }
+                            break;
+                        case 4:
+                            {
+
+                            }
+                            break;
+                        case 5:
+                            {
+
+                            }
+                            break;
+                    }
+                }
+                break;
+        }
     }
 }
+
+
+
+/* What i;m supposed to do on a train
+
+-Immortal perk
+-Opponents attacks
+
+*/

@@ -6,17 +6,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Timeline;
 
 public class CardCreator : MonoBehaviour
 {
     public List<Card> Card;
     Renderer Renderer;
-    private int CurrentCardIndex;
+    [HideInInspector] public int CurrentCardIndex;
     public int CardInQueue;
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health, Attack, AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard;
+    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard,LevelUp,Immortal;
     public bool BoxActivator = true;
     public GameObject HealthBar;
     public GameObject AttackBar;
@@ -56,7 +57,9 @@ public class CardCreator : MonoBehaviour
             Spikes = Card[x].Spikes;
             TwoTokens = Card[x].TwoTokens;
             Barricade = Card[x].Barricade;
-            Guard = Card[x].Guard;  
+            Guard = Card[x].Guard;
+            LevelUp = Card[x].LeveUp;
+            Immortal = Card[x].Immortal;
             CurrentCard = this.gameObject;
             CurrentCardIndex = x;
         }
@@ -80,6 +83,8 @@ public class CardCreator : MonoBehaviour
             TwoTokens = Card[x].TwoTokens;
             Barricade = Card[x].Barricade;
             Guard = Card[x].Guard;
+            LevelUp = Card[x].LeveUp;
+            Immortal = Card[x].Immortal;
             CurrentCard = this.gameObject;
             CurrentCardIndex = x;
         }
