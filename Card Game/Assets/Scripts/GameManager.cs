@@ -1626,12 +1626,14 @@ public class GameManager : MonoBehaviour
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + PowerChanger;
             GameObjectCardsOnTheTable[x, y + PowerChanger].transform.parent = OpponentAttackTitle.transform;
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(Changer + AttackDriection);
+            GameObjectCardsOnTheTable[x - 1, y].GetComponentInChildren<Image>().DeathAnimation();
             int DeathSigil = GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().CurrentCardIndex;
+            Debug.Log("Pimpuœ to " + DeathSigil);
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Immortal == true)
             {
-                GenerateCard(DeathSigil);
+                Immortal(DeathSigil);
+
             }
-            GameObjectCardsOnTheTable[x - 1, y].GetComponentInChildren<Image>().DeathAnimation();
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Spikes == true)
             {
                 GameObjectCardsOnTheTable[x, y + PowerChanger].GetComponent<CardCreator>().Health--;
@@ -1721,34 +1723,17 @@ public class GameManager : MonoBehaviour
     {
         Camera.GetComponent<CameraMovement>().Camera = 4;
     }
-    public void GenerateCard(int y)
+    public void GenerateCard()
     {
-        if (y == -1)
-        {
-            Debug.Log(CardCollection.Count);
-            int x = UnityEngine.Random.Range(0, CardCollection.Count);
-            GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
-            NewCard.transform.Rotate(0f, -90f, 0f);
-            NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
-            CardsInHand.Add(NewCard);
-            HandCardSorter();
-            CardsToPickAndestroy.Add(NewCard);
-            CardTemporaryBin.Add(CardCollection[x]);
-            CardCollection.Remove(CardCollection[x]);
-        }
-        else
-        {
-            Debug.Log(CardCollection.Count);
-            int x = UnityEngine.Random.Range(0, CardCollection.Count);
-            GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
-            NewCard.transform.Rotate(0f, -90f, 0f);
-            NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
-            CardsInHand.Add(NewCard);
-            HandCardSorter();
-            CardsToPickAndestroy.Add(NewCard);
-            CardTemporaryBin.Add(CardCollection[x]); //Add Specific Card Number
-            CardCollection.Remove(CardCollection[x]);// Also Here
-        }
+        int x = UnityEngine.Random.Range(0, CardCollection.Count);
+        GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
+        NewCard.transform.Rotate(0f, -90f, 0f);
+        NewCard.GetComponent<CardCreator>().CreateCard(CardCollection[x]);
+        CardsInHand.Add(NewCard);
+        HandCardSorter();
+        CardsToPickAndestroy.Add(NewCard);
+        CardTemporaryBin.Add(CardCollection[x]);
+        CardCollection.Remove(CardCollection[x]);
     }
     IEnumerator CardDrop()
     {
@@ -1827,7 +1812,6 @@ public class GameManager : MonoBehaviour
     }
     public void TokenTotem(int x)
     {
-        Debug.Log(x);
         CurrentTokenSpawner += x;
     }
     public void StartBattle()
@@ -1867,22 +1851,30 @@ public class GameManager : MonoBehaviour
         SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < 4; i++)
         {
-            if (GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().LevelUp == true)
+            if (GameObjectCardsOnTheTable[0, i] != null && GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().LevelUp == true)
             {
                 GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().LevelUp = false;
-                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health = GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health * 2;
-                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack = GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack * 2;
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health += 2;
+                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack += 2;
                 //TurnAnimation
+            }
+            else
+            {
+                continue;
             }
         }
         for (int i = 0; i < 4; i++)
         {
-            if (GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().LevelUp == true)
+            if (GameObjectCardsOnTheTable[1, i] != null && GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().LevelUp == true)
             {
                 GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().LevelUp = false;
-                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Health = GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Health * 2;
-                GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack = GameObjectCardsOnTheTable[0, i].GetComponent<CardCreator>().Attack * 2;
+                GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Health += 2;
+                GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Attack += 2;
                 //TurnAnimation
+            }
+            else
+            {
+                continue;
             }
         }
     }
@@ -1890,14 +1882,13 @@ public class GameManager : MonoBehaviour
     //Opponnts AI Cards
 
     public void Battle(int CurrentBattle, int CurrentTur)
-
-    // -0.663f, 1.166f, 0.827f
-    // - 0.494f, 1.166f, 0.827f 
-    // -0.325f, 1.166f, 0.827f 
-    // -0.156f, 1.166f, 0.827f
+    {
+        // -0.663f, 1.166f, 0.827f
+        // - 0.494f, 1.166f, 0.827f 
+        // -0.325f, 1.166f, 0.827f 
+        // -0.156f, 1.166f, 0.827f
 
         // Transform integer = 213
-    {
         switch (CurrentBattle)
         {
             case 0:
@@ -2128,6 +2119,15 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
+    }
+    public void Immortal(int x)
+    {
+        GameObject NewCard = Instantiate(CardPrefab, new Vector3(0f, 0f, 0f), quaternion.identity);
+        NewCard.transform.Rotate(0f, -90f, 0f);
+        NewCard.GetComponent<CardCreator>().CreateCard(x);
+        CardsInHand.Add(NewCard);
+        HandCardSorter();
+        CardsToPickAndestroy.Add(NewCard);
     }
 }
 

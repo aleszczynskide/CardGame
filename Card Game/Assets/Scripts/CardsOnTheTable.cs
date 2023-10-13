@@ -19,7 +19,7 @@ public class CardsOnTheTable : MonoBehaviour
     {
         if (CardsOnTable[CardsOnTable.Count-1] != null)
         {
-            GameManager.GetComponent<GameManager>().GenerateCard(-1);
+            GameManager.GetComponent<GameManager>().GenerateCard();
             Destroy(CardsOnTable[CardsOnTable.Count-1]);
             CardsOnTable.RemoveAt(CardsOnTable.Count-1);
         }
