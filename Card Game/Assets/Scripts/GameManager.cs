@@ -1890,6 +1890,13 @@ public class GameManager : MonoBehaviour
     //Opponnts AI Cards
 
     public void Battle(int CurrentBattle, int CurrentTur)
+
+    // -0.663f, 1.166f, 0.827f
+    // - 0.494f, 1.166f, 0.827f 
+    // -0.325f, 1.166f, 0.827f 
+    // -0.156f, 1.166f, 0.827f
+
+        // Transform integer = 213
     {
         switch (CurrentBattle)
         {
@@ -1899,8 +1906,14 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-
-                            }break;
+                                GameObject NewCardAdded = (Instantiate(CardPrefab));
+                                NewCardAdded.transform.position = new Vector3(-0.663f, 1.166f, 0.827f);
+                                NewCardAdded.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+                                GameObjectCardsOnTheTable[0, 0] = NewCardAdded;
+                                NewCardAdded.GetComponent<CardCreator>().CreateCard(-1);
+                                CardsToPickAndestroy.Add(NewCardAdded);
+                            }
+                            break;
                         case 1:
                             {
 

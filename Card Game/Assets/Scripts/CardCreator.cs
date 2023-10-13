@@ -17,7 +17,7 @@ public class CardCreator : MonoBehaviour
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health, Attack, AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard,LevelUp,Immortal;
+    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard,LevelUp,Immortal; //Create an list of it
     public bool BoxActivator = true;
     public GameObject HealthBar;
     public GameObject AttackBar;
