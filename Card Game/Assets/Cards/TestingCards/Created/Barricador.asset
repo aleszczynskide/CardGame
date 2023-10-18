@@ -31,5 +31,5 @@ MonoBehaviour:
   TwoTokens: 0
   Barricade: 1
   Guard: 0
-  LeveUp: 1
+  LeveUp: 0
   Immortal: 0

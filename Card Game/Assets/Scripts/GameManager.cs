@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector] public bool CardPicked;
     public GameObject PlayerManager;
     [Header("Attacking Titles")]
     public GameObject AttackTitle;
@@ -1816,6 +1817,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
+        CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
         StartCoroutine(CardDrop());
         PlayerManager.GetComponent<Player>().Anim.SetTrigger("PlayTrigger");
@@ -1847,6 +1849,7 @@ public class GameManager : MonoBehaviour
     }
     public void NextTurn()
     {
+        CardPicked = true;
         CurrentTurn++;
         SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < 4; i++)

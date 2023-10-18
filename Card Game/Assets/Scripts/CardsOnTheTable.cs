@@ -19,9 +19,17 @@ public class CardsOnTheTable : MonoBehaviour
     {
         if (CardsOnTable[CardsOnTable.Count-1] != null)
         {
-            GameManager.GetComponent<GameManager>().GenerateCard();
-            Destroy(CardsOnTable[CardsOnTable.Count-1]);
-            CardsOnTable.RemoveAt(CardsOnTable.Count-1);
+            if (GameManager.GetComponent<GameManager>().CardPicked == true)
+            {
+                GameManager.GetComponent<GameManager>().CardPicked = false;
+                GameManager.GetComponent<GameManager>().GenerateCard();
+                Destroy(CardsOnTable[CardsOnTable.Count - 1]);
+                CardsOnTable.RemoveAt(CardsOnTable.Count - 1);
+            }
+            else
+            {
+                Debug.Log("You already picked a card");
+            }
         }
         else
         {
