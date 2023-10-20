@@ -28,6 +28,7 @@ public class Card : ScriptableObject
     public bool TwoTokens;
     public bool Barricade;
     public bool Guard;
-    public bool LeveUp; //AddedToTest
-    public bool Immortal; //AddedToTest
+    public bool LeveUp;
+    public bool Immortal;
+    public bool OpponentSkipper;
 }

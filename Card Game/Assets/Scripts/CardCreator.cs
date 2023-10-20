@@ -17,7 +17,7 @@ public class CardCreator : MonoBehaviour
     public GameObject GameManager;
     public GameObject CurrentCard;
     public int Health, Attack, AttackRange;
-    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard,LevelUp,Immortal; //Create an list of it
+    public bool Flying, AntiFlying, Stealth, AntiStealth, Shield, Move, MoveLeft, Push, PushLeft,Escape,Spikes,TwoTokens,Barricade,Guard,LevelUp,Immortal,Skipper; //Create an list of it
     public bool BoxActivator = true;
     public GameObject HealthBar;
     public GameObject AttackBar;
@@ -60,6 +60,7 @@ public class CardCreator : MonoBehaviour
             Guard = Card[x].Guard;
             LevelUp = Card[x].LeveUp;
             Immortal = Card[x].Immortal;
+            Skipper = Card[x].OpponentSkipper;
             CurrentCard = this.gameObject;
             CurrentCardIndex = x;
         }
@@ -85,6 +86,7 @@ public class CardCreator : MonoBehaviour
             Guard = Card[x].Guard;
             LevelUp = Card[x].LeveUp;
             Immortal = Card[x].Immortal;
+            Skipper = Card[x].OpponentSkipper;
             CurrentCard = this.gameObject;
             CurrentCardIndex = x;
         }

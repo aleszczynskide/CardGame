@@ -45,8 +45,8 @@ public class GameManager : MonoBehaviour
     public int CurrentCardAttackRange;
     private int CurrentTokenSpawner = 6;
     public GameObject Map;
-    public int CurrentTurn;
-    public int BattleType;
+    private int CurrentTurn = 0;
+    private int BattleType = 0;
     void Start()
     {
         StartingHand();
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log(GameObjectCardsOnTheTable[1, 0]);
         }
         if (Input.GetKeyDown("p"))
         {
@@ -1817,6 +1817,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
+        Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
         StartCoroutine(CardDrop());
@@ -1846,9 +1847,13 @@ public class GameManager : MonoBehaviour
         }
         PlayerTokens.Clear();
         CardsInHand.Clear();
+        CurrentTurn = 0;
     }
     public void NextTurn()
     {
+        OpponentCardMove();
+        CurrentTurn++;
+        Battle(BattleType, CurrentTurn);
         CardPicked = true;
         CurrentTurn++;
         SpawnPlayerMana(CurrentTokenSpawner);
@@ -1901,11 +1906,12 @@ public class GameManager : MonoBehaviour
                         case 0:
                             {
                                 GameObject NewCardAdded = (Instantiate(CardPrefab));
-                                NewCardAdded.transform.position = new Vector3(-0.663f, 1.166f, 0.827f);
+                                NewCardAdded.transform.position = new Vector3(-0.663f, 1.166f, 1.04f);
                                 NewCardAdded.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                                GameObjectCardsOnTheTable[0, 0] = NewCardAdded;
                                 NewCardAdded.GetComponent<CardCreator>().CreateCard(-1);
+                                NewCardAdded.GetComponent<CardCreator>().Skipper = true;
                                 CardsToPickAndestroy.Add(NewCardAdded);
+                                GameObjectCardsOnTheTable[2, 0] = NewCardAdded;
                             }
                             break;
                         case 1:
@@ -2132,13 +2138,20 @@ public class GameManager : MonoBehaviour
         HandCardSorter();
         CardsToPickAndestroy.Add(NewCard);
     }
+    public void OpponentCardMove()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (GameObjectCardsOnTheTable[2, i] != null && GameObjectCardsOnTheTable[2, i].GetComponent<CardCreator>().Skipper == true)
+            {
+                if (GameObjectCardsOnTheTable[1, i] == null) 
+                {
+                    GameObjectCardsOnTheTable[2, i].transform.position = new Vector3(GameObjectCardsOnTheTable[2, i].transform.position.x, GameObjectCardsOnTheTable[2, i].transform.position.y, GameObjectCardsOnTheTable[2, i].transform.position.z - 0.213f);
+                    GameObject CardToTransform = GameObjectCardsOnTheTable[2, i];
+                    GameObjectCardsOnTheTable[1, i] = CardToTransform ;
+                    GameObjectCardsOnTheTable[2, i] = null;
+                }
+            }
+        }
+    }
 }
-
-
-
-/* What i;m supposed to do on a train
-
--Immortal perk
--Opponents attacks
-
-*/
