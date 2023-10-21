@@ -18,7 +18,7 @@ public class PropZombie : MonoBehaviour
     public void StartPlayer()
     {
          CameraManager.GetComponent<CameraMovement>().Camera = 0;
-        //PlayerManager.GetComponent<Player>().Anim.SetTrigger("PlayTrigger");
-        //GameManager.GetComponent<GameManager>().StartingHand();
+        PlayerManager.GetComponent<Player>().Anim.SetTrigger("PlayTrigger");
+        GameManager.GetComponent<GameManager>().StartingHand();
     }
 }

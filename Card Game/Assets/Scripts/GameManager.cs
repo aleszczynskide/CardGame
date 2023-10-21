@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            Debug.Log(GameObjectCardsOnTheTable[1, 0]);
+            Debug.Log(BattleType);
         }
         if (Input.GetKeyDown("p"))
         {
@@ -1629,7 +1629,6 @@ public class GameManager : MonoBehaviour
             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(Changer + AttackDriection);
             GameObjectCardsOnTheTable[x - 1, y].GetComponentInChildren<Image>().DeathAnimation();
             int DeathSigil = GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().CurrentCardIndex;
-            Debug.Log("Pimpuœ to " + DeathSigil);
             if (GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Immortal == true)
             {
                 Immortal(DeathSigil);
@@ -1817,8 +1816,8 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
-        //int x = UnityEngine.Random.Range(0, 5);
-       // BattleType = x;
+        int x = UnityEngine.Random.Range(0, 6);
+        BattleType = x;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
@@ -1834,7 +1833,7 @@ public class GameManager : MonoBehaviour
         CardsToPickAndestroy.Clear();
         CardStack.GetComponent<CardsOnTheTable>().CardsOnTable.Clear();
         Camera.GetComponent<CameraMovement>().Camera = 0;
-        //Map.GetComponent<Animator>().SetBool("Up", true);
+        Map.GetComponent<Animator>().SetBool("Up", true);
         BoardHealth = 5;
         for (int i = 0; i < CardTemporaryBin.Count; i++)
         {
@@ -1854,10 +1853,9 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         OpponentCardMove();
-        CurrentTurn++;
+        CurrentTurn = CurrentTurn +1;
         Battle(BattleType, CurrentTurn);
-        CardPicked = true;
-        CurrentTurn++;
+        CardPicked = true; 
         SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < 4; i++)
         {
@@ -1917,7 +1915,8 @@ public class GameManager : MonoBehaviour
                             break;
                         case 2:
                             {
-
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
+                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
                             }
                             break;
                         case 3:
@@ -1944,12 +1943,13 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 2, 0);
+                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, 2, 3);
                             }
                             break;
                         case 1:
                             {
-
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, 2, 1);
                             }
                             break;
                         case 2:
@@ -1969,7 +1969,7 @@ public class GameManager : MonoBehaviour
                             break;
                         case 5:
                             {
-
+                                SpawnEnemyCard(-0.325f, 1.166f, 1.04f, 2, 2);
                             }
                             break;
                     }
@@ -1981,12 +1981,13 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, 2, 1);
+                                SpawnEnemyCard(-0.325f, 1.166f, 1.04f, 2, 2);
                             }
                             break;
                         case 1:
                             {
-
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 2, 0);
                             }
                             break;
                         case 2:
@@ -2018,7 +2019,8 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, 3, 1);
+                                SpawnEnemyCard(-0.325f, 1.166f, 1.04f, 3, 2);
                             }
                             break;
                         case 1:
@@ -2055,27 +2057,30 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 16, 0);
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, 16, 1);
+                                SpawnEnemyCard(-0.325f, 1.166f, 1.04f, 16, 2);
+                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, 16, 3);
                             }
                             break;
                         case 1:
                             {
-
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
                             }
                             break;
                         case 2:
                             {
-
+                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
                             }
                             break;
                         case 3:
                             {
-
+                                SpawnEnemyCard(-0.325f, 1.166f, 1.04f, -1, 2);
                             }
                             break;
                         case 4:
                             {
-
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
                             }
                             break;
                         case 5:
@@ -2092,7 +2097,8 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, 7, 1);
+                                SpawnEnemyCard(-0.325f, 1.166f, 1.04f, 7, 2);
                             }
                             break;
                         case 1:
@@ -2102,7 +2108,8 @@ public class GameManager : MonoBehaviour
                             break;
                         case 2:
                             {
-
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 6, 0);
+                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, 6, 3);
                             }
                             break;
                         case 3:
