@@ -1817,6 +1817,8 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
+        //int x = UnityEngine.Random.Range(0, 5);
+       // BattleType = x;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
@@ -1905,18 +1907,12 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-                                GameObject NewCardAdded = (Instantiate(CardPrefab));
-                                NewCardAdded.transform.position = new Vector3(-0.663f, 1.166f, 1.04f);
-                                NewCardAdded.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
-                                NewCardAdded.GetComponent<CardCreator>().CreateCard(-1);
-                                NewCardAdded.GetComponent<CardCreator>().Skipper = true;
-                                CardsToPickAndestroy.Add(NewCardAdded);
-                                GameObjectCardsOnTheTable[2, 0] = NewCardAdded;
+                                SpawnEnemyCard(-0.663f, 1.166f,1.04f, -1, 0);
                             }
                             break;
                         case 1:
                             {
-
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
                             }
                             break;
                         case 2:
@@ -2153,5 +2149,15 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+    public void SpawnEnemyCard(float x,float y,float z,int CardNumber,int Position)
+    {
+        GameObject NewCardAdded = (Instantiate(CardPrefab));
+        NewCardAdded.transform.position = new Vector3(x,y,z);
+        NewCardAdded.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
+        NewCardAdded.GetComponent<CardCreator>().CreateCard(CardNumber);
+        NewCardAdded.GetComponent<CardCreator>().Skipper = true;
+        CardsToPickAndestroy.Add(NewCardAdded);
+        GameObjectCardsOnTheTable[2, Position] = NewCardAdded;
     }
 }
