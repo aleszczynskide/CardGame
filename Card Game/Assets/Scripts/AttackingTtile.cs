@@ -18,10 +18,7 @@ public class AttackingTtile : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKey("t"))
-        {
-            Debug.Log(" X równa sie : " + CurrentCardX + " Y równa siê : " + CurrentCardY);
-        }
+
     }
     public void Animation(string AnimationName)
     {

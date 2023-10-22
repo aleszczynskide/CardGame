@@ -96,12 +96,10 @@ public class OpponentAttackTitle : MonoBehaviour
         {
             if (CurrentCardY < 3)
             {
-                Anim.SetInteger("Attack", 0);
                 Escape();
             }
             else if (CurrentCardY == 3)
             {
-                Anim.SetInteger("Attack", 0);
                 if (GameManager.GetComponent<GameManager>().GameObjectCardsOnTheTable[CurrentCardX, CurrentCardY].GetComponent<CardCreator>().Move == true)
                 {
                     Escape();

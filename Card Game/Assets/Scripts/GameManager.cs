@@ -2168,6 +2168,7 @@ public class GameManager : MonoBehaviour
         NewCardAdded.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
         NewCardAdded.GetComponent<CardCreator>().CreateCard(CardNumber);
         NewCardAdded.GetComponent<CardCreator>().Skipper = true;
+        NewCardAdded.GetComponent<BoxCollider>().enabled = false; 
         CardsToPickAndestroy.Add(NewCardAdded);
         GameObjectCardsOnTheTable[2, Position] = NewCardAdded;
     }
