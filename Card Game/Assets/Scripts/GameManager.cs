@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     private int BattleType = 0;
     void Start()
     {
+        Camera.GetComponent<CameraMovement>().Camera = 0;
         StartingHand();
         for (int i = 0; i < CardsInHand.Count; i++)
         {
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
             Camera.GetComponent<CameraMovement>().Camera = 2;
             CurrentCardGameObject = CurrentPickedCard;
             this.CurrentCardCard = CurrentCardCard;
+            CurrentCardGameObject.GetComponent<Animator>().enabled = true;
             SpawnSpawningPoints();
         }
     }
@@ -135,6 +137,8 @@ public class GameManager : MonoBehaviour
     }
     public void SpawnSpawningPoints()
     {
+        CurrentCardGameObject.transform.position = new Vector3(-0.859f, 1.349f, 0.421f);
+        CurrentCardGameObject.GetComponent<CardCreator>().GameCardReady();
         if (GameObjectCardsOnTheTable[0, 0] == null)
         {
             GameObject SpawnPoint = Instantiate(SpawnPoints, new Vector3(-0.663f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
@@ -194,7 +198,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.663f, 1.16f, 0.614f);
+                    CurrentCardGameObject.GetComponent<CardCreator>().CardPosition(2);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[0, 0] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -242,7 +246,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.494f, 1.16f, 0.614f);
+                    CurrentCardGameObject.GetComponent<CardCreator>().CardPosition(3);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[0, 1] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -298,7 +302,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.325f, 1.16f, 0.614f);
+                    CurrentCardGameObject.GetComponent<CardCreator>().CardPosition(4);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[0, 2] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -354,7 +358,7 @@ public class GameManager : MonoBehaviour
                     ManaMinus(CurrentCardCard.Cost);
                     Camera.GetComponent<CameraMovement>().Camera--;
                     CurrentCardGameObject.GetComponent<BoxCollider>().enabled = false;
-                    CurrentCardGameObject.transform.position = new Vector3(-0.156f, 1.16f, 0.614f);
+                    CurrentCardGameObject.GetComponent<CardCreator>().CardPosition(5);
                     CurrentCardGameObject.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
                     GameObjectCardsOnTheTable[0, 3] = CurrentCardGameObject;
                     if (CurrentCardGameObject.GetComponent<CardCreator>().Flying)
@@ -1474,7 +1478,7 @@ public class GameManager : MonoBehaviour
                     {
                         CheckOpponentFrontAttacking(x, y, "", AttackDriection, 1);
                     }
-                    else if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().AntiStealth == false)
+                    else if (GameObjectCardsOnTheTable[x, y - AttackSpree].GetComponent<CardCreator>().AntiStealth == false)
                     {
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y + 1;

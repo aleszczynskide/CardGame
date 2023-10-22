@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8302985179521795990}
   - component: {fileID: 1161838932163965914}
   - component: {fileID: 8314229606936915490}
+  - component: {fileID: 4454105705761294977}
   m_Layer: 0
   m_Name: CardPrefab
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   - {fileID: 6677780552450988330}
   - {fileID: 7823125071103400321}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &1378368345025174838
 MeshFilter:
@@ -141,6 +142,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 20317803155256d46a59ec650a664e19, type: 2}
   - {fileID: 11400000, guid: 3c29126675972634eacff529b5c42d6b, type: 2}
   - {fileID: 11400000, guid: 8b3246d688fc7c34a90d537fcb7c28ec, type: 2}
+  CurrentCardIndex: 0
   CardInQueue: 0
   GameManager: {fileID: 0}
   CurrentCard: {fileID: 0}
@@ -161,11 +163,35 @@ MonoBehaviour:
   TwoTokens: 0
   Barricade: 0
   Guard: 0
+  LevelUp: 0
+  Immortal: 0
+  Skipper: 0
   BoxActivator: 1
   HealthBar: {fileID: 6547058454428017498}
   AttackBar: {fileID: 3630195459791947908}
   CurrentCardUp: 0
   InHand: 0
+--- !u!95 &4454105705761294977
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497217878851518979}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d792d7f44dfe9564aaa05f7ad27a51eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2964460869306685819
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ using UnityEngine.Timeline;
 
 public class CardCreator : MonoBehaviour
 {
+    Animator Anim;
     public List<Card> Card;
     Renderer Renderer;
     [HideInInspector] public int CurrentCardIndex;
@@ -26,6 +27,7 @@ public class CardCreator : MonoBehaviour
     public bool InHand;
     void Start()
     {
+        Anim = GetComponent<Animator>();
         GameManager = GameObject.Find("brain_jar");
     }
     public void Update()
@@ -125,5 +127,17 @@ public class CardCreator : MonoBehaviour
     public void Death()
     {
         Destroy(gameObject);
+    }
+    public void GameCardReady()
+    {
+        Anim.SetInteger("Position", 1);
+    }
+    public void CardPosition(int x)
+    {
+        Anim.SetInteger("Position", x);
+    }
+    public void TurnOffAnimator()
+    {
+        Anim.enabled = false;
     }
 }
