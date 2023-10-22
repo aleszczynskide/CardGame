@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CardsOnTheTable : MonoBehaviour
 {
+    public GameObject CardSorter;
     private GameObject GameManager;
     public List<GameObject> CardsOnTable;
     void Start()
@@ -23,8 +24,10 @@ public class CardsOnTheTable : MonoBehaviour
             {
                 GameManager.GetComponent<GameManager>().CardPicked = false;
                 GameManager.GetComponent<GameManager>().GenerateCard();
-                Destroy(CardsOnTable[CardsOnTable.Count - 1]);
-                CardsOnTable.RemoveAt(CardsOnTable.Count - 1);
+                CardsOnTable[CardsOnTable.Count - 1].GetComponent<Rigidbody>().useGravity = false;
+                CardsOnTable[CardsOnTable.Count - 1].transform.SetParent(CardSorter.transform);
+                CardSorter.GetComponent<Animator>().SetBool("Up", true);
+                StartCoroutine(Flying());
             }
             else
             {
@@ -35,5 +38,12 @@ public class CardsOnTheTable : MonoBehaviour
         {
             Debug.Log("Nie masz kart");
         }
+    }
+    IEnumerator Flying()
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(CardsOnTable[CardsOnTable.Count - 1]);
+        CardsOnTable.RemoveAt(CardsOnTable.Count - 1);
+        CardSorter.GetComponent<Animator>().SetBool("Up", false);
     }
 }

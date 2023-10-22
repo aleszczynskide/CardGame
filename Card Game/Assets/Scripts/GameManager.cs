@@ -1719,8 +1719,6 @@ public class GameManager : MonoBehaviour
     public void StartingHand()
     {
         CardCollection.Add(14);
-        CardCollection.Add(14);
-        CardCollection.Add(15);
         //StartCoroutine(CardDrop());
     }
     public void CardDisplay()
