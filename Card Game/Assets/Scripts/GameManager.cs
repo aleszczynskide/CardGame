@@ -1709,16 +1709,37 @@ public class GameManager : MonoBehaviour
                     CardsInHand[i].transform.Rotate(-0.7f * i, 0f, 0f);
                 }
             }
+            CardsInHand[CardsInHand.Count - 1].transform.position = new Vector3(CardsInHand[CardsInHand.Count - 1].transform.position.x, CardsInHand[CardsInHand.Count - 1].transform.position.y + 2f, CardsInHand[CardsInHand.Count - 1].transform.position.z);
+            StartCoroutine(CardDropDown());
         }
         else
         {
 
         }
+    }
+    IEnumerator CardDropDown()
+    {
+        Vector3 InitialPosition = CardsInHand[CardsInHand.Count - 1].transform.position;
+        Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y - 2.0f, InitialPosition.z);
+        float Duration = 1.0f;
 
+        float ElapsedTime = 0.0f;
+
+        while (ElapsedTime < Duration)
+        {
+            CardsInHand[CardsInHand.Count - 1].transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+            ElapsedTime += Time.deltaTime;
+            yield return null; 
+        }
+        CardsInHand[CardsInHand.Count - 1].transform.position = TargetPosition;
     }
     public void StartingHand()
     {
         CardCollection.Add(14);
+        CardCollection.Add(14);
+        CardCollection.Add(14);
+        CardCollection.Add(14);
+
         //StartCoroutine(CardDrop());
     }
     public void CardDisplay()
