@@ -1235,18 +1235,18 @@ public class GameManager : MonoBehaviour
                 }
                 else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Stealth == true)
                 {
-                    if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
+                    if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().AntiStealth == true)
                     {
                         CheckPlayerFrontAttacking(x, y, "", AttackDriection, -1);
                     }
-                    else if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().AntiStealth == false)
+                    else if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().AntiStealth == false)
                     {
                         AttackTitle.GetComponent<AttackingTtile>().CurrentCardX = x;
                         AttackTitle.GetComponent<AttackingTtile>().CurrentCardY = y - 1;
                         AttackTitle.GetComponent<AttackingTtile>().CurrentCardAttackSpree = AttackSpree;
                         GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
                         AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
-                        BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                        BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
                     }
                 }
                 else
@@ -1907,7 +1907,7 @@ public class GameManager : MonoBehaviour
     public void StartBattle()
     {
         int x = UnityEngine.Random.Range(0, 6);
-        BattleType = x;
+        BattleType = 3;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
