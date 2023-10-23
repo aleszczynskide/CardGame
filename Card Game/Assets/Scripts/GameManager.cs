@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     public GameObject Pointer;
     private bool CancellMovement = false;
     public int CurrentCardAttackRange;
-    private int CurrentTokenSpawner = 6;
+    private int CurrentTokenSpawner = 1;
     public GameObject Map;
     private int CurrentTurn = 0;
     private int BattleType = 0;
@@ -1358,7 +1358,7 @@ public class GameManager : MonoBehaviour
                     {
                         CheckOpponentFrontAttacking(x, y, "", AttackDriection, -1);
                     }
-                    else if (GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().AntiStealth == false)
+                    else if (GameObjectCardsOnTheTable[x, y - AttackSpree].GetComponent<CardCreator>().AntiStealth == false)
                     {
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardX = x;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().CurrentCardY = y - 1;
@@ -1508,9 +1508,10 @@ public class GameManager : MonoBehaviour
                 GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape = false;
                 GameObjectCardsOnTheTable[x + 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
                 GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.identity);
-                TailCard.transform.rotation = Quaternion.Euler(180f, -90f, -90f);
+                TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                 TailCard.GetComponent<CardCreator>().CreateCard(17);
                 TailCard.GetComponent<BoxCollider>().enabled = false;
+                CardsToPickAndestroy.Add(TailCard);
                 GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
                 GameObjectCardsOnTheTable[x + 1, y + 1] = ObjectTransform;
                 GameObjectCardsOnTheTable[x + 1, y] = TailCard;
@@ -1520,9 +1521,10 @@ public class GameManager : MonoBehaviour
                 GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Escape = false;
                 GameObjectCardsOnTheTable[x + 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z);
                 GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x + 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x + 1, y].transform.position.y, GameObjectCardsOnTheTable[x + 1, y].transform.position.z), quaternion.identity);
-                TailCard.transform.rotation = Quaternion.Euler(180f, -90f, -90f);
+                TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                 TailCard.GetComponent<CardCreator>().CreateCard(17);
                 TailCard.GetComponent<BoxCollider>().enabled = false;
+                CardsToPickAndestroy.Add(TailCard);
                 GameObject ObjectTransform = GameObjectCardsOnTheTable[x + 1, y];
                 GameObjectCardsOnTheTable[x + 1, y - 1] = ObjectTransform;
                 GameObjectCardsOnTheTable[x + 1, y] = TailCard;
@@ -1601,9 +1603,10 @@ public class GameManager : MonoBehaviour
                 GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Escape = false;
                 GameObjectCardsOnTheTable[x - 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x - 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x - 1, y].transform.position.y, GameObjectCardsOnTheTable[x - 1, y].transform.position.z);
                 GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x - 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x - 1, y].transform.position.y, GameObjectCardsOnTheTable[x - 1, y].transform.position.z), quaternion.identity);
-                TailCard.transform.rotation = Quaternion.Euler(180f, -90f, -90f);
+                TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                 TailCard.GetComponent<CardCreator>().CreateCard(17);
                 TailCard.GetComponent<BoxCollider>().enabled = false;
+                CardsToPickAndestroy.Add(TailCard);
                 GameObject ObjectTransform = GameObjectCardsOnTheTable[x - 1, y];
                 GameObjectCardsOnTheTable[x - 1, y + 1] = ObjectTransform;
                 GameObjectCardsOnTheTable[x - 1, y] = TailCard;
@@ -1613,9 +1616,10 @@ public class GameManager : MonoBehaviour
                 GameObjectCardsOnTheTable[x - 1, y].GetComponent<CardCreator>().Escape = false;
                 GameObjectCardsOnTheTable[x - 1, y].transform.position = new Vector3(GameObjectCardsOnTheTable[x - 1, y].transform.position.x - 0.169f, GameObjectCardsOnTheTable[x - 1, y].transform.position.y, GameObjectCardsOnTheTable[x - 1, y].transform.position.z);
                 GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[x - 1, y].transform.position.x + 0.169f, GameObjectCardsOnTheTable[x - 1, y].transform.position.y, GameObjectCardsOnTheTable[x - 1, y].transform.position.z), quaternion.identity);
-                TailCard.transform.rotation = Quaternion.Euler(180f, -90f, -90f);
+                TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                 TailCard.GetComponent<CardCreator>().CreateCard(17);
                 TailCard.GetComponent<BoxCollider>().enabled = false;
+                CardsToPickAndestroy.Add(TailCard);
                 GameObject ObjectTransform = GameObjectCardsOnTheTable[x - 1, y];
                 GameObjectCardsOnTheTable[x - 1, y - 1] = ObjectTransform;
                 GameObjectCardsOnTheTable[x - 1, y] = TailCard;
@@ -1735,10 +1739,10 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
-        CardCollection.Add(14);
-        CardCollection.Add(14);
-        CardCollection.Add(14);
-        CardCollection.Add(14);
+        CardCollection.Add(11);
+        CardCollection.Add(7);
+        CardCollection.Add(3);
+        CardCollection.Add(4);
 
         //StartCoroutine(CardDrop());
     }
@@ -1839,8 +1843,8 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
-        int x = UnityEngine.Random.Range(0, 6);
-        BattleType = x;
+        //int x = UnityEngine.Random.Range(0, 6);
+        BattleType = 0;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
@@ -1849,6 +1853,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndBattle()
     {
+        PlayerManager.GetComponent<Player>().Anim.SetTrigger("IdleTrigger");
         for (int i = 0; i < CardsToPickAndestroy.Count; i++)
         {
             Destroy(CardsToPickAndestroy[i]);
@@ -1928,18 +1933,18 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-                                SpawnEnemyCard(-0.663f, 1.166f,1.04f, -1, 0);
+                                SpawnEnemyCard(-0.663f, 1.166f,1.04f, 11, 0);
                             }
                             break;
                         case 1:
                             {
-                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
+                               // SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
                             }
                             break;
                         case 2:
                             {
-                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
-                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
+                               // SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
+                                //SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
                             }
                             break;
                         case 3:
