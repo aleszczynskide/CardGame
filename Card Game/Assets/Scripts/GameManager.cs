@@ -1777,6 +1777,7 @@ public class GameManager : MonoBehaviour
 
     public void PickCard()
     {
+        PlayerManager.GetComponent<Player>().Anim.SetInteger("CardPick",1);
         Camera.GetComponent<CameraMovement>().Camera = 2;
         for (int i = 0; i <= 2; i++)
         {
@@ -1785,14 +1786,38 @@ public class GameManager : MonoBehaviour
             int x = UnityEngine.Random.Range(0, 13);
             CardPickerBlock.GetComponent<CardPicker>().CardPickerInt = x;
             CardsToPickAndestroy.Add(CardPickerBlock);
-            GameObject CardToPick = Instantiate(CardPrefab, new Vector3(-0.663f + i * 0.2f, 1.16f, 0.614f), Quaternion.Euler(0f, -90f, -90f));
+            GameObject CardToPick = Instantiate(CardPrefab, new Vector3(-0.663f + i * 0.2f, 1.16f, 0.814f), Quaternion.Euler(0f, -90f, -90f));
             CardToPick.GetComponent<BoxCollider>().enabled = false;
             CardToPick.GetComponent<CardCreator>().CreateCard(x);
             CardsToPickAndestroy.Add(CardToPick);
+            StartCoroutine(CardDropOnZ(CardToPick));
+            CardPickerBlock.GetComponent<CardPicker>().CurrentCard = CardToPick;
         }
+    }
+    IEnumerator CardDropOnZ(GameObject Card)
+    {
+        Vector3 InitialPosition = Card.transform.position;
+        Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z - 0.200f);
+        float Duration = 1f;
+
+        float ElapsedTime = 0.0f;
+
+        while (ElapsedTime < Duration)
+        {
+            Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Card.transform.position = TargetPosition;
     }
     public void PickCardPicked(int x)
     {
+        StartCoroutine(Wait(x));
+    }
+    IEnumerator Wait(int x)
+    {
+        yield return new WaitForSeconds(2);
+        PlayerManager.GetComponent<Player>().Anim.SetInteger("CardPick", 0);
         CardCollection.Add(x);
         for (int i = 0; i < CardsToPickAndestroy.Count; i++)
         {
@@ -1843,8 +1868,8 @@ public class GameManager : MonoBehaviour
     }
     public void StartBattle()
     {
-        //int x = UnityEngine.Random.Range(0, 6);
-        BattleType = 0;
+        int x = UnityEngine.Random.Range(0, 6);
+        BattleType = x;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
@@ -1933,18 +1958,18 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-                                SpawnEnemyCard(-0.663f, 1.166f,1.04f, 11, 0);
+                                SpawnEnemyCard(-0.663f, 1.166f,1.04f, -1, 0);
                             }
                             break;
                         case 1:
                             {
-                               // SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
+                               SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
                             }
                             break;
                         case 2:
                             {
-                               // SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
-                                //SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
+                               SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
+                               SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
                             }
                             break;
                         case 3:

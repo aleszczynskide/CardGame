@@ -15,7 +15,7 @@ MonoBehaviour:
   CardMaterial: {fileID: 2100000, guid: 70dc0758a00c84742b68d523abd51000, type: 2}
   Cost: 0
   Attack: 0
-  Health: 10
+  Health: 1
   Flying: 0
   AntiFlying: 0
   Stealth: 0
@@ -27,3 +27,10 @@ MonoBehaviour:
   Push: 0
   PushLeft: 0
   Escape: 0
+  Spikes: 0
+  TwoTokens: 0
+  Barricade: 0
+  Guard: 0
+  LeveUp: 0
+  Immortal: 0
+  OpponentSkipper: 0
