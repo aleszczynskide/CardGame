@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PropZombie : MonoBehaviour
 {
+    public GameObject Mapa;
     public GameObject Plane;
     public GameObject CameraManager;
     public GameObject GameManager;
@@ -20,5 +21,9 @@ public class PropZombie : MonoBehaviour
         CameraManager.GetComponent<CameraMovement>().Camera = 0;
         //PlayerManager.GetComponent<Player>().Anim.SetTrigger("PlayTrigger");
         //GameManager.GetComponent<GameManager>().StartingHand();
+    }
+    public void ActivateMap()
+    {
+        Mapa.GetComponent<Animator>().SetBool("Up", true);
     }
 }

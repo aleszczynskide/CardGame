@@ -102,9 +102,11 @@ public class CardCreator : MonoBehaviour
         }  
         else if (InHand)
         {
+            GameManager.GetComponent<GameManager>().CardsToPickAndestroy.Remove(this.gameObject);
             GameManager.GetComponent<GameManager>().TokenTotem(Card[CurrentCardIndex].Cost);
             GameManager.GetComponent<GameManager>().DeleteCardFinish();
             GameManager.GetComponent<GameManager>().CardCollection.RemoveAt(CardInQueue);
+            StartCoroutine(GameManager.GetComponent<GameManager>().CardToDestroy(this.gameObject));
         }
     }
     private void OnMouseEnter()

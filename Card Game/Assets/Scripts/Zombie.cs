@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Zombie : MonoBehaviour
 {
+    public GameObject Mapa;
     public Text ZombieText;
     public string[] ZombieDialogue;
     public int TextSpeed;
@@ -13,6 +14,7 @@ public class Zombie : MonoBehaviour
     public GameObject Opponent;
     void Start()
     {
+        Mapa = GameObject.Find("MapTile");
         ZombieText.text = string.Empty;
     }
     void Update()

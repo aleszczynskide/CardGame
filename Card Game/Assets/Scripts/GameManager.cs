@@ -14,6 +14,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [HideInInspector] public bool CardPicked;
+    public GameObject Zombie;
     public GameObject PlayerManager;
     [Header("Attacking Titles")]
     public GameObject AttackTitle;
@@ -1733,7 +1734,7 @@ public class GameManager : MonoBehaviour
         {
             CardsInHand[CardsInHand.Count - 1].transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
             ElapsedTime += Time.deltaTime;
-            yield return null; 
+            yield return null;
         }
         CardsInHand[CardsInHand.Count - 1].transform.position = TargetPosition;
     }
@@ -1777,7 +1778,7 @@ public class GameManager : MonoBehaviour
 
     public void PickCard()
     {
-        PlayerManager.GetComponent<Player>().Anim.SetInteger("CardPick",1);
+        PlayerManager.GetComponent<Player>().Anim.SetInteger("CardPick", 1);
         Camera.GetComponent<CameraMovement>().Camera = 2;
         for (int i = 0; i <= 2; i++)
         {
@@ -1798,7 +1799,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 InitialPosition = Card.transform.position;
         Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z - 0.200f);
-        float Duration = 1f;
+        float Duration = 3f;
 
         float ElapsedTime = 0.0f;
 
@@ -1829,6 +1830,7 @@ public class GameManager : MonoBehaviour
     }
     public void DeleteCard()
     {
+        Zombie.GetComponent<Animator>().SetInteger("Destroy", 1);
         Camera.GetComponent<CameraMovement>().Camera = 2;
         float StartX = -0.663f;
         float StartY = 1.4f;
@@ -1860,7 +1862,43 @@ public class GameManager : MonoBehaviour
         }
         CardsToPickAndestroy.Clear();
         Camera.GetComponent<CameraMovement>().Camera = 0;
-        Map.GetComponent<Animator>().SetBool("Up", true);
+    }
+    public IEnumerator CardToDestroy(GameObject Card)
+    {
+        Vector3 InitialPosition = Card.transform.position;
+        Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y + 10f, InitialPosition.z);
+        float Duration = 1f;
+
+        float ElapsedTime = 0.0f;
+
+        while (ElapsedTime < Duration)
+        {
+            Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Card.transform.position = TargetPosition;
+        yield return StartCoroutine(CardInZombieHand(Card));
+    }
+
+    public IEnumerator CardInZombieHand(GameObject Card)
+    {
+        Vector3 InitialPosition = Card.transform.position;
+        Vector3 TargetPosition = new Vector3(-0.669f, 1.226f, 1.232f);
+        float Duration = 1f;
+
+        float ElapsedTime = 0.0f;
+
+        while (ElapsedTime < Duration)
+        {
+            Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Card.transform.position = TargetPosition;
+        Card.GetComponentInChildren<Image>().DeathAnimation();
+        Zombie.GetComponent<Animator>().SetInteger("Destroy", 2);
+
     }
     public void TokenTotem(int x)
     {
@@ -1906,9 +1944,9 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         OpponentCardMove();
-        CurrentTurn = CurrentTurn +1;
+        CurrentTurn = CurrentTurn + 1;
         Battle(BattleType, CurrentTurn);
-        CardPicked = true; 
+        CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
         for (int i = 0; i < 4; i++)
         {
@@ -1958,18 +1996,18 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-                                SpawnEnemyCard(-0.663f, 1.166f,1.04f, -1, 0);
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
                             }
                             break;
                         case 1:
                             {
-                               SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
                             }
                             break;
                         case 2:
                             {
-                               SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
-                               SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
+                                SpawnEnemyCard(-0.494f, 1.166f, 1.04f, -1, 1);
+                                SpawnEnemyCard(-0.156f, 1.166f, 1.04f, -1, 3);
                             }
                             break;
                         case 3:
@@ -2200,24 +2238,24 @@ public class GameManager : MonoBehaviour
         {
             if (GameObjectCardsOnTheTable[2, i] != null && GameObjectCardsOnTheTable[2, i].GetComponent<CardCreator>().Skipper == true)
             {
-                if (GameObjectCardsOnTheTable[1, i] == null) 
+                if (GameObjectCardsOnTheTable[1, i] == null)
                 {
                     GameObjectCardsOnTheTable[2, i].transform.position = new Vector3(GameObjectCardsOnTheTable[2, i].transform.position.x, GameObjectCardsOnTheTable[2, i].transform.position.y, GameObjectCardsOnTheTable[2, i].transform.position.z - 0.213f);
                     GameObject CardToTransform = GameObjectCardsOnTheTable[2, i];
-                    GameObjectCardsOnTheTable[1, i] = CardToTransform ;
+                    GameObjectCardsOnTheTable[1, i] = CardToTransform;
                     GameObjectCardsOnTheTable[2, i] = null;
                 }
             }
         }
     }
-    public void SpawnEnemyCard(float x,float y,float z,int CardNumber,int Position)
+    public void SpawnEnemyCard(float x, float y, float z, int CardNumber, int Position)
     {
         GameObject NewCardAdded = (Instantiate(CardPrefab));
-        NewCardAdded.transform.position = new Vector3(x,y,z);
+        NewCardAdded.transform.position = new Vector3(x, y, z);
         NewCardAdded.transform.rotation = Quaternion.Euler(0f, -90f, -90f);
         NewCardAdded.GetComponent<CardCreator>().CreateCard(CardNumber);
         NewCardAdded.GetComponent<CardCreator>().Skipper = true;
-        NewCardAdded.GetComponent<BoxCollider>().enabled = false; 
+        NewCardAdded.GetComponent<BoxCollider>().enabled = false;
         CardsToPickAndestroy.Add(NewCardAdded);
         GameObjectCardsOnTheTable[2, Position] = NewCardAdded;
     }
