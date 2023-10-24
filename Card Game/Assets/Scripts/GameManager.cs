@@ -1747,10 +1747,10 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
-        CardCollection.Add(11);
-        CardCollection.Add(7);
-        CardCollection.Add(3);
-        CardCollection.Add(4);
+        CardCollection.Add(15);
+        CardCollection.Add(15);
+        CardCollection.Add(15);
+        CardCollection.Add(15);
 
         //StartCoroutine(CardDrop());
     }
@@ -2251,6 +2251,43 @@ public class GameManager : MonoBehaviour
                     GameObject CardToTransform = GameObjectCardsOnTheTable[2, i];
                     GameObjectCardsOnTheTable[1, i] = CardToTransform;
                     GameObjectCardsOnTheTable[2, i] = null;
+                    if (GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Barricade == true)
+                    {
+                        if ( i > 0 && GameObjectCardsOnTheTable[1, i - 1] == null)
+                        {
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x - 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
+                            TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
+                            TailCard.GetComponent<CardCreator>().CreateCard(16);
+                            GameObjectCardsOnTheTable[1, i-1] = TailCard;
+                            CardsToPickAndestroy.Add(TailCard);
+                        }
+                        if (i < 3 && GameObjectCardsOnTheTable[1, i + 1] == null)
+                        {
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x + 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
+                            TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
+                            TailCard.GetComponent<CardCreator>().CreateCard(16);
+                            GameObjectCardsOnTheTable[1, i+1] = TailCard;
+                            CardsToPickAndestroy.Add(TailCard);
+                        }
+                    }
+                    if (GameObjectCardsOnTheTable[0, i] == null)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (GameObjectCardsOnTheTable[0, j] != null && GameObjectCardsOnTheTable[0, j].GetComponent<CardCreator>().Guard == true)
+                            {
+                                GameObject ObjectToTransform = GameObjectCardsOnTheTable[0, j];
+                                GameObjectCardsOnTheTable[0, j].transform.position = new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z - 0.213f); ;
+                                GameObjectCardsOnTheTable[0, i] = ObjectToTransform;
+                                GameObjectCardsOnTheTable[0, j] = null;
+                                break;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
                 }
             }
         }
