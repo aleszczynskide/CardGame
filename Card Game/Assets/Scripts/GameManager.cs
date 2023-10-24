@@ -13,6 +13,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject ZombieText;
+    public GameObject Light1;
+    public GameObject ZombieHand;
     [HideInInspector] public bool CardPicked;
     public GameObject Zombie;
     public GameObject PlayerManager;
@@ -102,7 +105,12 @@ public class GameManager : MonoBehaviour
         }
         else if (CardPosition == 1 && CardNumber >= 3)
         {
-            if (BoardHealth <= 0 || BoardHealth >= 10)
+            if (BoardHealth <= 0)
+            {
+                ZombieText.SetActive(true);
+                ZombieText.GetComponent<Zombie>().StartDialogue(5, 8,2);
+            }
+            else if (BoardHealth >= 10)
             {
                 EndBattle();
             }
@@ -1877,6 +1885,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         Card.transform.position = TargetPosition;
+        Card.transform.SetParent(ZombieHand.transform);
         Card.GetComponentInChildren<Image>().DeathAnimation();
         Zombie.GetComponent<Animator>().SetInteger("Destroy", 2);
     }
@@ -2256,5 +2265,15 @@ public class GameManager : MonoBehaviour
         NewCardAdded.GetComponent<BoxCollider>().enabled = false;
         CardsToPickAndestroy.Add(NewCardAdded);
         GameObjectCardsOnTheTable[2, Position] = NewCardAdded;
+    }
+    public void Death()
+    {
+        for (int i = 0; i < CardsToPickAndestroy.Count; i++)
+        {
+            Destroy(CardsToPickAndestroy[i]);
+        }
+        Light1.SetActive(false);
+        ZombieText.SetActive(false);
+        Application.Quit();
     }
 }

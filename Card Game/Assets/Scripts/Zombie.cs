@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Zombie : MonoBehaviour
 {
+    private int Changer;
     public GameObject Mapa;
     public Text ZombieText;
     public string[] ZombieDialogue;
@@ -12,10 +13,12 @@ public class Zombie : MonoBehaviour
     public int Index;
     public int EndingNode;
     public GameObject Opponent;
+    public GameObject GameManager;
     void Start()
     {
         Mapa = GameObject.Find("MapTile");
         ZombieText.text = string.Empty;
+        GameManager = GameObject.Find("brain_jar");
     }
     void Update()
     {
@@ -23,7 +26,7 @@ public class Zombie : MonoBehaviour
         {
             if (ZombieText.text == ZombieDialogue[Index]) 
             {
-                NextLine();
+                NextLine(Changer);
             }
             else
             {
@@ -32,13 +35,14 @@ public class Zombie : MonoBehaviour
             }
         }
     }
-    public void StartDialogue(int StartingNote,int y)
+    public void StartDialogue(int StartingNote,int y,int Kill)
     {
         EndingNode = y;
         Index = StartingNote;
-        StartCoroutine(TypeLine());
+        StartCoroutine(TypeLine(Kill));
+        Changer = Kill;
     }
-    IEnumerator TypeLine()
+    IEnumerator TypeLine(int x)
     {
         foreach(char c in ZombieDialogue[Index].ToCharArray()) 
         {
@@ -46,18 +50,25 @@ public class Zombie : MonoBehaviour
             yield return new WaitForSeconds(TextSpeed);
         }
     }
-    public void NextLine()
+    public void NextLine(int Over)
     {
         if (Index < EndingNode)
         {
             Index++;
             ZombieText.text = string.Empty;
-            StartCoroutine(TypeLine());
+            StartCoroutine(TypeLine(0));
         }
         else
         {
-            Opponent.GetComponent<PropZombie>().StartPlayer();
-            gameObject.SetActive(false);
+            if (Over == 1)
+            {
+                Opponent.GetComponent<PropZombie>().StartPlayer();
+                gameObject.SetActive(false);
+            }
+            if (Over == 2)
+            {
+                GameManager.GetComponent<GameManager>().Death();
+            }
         }
     }
 }

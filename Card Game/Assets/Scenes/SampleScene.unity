@@ -6379,17 +6379,18 @@ MonoBehaviour:
   - 1afwefwqf
   - 2afwefwqf
   - 3afwefwqf
-  - 4afwefwqf
-  - 5afwefwqf
-  - 6afwefwqf
-  - 7afwefwqf
-  - 8afwefwqf
+  - Hmmm
+  - It's
+  - Over
+  - For you
+  - And her
   - 9afwefwqf
   - 10afwefwqf
   TextSpeed: 0
   Index: 0
   EndingNode: 0
   Opponent: {fileID: 222015472}
+  GameManager: {fileID: 0}
 --- !u!1001 &1059168084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6570,6 +6571,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058158c872ccc004b8ee83e5c832ddc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ZombieText: {fileID: 1058743367}
+  Light1: {fileID: 1898124188}
+  ZombieHand: {fileID: 1165029995}
   CardPicked: 0
   Zombie: {fileID: 222015472}
   PlayerManager: {fileID: 1955947918}
@@ -7081,6 +7085,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a86da915c3eab8445a2c36519941510c, type: 3}
+--- !u!1 &1165029995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4728426434207774260, guid: 6d4b4631b7340344598838c0c7e63e25, type: 3}
+  m_PrefabInstance: {fileID: 222015471}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1165039092 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8169382868667117632, guid: a8a8c88f57f75f64180683fc789796eb, type: 3}
