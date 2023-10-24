@@ -20,6 +20,7 @@ public class PropZombie : MonoBehaviour
     {
         CameraManager.GetComponent<CameraMovement>().Camera = 0;
         //PlayerManager.GetComponent<Player>().Anim.SetTrigger("PlayTrigger");
+        Mapa.GetComponent<Animator>().SetBool("Up", true);
         //GameManager.GetComponent<GameManager>().StartingHand();
     }
     public void ActivateMap()

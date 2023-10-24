@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     private int BattleType = 0;
     void Start()
     {
-        Camera.GetComponent<CameraMovement>().Camera = 0;
         StartingHand();
         for (int i = 0; i < CardsInHand.Count; i++)
         {
@@ -1115,7 +1114,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (GameObjectCardsOnTheTable[x + 1, y].GetComponent<CardCreator>().Stealth == true)
                 {
-                    if (GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().AntiStealth == true)
+                    if (GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().AntiStealth == true)
                     {
                         CheckPlayerFrontAttacking(x, y, "", AttackDriection, 1);
                     }
@@ -1799,7 +1798,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 InitialPosition = Card.transform.position;
         Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z - 0.200f);
-        float Duration = 3f;
+        float Duration = 1f;
 
         float ElapsedTime = 0.0f;
 
@@ -1866,8 +1865,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator CardToDestroy(GameObject Card)
     {
         Vector3 InitialPosition = Card.transform.position;
-        Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y + 10f, InitialPosition.z);
-        float Duration = 1f;
+        Vector3 TargetPosition = new Vector3(-0.669f, 1.226f, 1.232f);
+        float Duration = 2f;
 
         float ElapsedTime = 0.0f;
 
@@ -1878,7 +1877,8 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         Card.transform.position = TargetPosition;
-        yield return StartCoroutine(CardInZombieHand(Card));
+        Card.GetComponentInChildren<Image>().DeathAnimation();
+        Zombie.GetComponent<Animator>().SetInteger("Destroy", 2);
     }
 
     public IEnumerator CardInZombieHand(GameObject Card)
@@ -1897,8 +1897,6 @@ public class GameManager : MonoBehaviour
         }
         Card.transform.position = TargetPosition;
         Card.GetComponentInChildren<Image>().DeathAnimation();
-        Zombie.GetComponent<Animator>().SetInteger("Destroy", 2);
-
     }
     public void TokenTotem(int x)
     {
@@ -1907,7 +1905,7 @@ public class GameManager : MonoBehaviour
     public void StartBattle()
     {
         int x = UnityEngine.Random.Range(0, 6);
-        BattleType = 3;
+        BattleType = x;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public int Camera = 0;
+    public int Camera = -2;
     private Animator Anim;
     public GameObject Light; 
     private void Start()
