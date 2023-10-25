@@ -218,11 +218,12 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[0, 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 1.16f, 0.614f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 3.16f, 0.614f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[0, 1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -266,19 +267,21 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[0, 0] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.663f, 1.16f, 0.614f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.663f, 3.16f, 0.614f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[0, 0] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                         if (GameObjectCardsOnTheTable[0, 2] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 1.16f, 0.614f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 3.16f, 0.614f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[0, 2] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -322,19 +325,21 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[0, 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 1.16f, 0.614f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 3.16f, 0.614f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[0, 1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                         if (GameObjectCardsOnTheTable[0, 3] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.156f, 1.16f, 0.614f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.156f, 3.16f, 0.614f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[0, 3] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -378,11 +383,12 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[0, 2] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 1.16f, 0.614f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 3.16f, 0.614f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[0, 2] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -426,11 +432,12 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[1, 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 1.166f, 0.827f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 3.166f, 0.827f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, 1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -474,19 +481,21 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[1, 0] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.663f, 1.166f, 0.827f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.663f, 3.166f, 0.827f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, 0] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                         if (GameObjectCardsOnTheTable[1, 2] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 1.166f, 0.827f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 3.166f, 0.827f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, 2] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -530,19 +539,21 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[1, 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 1.166f, 0.827f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.494f, 3.166f, 0.827f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, 1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                         if (GameObjectCardsOnTheTable[1, 3] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.156f, 1.166f, 0.827f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.156f, 3.166f, 0.827f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, 3] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -586,11 +597,12 @@ public class GameManager : MonoBehaviour
                     {
                         if (GameObjectCardsOnTheTable[1, 2] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 1.166f, 0.827f), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(-0.325f, 3.166f, 0.827f), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, 2] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     CardsInHand.Remove(CurrentCardGameObject);
@@ -1747,10 +1759,10 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
-        CardCollection.Add(15);
-        CardCollection.Add(15);
-        CardCollection.Add(15);
-        CardCollection.Add(15);
+        CardCollection.Add(14);
+        CardCollection.Add(14);
+        CardCollection.Add(14);
+        CardCollection.Add(14);
 
         //StartCoroutine(CardDrop());
     }
@@ -1914,7 +1926,7 @@ public class GameManager : MonoBehaviour
     public void StartBattle()
     {
         int x = UnityEngine.Random.Range(0, 6);
-        BattleType = x;
+        BattleType = 0;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);
@@ -2003,7 +2015,7 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, -1, 0);
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 14, 0);
                             }
                             break;
                         case 1:
@@ -2255,19 +2267,21 @@ public class GameManager : MonoBehaviour
                     {
                         if ( i > 0 && GameObjectCardsOnTheTable[1, i - 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x - 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x - 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y +2.0f, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, i-1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                         if (i < 3 && GameObjectCardsOnTheTable[1, i + 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x + 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x + 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y + 2.0f, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
                             GameObjectCardsOnTheTable[1, i+1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
+                            StartCoroutine(DropDownBarricade(TailCard));
                         }
                     }
                     if (GameObjectCardsOnTheTable[0, i] == null)
@@ -2312,5 +2326,23 @@ public class GameManager : MonoBehaviour
         Light1.SetActive(false);
         ZombieText.SetActive(false);
         Application.Quit();
+    }
+    IEnumerator DropDownBarricade(GameObject Card)
+    {
+        {
+            Vector3 InitialPosition = Card.transform.position;
+            Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y - 2.0f, InitialPosition.z);
+            float Duration = 1.0f;
+
+            float ElapsedTime = 0.0f;
+
+            while (ElapsedTime < Duration)
+            {
+                Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+                ElapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            Card.transform.position = TargetPosition;
+        }
     }
 }
