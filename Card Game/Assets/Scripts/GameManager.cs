@@ -10,6 +10,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
             if (BoardHealth <= 0)
             {
                 ZombieText.SetActive(true);
-                ZombieText.GetComponent<Zombie>().StartDialogue(5, 8,2);
+                ZombieText.GetComponent<Zombie>().StartDialogue(5, 8, 2);
             }
             else if (BoardHealth >= 10)
             {
@@ -237,7 +238,8 @@ public class GameManager : MonoBehaviour
                             if (GameObjectCardsOnTheTable[1, i] != null && GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Guard == true)
                             {
                                 GameObject ObjectToTransform = GameObjectCardsOnTheTable[1, i];
-                                GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.663f, 1.166f, 0.827f);
+                                // GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.663f, 1.166f, 0.827f);
+                                StartCoroutine(GuardCardDown(ObjectToTransform, -0.5f, -0.663f));
                                 GameObjectCardsOnTheTable[1, 0] = ObjectToTransform;
                                 GameObjectCardsOnTheTable[1, i] = null;
                                 break;
@@ -295,7 +297,8 @@ public class GameManager : MonoBehaviour
                             if (GameObjectCardsOnTheTable[1, i] != null && GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Guard == true)
                             {
                                 GameObject ObjectToTransform = GameObjectCardsOnTheTable[1, i];
-                                GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.494f, 1.166f, 0.827f);
+                                // GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.494f, 1.166f, 0.827f);
+                                StartCoroutine(GuardCardDown(ObjectToTransform, -0.5f, -0.494f));
                                 GameObjectCardsOnTheTable[1, 1] = ObjectToTransform;
                                 GameObjectCardsOnTheTable[1, i] = null;
                                 break;
@@ -353,7 +356,8 @@ public class GameManager : MonoBehaviour
                             if (GameObjectCardsOnTheTable[1, i] != null && GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Guard == true)
                             {
                                 GameObject ObjectToTransform = GameObjectCardsOnTheTable[1, i];
-                                GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.325f, 1.166f, 0.827f);
+                                //GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.325f, 1.166f, 0.827f);
+                                StartCoroutine(GuardCardDown(ObjectToTransform, -0.5f, -0.325f));
                                 GameObjectCardsOnTheTable[1, 2] = ObjectToTransform;
                                 GameObjectCardsOnTheTable[1, i] = null;
                                 break;
@@ -402,7 +406,8 @@ public class GameManager : MonoBehaviour
                             if (GameObjectCardsOnTheTable[1, i] != null && GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Guard == true)
                             {
                                 GameObject ObjectToTransform = GameObjectCardsOnTheTable[1, i];
-                                GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.156f, 1.166f, 0.827f);
+                                //GameObjectCardsOnTheTable[1, i].transform.position = new Vector3(-0.156f, 1.166f, 0.827f);
+                                StartCoroutine(GuardCardDown(ObjectToTransform, -0.5f, -0.156f));
                                 GameObjectCardsOnTheTable[1, 3] = ObjectToTransform;
                                 GameObjectCardsOnTheTable[1, i] = null;
                                 break;
@@ -1759,10 +1764,10 @@ public class GameManager : MonoBehaviour
     }
     public void StartingHand()
     {
-        CardCollection.Add(14);
-        CardCollection.Add(14);
-        CardCollection.Add(14);
-        CardCollection.Add(14);
+        CardCollection.Add(15);
+        CardCollection.Add(15);
+        CardCollection.Add(15);
+        CardCollection.Add(15);
 
         //StartCoroutine(CardDrop());
     }
@@ -2015,7 +2020,7 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             {
-                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 14, 0);
+                                SpawnEnemyCard(-0.663f, 1.166f, 1.04f, 15, 0);
                             }
                             break;
                         case 1:
@@ -2265,12 +2270,12 @@ public class GameManager : MonoBehaviour
                     GameObjectCardsOnTheTable[2, i] = null;
                     if (GameObjectCardsOnTheTable[1, i].GetComponent<CardCreator>().Barricade == true)
                     {
-                        if ( i > 0 && GameObjectCardsOnTheTable[1, i - 1] == null)
+                        if (i > 0 && GameObjectCardsOnTheTable[1, i - 1] == null)
                         {
-                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x - 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y +2.0f, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
+                            GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x - 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y + 2.0f, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
-                            GameObjectCardsOnTheTable[1, i-1] = TailCard;
+                            GameObjectCardsOnTheTable[1, i - 1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
                             StartCoroutine(DropDownBarricade(TailCard));
                         }
@@ -2279,7 +2284,7 @@ public class GameManager : MonoBehaviour
                             GameObject TailCard = Instantiate(CardPrefab, new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x + 0.169f, GameObjectCardsOnTheTable[1, i].transform.position.y + 2.0f, GameObjectCardsOnTheTable[1, i].transform.position.z), Quaternion.identity);
                             TailCard.transform.rotation = Quaternion.Euler(180f, 90f, 90f);
                             TailCard.GetComponent<CardCreator>().CreateCard(16);
-                            GameObjectCardsOnTheTable[1, i+1] = TailCard;
+                            GameObjectCardsOnTheTable[1, i + 1] = TailCard;
                             CardsToPickAndestroy.Add(TailCard);
                             StartCoroutine(DropDownBarricade(TailCard));
                         }
@@ -2343,6 +2348,62 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
             Card.transform.position = TargetPosition;
+        }
+    }
+    IEnumerator GuardCardDown(GameObject Card, float Changer, float YPosition)
+    {
+        Vector3 InitialPosition = Card.transform.position;
+        Vector3 TargetPosition = new Vector3(YPosition, InitialPosition.y, InitialPosition.z - Changer);
+        float Duration = 0.5f;
+
+        float ElapsedTime = 0.0f;
+
+        while (ElapsedTime < Duration)
+        {
+            Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Card.transform.position = TargetPosition;
+        yield return GuardCardUp(Card, Changer);
+    }
+    IEnumerator GuardCardUp(GameObject Card, float Changer)
+    {
+        if (Changer < 0)
+        {
+            {
+                Vector3 InitialPosition = Card.transform.position;
+                Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z + Changer);
+                float Duration = 0.5f;
+
+                float ElapsedTime = 0.0f;
+
+                while (ElapsedTime < Duration)
+                {
+                    Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+                    ElapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+                Card.transform.position = TargetPosition;
+            }
+        }
+        else if (Changer > 0)
+        {
+            {
+                Vector3 InitialPosition = Card.transform.position;
+                Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z - Changer);
+                float Duration = 1.0f;
+
+                float ElapsedTime = 0.0f;
+
+                while (ElapsedTime < Duration)
+                {
+                    Card.transform.position = Vector3.Lerp(InitialPosition, TargetPosition, ElapsedTime / Duration);
+                    ElapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+                Card.transform.position = TargetPosition;
+            }
         }
     }
 }
