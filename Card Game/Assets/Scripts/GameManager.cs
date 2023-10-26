@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public GameObject Pointer;
     private bool CancellMovement = false;
     public int CurrentCardAttackRange;
-    private int CurrentTokenSpawner = 1;
+    private int CurrentTokenSpawner = 2;
     public GameObject Map;
     private int CurrentTurn = 0;
     private int BattleType = 0;
@@ -2296,7 +2296,8 @@ public class GameManager : MonoBehaviour
                             if (GameObjectCardsOnTheTable[0, j] != null && GameObjectCardsOnTheTable[0, j].GetComponent<CardCreator>().Guard == true)
                             {
                                 GameObject ObjectToTransform = GameObjectCardsOnTheTable[0, j];
-                                GameObjectCardsOnTheTable[0, j].transform.position = new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z - 0.213f); ;
+                               //GameObjectCardsOnTheTable[0, j].transform.position = new Vector3(GameObjectCardsOnTheTable[1, i].transform.position.x, GameObjectCardsOnTheTable[1, i].transform.position.y, GameObjectCardsOnTheTable[1, i].transform.position.z - 0.213f); ;
+                                StartCoroutine(GuardCardDown(GameObjectCardsOnTheTable[0, j],0.5f, GameObjectCardsOnTheTable[1, i].transform.position.x));
                                 GameObjectCardsOnTheTable[0, i] = ObjectToTransform;
                                 GameObjectCardsOnTheTable[0, j] = null;
                                 break;
@@ -2391,8 +2392,8 @@ public class GameManager : MonoBehaviour
         {
             {
                 Vector3 InitialPosition = Card.transform.position;
-                Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z - Changer);
-                float Duration = 1.0f;
+                Vector3 TargetPosition = new Vector3(InitialPosition.x, InitialPosition.y, InitialPosition.z + Changer);
+                float Duration = 0.5f;
 
                 float ElapsedTime = 0.0f;
 
