@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
     public GameObject Map;
     private int CurrentTurn = 0;
     private int BattleType = 0;
+    [Header("Unsorted")]
+    public GameObject PointsCounter;
+
     void Start()
     {
         StartingHand();
@@ -106,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
         else if (CardPosition == 1 && CardNumber >= 3)
         {
-            if (BoardHealth <= 0)
+            if (BoardHealth <= 0) 
             {
                 ZombieText.SetActive(true);
                 ZombieText.GetComponent<Zombie>().StartDialogue(5, 8, 2);
@@ -117,10 +120,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Camera.GetComponent<CameraMovement>().Camera = 0;
-                Debug.Log(BoardHealth);
                 NextTurn();
             }
+            PointsCounter.GetComponent<PointsCounter>().PointsCount();
         }
     }
     public void CardPlace(Card CurrentCardCard, GameObject CurrentPickedCard)
@@ -759,6 +761,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
                             AttackTitle.GetComponent<AttackingTtile>().Animation("Flying" + AttackDriection);
                             BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points += GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -793,6 +796,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = AttackTitle.transform;
                             AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
                             BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points += GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -961,6 +965,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
                             BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -995,6 +1000,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + AttackSpree].transform.parent = OpponentAttackTitle.transform;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                             BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y + AttackSpree].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1081,6 +1087,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
                             AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
                             BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points += GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1115,6 +1122,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + 1].transform.parent = AttackTitle.transform;
                             AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
                             BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points += GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1201,6 +1209,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
                             AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
                             BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points += GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1235,6 +1244,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y - 1].transform.parent = AttackTitle.transform;
                             AttackTitle.GetComponent<AttackingTtile>().Animation(AttackDriection);
                             BoardHealth = BoardHealth + GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points += GameObjectCardsOnTheTable[x,y - 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1321,6 +1331,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
                             BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1355,6 +1366,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                             BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1391,6 +1403,7 @@ public class GameManager : MonoBehaviour
                         GameObjectCardsOnTheTable[x, y - 1].transform.parent = OpponentAttackTitle.transform;
                         OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                         BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
+                        PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y - 1].GetComponent<CardCreator>().Attack;
                     }
                 }
                 else
@@ -1441,6 +1454,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + 1].transform.parent = OpponentAttackTitle.transform;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation("Flying" + AttackDriection);
                             BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
@@ -1475,6 +1489,7 @@ public class GameManager : MonoBehaviour
                             GameObjectCardsOnTheTable[x, y + 1].transform.parent = OpponentAttackTitle.transform;
                             OpponentAttackTitle.GetComponent<OpponentAttackTitle>().Animation(AttackDriection);
                             BoardHealth = BoardHealth - GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
+                            PointsCounter.GetComponent<PointsCounter>().Points -= GameObjectCardsOnTheTable[x, y + 1].GetComponent<CardCreator>().Attack;
                         }
                     }
                 }
