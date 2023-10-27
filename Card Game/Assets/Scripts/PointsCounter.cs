@@ -16,21 +16,29 @@ public class PointsCounter : MonoBehaviour
     }
     public void PointsCount()
     {
-        if (Points > 0)
-        {
-            Camera.GetComponent<CameraMovement>().Camera = 5;
-            Points--;
-            Anim.SetTrigger("Minus");
-        }
-        else if (Points < 0)
+        if (Points < 0)
         {
             Camera.GetComponent<CameraMovement>().Camera = 5;
             Points++;
+            Anim.SetTrigger("Minus");
+        }
+        else if (Points > 0)
+        {
+            Camera.GetComponent<CameraMovement>().Camera = 5;
+            Points--;
             Anim.SetTrigger("Plus");
         }
         else if (Points == 0)
         {
             Camera.GetComponent<CameraMovement>().Camera = 0;
+            Anim.StopPlayback();
         }
+    }
+
+    public void Clear()
+    {
+        Anim.ResetTrigger("Plus");
+        Anim.ResetTrigger("Minus");
+        Anim.SetBool("Start", false);
     }
 }

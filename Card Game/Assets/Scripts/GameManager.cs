@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour
             {
                 NextTurn();
             }
+            PointsCounter.GetComponent<Animator>().enabled = true;
             PointsCounter.GetComponent<PointsCounter>().PointsCount();
         }
     }
@@ -1955,6 +1956,8 @@ public class GameManager : MonoBehaviour
     }
     public void EndBattle()
     {
+        PointsCounter.GetComponent<Animator>().SetBool("Start",true);
+        PointsCounter.GetComponent<Animator>().enabled = false;
         PlayerManager.GetComponent<Player>().Anim.SetTrigger("IdleTrigger");
         for (int i = 0; i < CardsToPickAndestroy.Count; i++)
         {

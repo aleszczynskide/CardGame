@@ -80,6 +80,11 @@ public class CameraMovement : MonoBehaviour
                     transform.rotation = Quaternion.Euler(8.619f, 0f, 0f);
                 }
                 break;
+                case 5:
+                {
+                    Anim.SetInteger("Camera", 5);
+                }
+                break;
         }
     }
     public void FourLightOn()
