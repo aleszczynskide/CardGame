@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Connector : MonoBehaviour
 {
+    GameObject Victim;
     public int YourNumber;
     public List<GameObject> ConnectedNode;
     private GameObject MapTile;
@@ -14,6 +15,7 @@ public class Connector : MonoBehaviour
     GameObject GameManager;
     void Start()
     {
+        Victim = GameObject.Find("Stroke Shaking Head(1)");
         Sprite = GetComponent<SpriteRenderer>();
         MapTile = GameObject.Find("MapTile");
         if (this.name == "Fight")
@@ -40,6 +42,7 @@ public class Connector : MonoBehaviour
                     {
                         State = 1;
                         Sprite.sprite = Sprites[1];
+                      
                     }
                     break;
                 case 1:
@@ -99,9 +102,23 @@ public class Connector : MonoBehaviour
                     GameManager.GetComponent<GameManager>().DeleteCard();
                 }
                 break;
-            case 3:
+        }
+        switch (YourNumber)
+        {
+            case 0:
                 {
-                    Debug.Log("3");
+                    Victim.GetComponent<Victim>().PickCard();
+                    Debug.Log("Dupa");
+                }
+                break;
+            case 1:
+                {
+                    
+                }
+                break;
+            case 2:
+                {
+                   
                 }
                 break;
         }

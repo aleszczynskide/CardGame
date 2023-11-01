@@ -2432,6 +2432,9 @@ public class GameManager : MonoBehaviour
         Zombie.SetActive(false);
         Light1.SetActive(true);
         Victim.GetComponent<Animator>().SetInteger("State", 1);
-        Debug.Log("Ma³omi");
+    }
+    public void StartTutorial()
+    {
+        Victim.GetComponent<Victim>().StartTutorial();
     }
 }

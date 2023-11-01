@@ -75,6 +75,14 @@ public class Zombie : MonoBehaviour
             {
                 GameManager.GetComponent<GameManager>().Death();
             }
+            if (Over == 3)
+            {
+                GameManager.GetComponent<GameManager>().StartTutorial();
+            }
+            if (Over == 4)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
     }
 }
