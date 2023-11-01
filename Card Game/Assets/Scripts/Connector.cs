@@ -31,6 +31,27 @@ public class Connector : MonoBehaviour
             Sprite.sprite = Sprites[0];
             State = 3;
         }
+        if (this.name == "Tutorial")
+        {
+            switch (this.name)
+            {
+                case "tutorial1":
+                    {
+                        State = 2;
+                    }
+                    break;
+                case "tutorial2":
+                    {
+                        State = 1;
+                    }
+                    break;
+                case "tutorial3":
+                    {
+                        State = 0;
+                    }
+                    break;
+            }
+        }
     }
     void Update()
     {

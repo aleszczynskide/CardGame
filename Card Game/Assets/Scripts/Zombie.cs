@@ -60,6 +60,11 @@ public class Zombie : MonoBehaviour
         }
         else
         {
+            if (Over == 0)
+            {
+                StopAllCoroutines();
+                ZombieText.text = ZombieDialogue[Index];
+            }
             if (Over == 1)
             {
                 Opponent.GetComponent<PropZombie>().StartPlayer();

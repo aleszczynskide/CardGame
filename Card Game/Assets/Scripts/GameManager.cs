@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     private int BattleType = 0;
     [Header("Unsorted")]
     public GameObject PointsCounter;
+    public GameObject Victim;
 
     void Start()
     {
@@ -2424,5 +2425,13 @@ public class GameManager : MonoBehaviour
                 Card.transform.position = TargetPosition;
             }
         }
+    }
+    public void Tutorial()
+    {
+        Camera.GetComponent<CameraMovement>().Camera = 0;
+        Zombie.SetActive(false);
+        Light1.SetActive(true);
+        Victim.GetComponent<Animator>().SetInteger("State", 1);
+        Debug.Log("Ma³omi");
     }
 }
