@@ -63,6 +63,7 @@ public class Zombie : MonoBehaviour
             if (Over == 0)
             {
                 StopAllCoroutines();
+                Index = 40;
                 ZombieText.text = ZombieDialogue[Index];
                 Mapa.GetComponent<Animator>().SetBool("up", true);
             }
@@ -81,6 +82,7 @@ public class Zombie : MonoBehaviour
             }
             if (Over == 4)
             {
+                Index = 40;
                 this.gameObject.SetActive(false);
             }
         }

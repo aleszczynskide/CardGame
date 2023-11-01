@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Connector : MonoBehaviour
 {
@@ -102,23 +104,33 @@ public class Connector : MonoBehaviour
                     GameManager.GetComponent<GameManager>().DeleteCard();
                 }
                 break;
+            case 3:
+                {
+
+                }
+                break;
         }
         switch (YourNumber)
         {
             case 0:
                 {
                     Victim.GetComponent<Victim>().PickCard();
-                    Debug.Log("Dupa");
                 }
                 break;
             case 1:
                 {
-                    
+                    Victim.GetComponent<Victim>().DestroyCard();
                 }
                 break;
             case 2:
                 {
-                   
+                    Victim.GetComponent<Victim>().Battle();
+                }
+                break;
+            case 3:
+                {
+                    Application.Quit();
+                    Debug.Log("Kalafior");
                 }
                 break;
         }

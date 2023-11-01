@@ -1922,6 +1922,7 @@ public class GameManager : MonoBehaviour
         Card.transform.SetParent(ZombieHand.transform);
         Card.GetComponentInChildren<Image>().DeathAnimation();
         Zombie.GetComponent<Animator>().SetInteger("Destroy", 2);
+        Map.GetComponent<Animator>().SetBool("Up", true);
     }
 
     public IEnumerator CardInZombieHand(GameObject Card)
@@ -1948,7 +1949,7 @@ public class GameManager : MonoBehaviour
     public void StartBattle()
     {
         int x = UnityEngine.Random.Range(0, 6);
-        BattleType = 0;
+        BattleType = x;
         Battle(BattleType, CurrentTurn);
         CardPicked = true;
         SpawnPlayerMana(CurrentTokenSpawner);

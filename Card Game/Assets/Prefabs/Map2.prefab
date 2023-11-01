@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d512a0e78a38fc642aacf880a476c1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YourNumber: 0
+  YourNumber: 3
   ConnectedNode: []
   Sprites:
   - {fileID: 21300000, guid: fe4578e9c83a831468fbccfd6e3bda51, type: 3}

@@ -20,7 +20,8 @@ public class Victim : MonoBehaviour
     }
     public void DestroyCard()
     {
-
+        PropZombie.SetActive(true);
+        PropZombie.GetComponent<Zombie>().StartDialogue(22, 26, 4);
     }
     public void PickCard()
     {
@@ -30,5 +31,9 @@ public class Victim : MonoBehaviour
     public void StartTutorial()
     {
         PropZombie.GetComponent<Zombie>().StartDialogue(13, 19, 1);
+    }
+    public void Battle()
+    {
+        PropZombie.GetComponent<Zombie>().StartDialogue(27, 34, 4);
     }
 }

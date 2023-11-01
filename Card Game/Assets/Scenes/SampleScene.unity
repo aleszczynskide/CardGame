@@ -6418,9 +6418,25 @@ MonoBehaviour:
   - That represents picking card
   - Now simply pick your card
   - By clicking on it
-  - On the map
-  - On the map
-  - On the map
+  - Ok so now
+  - You have to pick
+  - A card that'll be destroyed
+  - 'And you will gain as many tokens '
+  - Every turn
+  - Ok so this is the battle phase
+  - I shall explain how you should play i every move
+  - 1.You can pick a card every turn from your card deck on your right
+  - 2.To finish a turn you have to clikc on the brain jar on your left
+  - 3.TO place a card you need a valid place and enought tokens to do so
+  - 4.Every card have it's own special power
+  - Which you can see on the table behind me
+  - By clicking on the pencil case on your left
+  - As this card caost represent
+  - As this card caost represent
+  - As this card caost represent
+  - As this card caost represent
+  - As this card caost represent
+  - 
   TextSpeed: 0
   Index: 0
   EndingNode: 0
@@ -8647,8 +8663,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.7675667, y: -4.23197}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -1.49457, y: -4.2319717}
+  m_SizeDelta: {x: 752.9719, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1332339528
 MonoBehaviour:
