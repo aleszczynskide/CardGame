@@ -16,6 +16,6 @@ public class Victim : MonoBehaviour
     {
         Map.GetComponent<Map>().TutorialMap();
         PropZombie.SetActive(true);
-        PropZombie.GetComponent<Zombie>().StartDialogue(9,11 ,0 );
+        PropZombie.GetComponent<Zombie>().StartDialogue(9,12,1);
     }
 }

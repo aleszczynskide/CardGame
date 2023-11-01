@@ -24,9 +24,8 @@ public class Map : MonoBehaviour
         }
         if (MapChanger == 0)
         {
-            CurrentMap = Instantiate(Maps[x], new Vector3(-0.311f, -0.189f, 0.804f), Quaternion.identity);
+            CurrentMap = Instantiate(Maps[0], new Vector3(-0.311f, -0.189f, 0.804f), Quaternion.identity);
             CurrentMap.transform.SetParent(transform);
-
         }
         else if (MapChanger == 1)
         {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2460236093778669822}
   - component: {fileID: 7133127433948670833}
   m_Layer: 0
-  m_Name: Tutorial2
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d512a0e78a38fc642aacf880a476c1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  YourNumber: 1
   ConnectedNode:
   - {fileID: 4221868413540477193}
   Sprites:
@@ -163,7 +164,7 @@ GameObject:
   - component: {fileID: 9006029914301461994}
   - component: {fileID: 5008967929800616207}
   m_Layer: 0
-  m_Name: Tutorial3
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d512a0e78a38fc642aacf880a476c1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  YourNumber: 2
   ConnectedNode:
   - {fileID: 6295615202085561909}
   Sprites:
@@ -423,7 +425,7 @@ GameObject:
   - component: {fileID: 3209105975444109180}
   - component: {fileID: 3371667644278695504}
   m_Layer: 0
-  m_Name: Tutorial4
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d512a0e78a38fc642aacf880a476c1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  YourNumber: 0
   ConnectedNode: []
   Sprites:
   - {fileID: 21300000, guid: fe4578e9c83a831468fbccfd6e3bda51, type: 3}
@@ -572,7 +575,7 @@ GameObject:
   - component: {fileID: 957613426360072859}
   - component: {fileID: 1620348925419136779}
   m_Layer: 0
-  m_Name: Tutorial1
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,6 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d512a0e78a38fc642aacf880a476c1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  YourNumber: 0
   ConnectedNode:
   - {fileID: 3192624527847719942}
   Sprites:
@@ -671,7 +675,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7212704769084704776}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -826,6 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d512a0e78a38fc642aacf880a476c1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  YourNumber: 0
   ConnectedNode:
   - {fileID: 7212704769084704776}
   Sprites:

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Connector : MonoBehaviour
 {
+    public int YourNumber;
     public List<GameObject> ConnectedNode;
     private GameObject MapTile;
     public List<Sprite> Sprites;
@@ -33,21 +34,24 @@ public class Connector : MonoBehaviour
         }
         if (this.name == "Tutorial")
         {
-            switch (this.name)
+            switch (YourNumber)
             {
-                case "tutorial1":
-                    {
-                        State = 2;
-                    }
-                    break;
-                case "tutorial2":
+                case 0:
                     {
                         State = 1;
+                        Sprite.sprite = Sprites[1];
                     }
                     break;
-                case "tutorial3":
+                case 1:
+                    {
+                        State = 2;
+                        Sprite.sprite = Sprites[2];
+                    }
+                    break;
+                case 2:
                     {
                         State = 0;
+                        Sprite.sprite = Sprites[0];
                     }
                     break;
             }

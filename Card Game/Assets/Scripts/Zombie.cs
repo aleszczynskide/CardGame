@@ -58,12 +58,13 @@ public class Zombie : MonoBehaviour
             ZombieText.text = string.Empty;
             StartCoroutine(TypeLine(0));
         }
-        else
+        else if (Index == EndingNode)
         {
             if (Over == 0)
             {
                 StopAllCoroutines();
                 ZombieText.text = ZombieDialogue[Index];
+                Mapa.GetComponent<Animator>().SetBool("up", true);
             }
             if (Over == 1)
             {
